@@ -1,0 +1,191 @@
+Output File: specs/004-change-password/checklists/evaluations/security-reliability.evaluation.md
+
+## Checklist: Security-Reliability Checklist: Change Account Password
+Target File(s): /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md | /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/plan.md
+
+### CHK001
+- [x] CHK001 Are authenticated-access requirements fully specified for all password-change entry paths, including expired/invalid session handling? [Completeness, Spec §Security & Privacy Requirements SPR-003, Spec §Edge Cases]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-04 Preconditions
+  - AT-UC04-01 Preconditions
+  - AT-UC04-02 Preconditions
+  - Constitution §V. Least-Privilege RBAC for All Protected Actions
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Edge Cases
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Functional Requirements (FR-012)
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Security & Privacy Requirements (SPR-003, SPR-010)
+### END-CHK001
+
+### CHK002
+- [x] CHK002 Are encryption requirements complete across in-transit, at-rest credential state, backups, and log redaction boundaries? [Completeness, Spec §Security & Privacy Requirements SPR-001/SPR-002, Spec §Reliability & Availability Requirements RAR-003]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §IV. Security and Confidentiality by Default
+  - Constitution §Technology, Platform, and Data Protection Standards
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Security & Privacy Requirements (SPR-001, SPR-002, SPR-009)
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Reliability & Availability Requirements (RAR-003)
+### END-CHK002
+
+### CHK003
+- [x] CHK003 Are reliability requirements complete for concurrent submissions, operational failure, and deterministic outcomes? [Completeness, Spec §Reliability & Availability Requirements RAR-001..RAR-004]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §VII. Reliability, Availability, and Recoverability
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Reliability & Availability Requirements (RAR-001..RAR-006)
+### END-CHK003
+
+### CHK004
+- [ ] CHK004 Are rate-limit requirements quantified with explicit thresholds (attempt count, time window, lockout duration, reset behavior)? [Clarity, Spec §Security & Privacy Requirements SPR-007, Gap]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - None (UC-04, AT-UC04-01/02, and Constitution do not mandate numeric threshold values)
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Security & Privacy Requirements (SPR-007)
+### END-CHK004
+
+### CHK005
+- [ ] CHK005 Is “explicit retry-capable error messaging” defined with concrete minimum content so wording quality is objectively reviewable? [Clarity, Spec §Reliability & Availability Requirements RAR-002, Gap]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - Constitution §VI. Strict Validation and Explicit Error Communication
+  - Constitution §VII. Reliability, Availability, and Recoverability
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Reliability & Availability Requirements (RAR-002)
+### END-CHK005
+
+### CHK006
+- [ ] CHK006 Are audit-log field semantics and reason-code vocabulary defined clearly enough to avoid interpretation drift? [Clarity, Spec §Security & Privacy Requirements SPR-008, Plan §Phase 0]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - Constitution §Delivery Workflow and Quality Gates (Audit gates)
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Security & Privacy Requirements (SPR-008)
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/plan.md §Phase 0: Research Plan
+### END-CHK006
+
+### CHK007
+- [x] CHK007 Are session requirements consistent between “active valid session required,” “verify current password,” and “revoke all sessions after success”? [Consistency, Spec §Functional Requirements FR-011, Spec §Security & Privacy Requirements SPR-003/SPR-005/SPR-006]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-04 Preconditions
+  - AT-UC04-01 Preconditions
+  - AT-UC04-02 Preconditions
+  - Constitution §V. Least-Privilege RBAC for All Protected Actions
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Functional Requirements (FR-011)
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Security & Privacy Requirements (SPR-003, SPR-005, SPR-006)
+### END-CHK007
+
+### CHK008
+- [x] CHK008 Do security feedback requirements stay consistent with the non-disclosure rule for sensitive details across all failure outcomes? [Consistency, Spec §Functional Requirements FR-007, Spec §Security & Privacy Requirements SPR-004]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-04 Extensions 4a1
+  - AT-UC04-02 Expected Results
+  - Constitution §VI. Strict Validation and Explicit Error Communication
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Functional Requirements (FR-007)
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Security & Privacy Requirements (SPR-004, SPR-010)
+### END-CHK008
+
+### CHK009
+- [x] CHK009 Are security/reliability success criteria measurable with explicit pass conditions rather than subjective language? [Measurability, Spec §Success Criteria SC-001..SC-005]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §I. Test-Driven and Acceptance-Traceable Delivery
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Success Criteria (SC-001..SC-009)
+### END-CHK009
+
+### CHK010
+- [ ] CHK010 Are acceptance outcomes mapped unambiguously to security/reliability states (success, validation failure, throttled, operational failure)? [Acceptance Criteria, Spec §User Scenarios & Testing, Spec §Reliability & Availability Requirements RAR-004, Gap]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - UC-04 Main Success Scenario and Extension 4a
+  - AT-UC04-01
+  - AT-UC04-02
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §User Scenarios & Testing
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Reliability & Availability Requirements (RAR-004)
+### END-CHK010
+
+### CHK011
+- [ ] CHK011 Are exception-flow requirements defined for lockout expiry and post-lockout recovery behavior? [Coverage, Spec §Edge Cases, Spec §Security & Privacy Requirements SPR-007, Gap]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - None (lockout-expiry and post-lockout behavior are not explicitly mandated by UC-04, AT-UC04-01/02, or Constitution)
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Edge Cases
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Security & Privacy Requirements (SPR-007)
+### END-CHK011
+
+### CHK012
+- [x] CHK012 Are recovery requirements defined for partial-failure timing (for example, credential updated but session revocation/log write interrupted) so rollback/compensation expectations are explicit? [Coverage, Spec §Reliability & Availability Requirements RAR-002/RAR-004, Gap]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-04 Failed End Condition
+  - Constitution §VII. Reliability, Availability, and Recoverability
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Reliability & Availability Requirements (RAR-005, RAR-006)
+### END-CHK012
+
+### CHK013
+- [ ] CHK013 Are assumptions about existing password policy, session infrastructure, and backup procedures bounded with explicit ownership and source of truth? [Assumption, Spec §Assumptions, Spec §Dependencies]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - None (explicit ownership metadata for assumptions is not required by UC-04, AT-UC04-01/02, or Constitution)
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Assumptions
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Dependencies
+### END-CHK013
+
+### CHK014
+- [x] CHK014 Is any constitution-driven requirement reflected as a measurable requirement statement in the spec whenever it impacts security/reliability behavior? [Traceability, Plan §Constitution Check, Gap]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §Governance
+  - Constitution §IV. Security and Confidentiality by Default
+  - Constitution §VII. Reliability, Availability, and Recoverability
+- Evidence Reviewed:
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/plan.md §Constitution Check
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Security & Privacy Requirements
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Reliability & Availability Requirements
+  - /Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/004-change-password/spec.md §Success Criteria
+### END-CHK014
+
+## Checklist Summary
+
+| Category | Count |
+|----------|-------|
+| Checklist Items | 14 |
+| Satisfied | 8 |
+| Missing but Required | 0 |
+| Missing but Not Required | 6 |
+
+## Required Remediation Summary (Natural Language)
+
+> All required checklist items for this checklist are satisfied. No specification updates are required.
+
+## Human-Readable Summary (Lab-Ready)
+
+This checklist passes: no required checklist items are missing, and all remaining unsatisfied items are not mandated by the Constitution, UC-04, or AT-UC04. Re-running `/speckit.specify` is not necessary for required compliance at this stage.
+
+The following checklist IDs were detected and evaluated:
+CHK001, CHK002, CHK003, CHK004, CHK005, CHK006, CHK007, CHK008, CHK009, CHK010, CHK011, CHK012, CHK013, CHK014
