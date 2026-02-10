@@ -1,0 +1,13 @@
+PASS — Use Case Aligned with Constitution-Justified Additions.
+
+  The active use case is UC-07, and specs/007-assign-paper-referees/spec.md restates the primary flow and both alternate flows
+  accurately: successful referee assignment with invitations, workload-limit rejection with retry path, and max-referees-cap
+  rejection with termination. The functional requirements are congruent with UC-07 and AT-UC07-01/02/03 intent, including
+  explicit validation, rejection conditions, and success/failure outcomes.
+
+  Additional requirements are present beyond the literal UC/test text, including encrypted transport/at-rest handling, strict
+  authorization controls, concurrency integrity, explicit failure messaging, auditability, backup/recovery, duplicate-ID
+  validation, atomic multi-referee request handling, and post-commit invitation-failure handling. These are constitution-
+  mandated or constitution-permitted operational constraints under Security and Confidentiality, Least-Privilege RBAC, Strict
+  Validation, and Reliability/Recoverability. They are not unjustified new user-visible behavior. The specification remains
+  aligned with the use case under the required authority hierarchy.

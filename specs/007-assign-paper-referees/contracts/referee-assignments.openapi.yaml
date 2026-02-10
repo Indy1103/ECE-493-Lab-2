@@ -1,0 +1,238 @@
+openapi: 3.0.3
+info:
+  title: CMS Referee Assignment API
+  version: 1.0.0
+  description: Contract for UC-07 Assign Referees to Submitted Papers.
+servers:
+  - url: https://api.cms.local
+paths:
+  /api/v1/papers/{paperId}/referee-assignment-options:
+    get:
+      summary: Get assignment options and remaining slots for a submitted paper
+      operationId: getRefereeAssignmentOptions
+      tags: [RefereeAssignments]
+      security:
+        - sessionAuth: []
+      parameters:
+        - in: path
+          name: paperId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Assignment options available for editor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentOptionsResponse'
+        '401':
+          description: Unauthenticated or expired session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Authenticated user lacks editor role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Paper not found or not assignment-eligible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/papers/{paperId}/referee-assignments:
+    post:
+      summary: Atomically assign one or more referees to a submitted paper
+      operationId: assignRefereesToPaper
+      tags: [RefereeAssignments]
+      security:
+        - sessionAuth: []
+      parameters:
+        - in: path
+          name: paperId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignRefereesRequest'
+      responses:
+        '200':
+          description: Assignment request succeeded and assignments were committed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignRefereesSuccessResponse'
+        '400':
+          description: Validation failed; no assignments were created from this request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentValidationErrorResponse'
+        '401':
+          description: Unauthenticated or expired session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Authenticated user lacks editor role.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Paper not found or not assignment-eligible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Concurrent assignment lock unavailable or paper already at capacity at serialized check time.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Assignment operation failed unexpectedly.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: cms_session
+  schemas:
+    AssignmentOptionsResponse:
+      type: object
+      required:
+        - paperId
+        - currentAssignedCount
+        - remainingSlots
+        - maxRefereesPerPaper
+      properties:
+        paperId:
+          type: string
+          format: uuid
+        currentAssignedCount:
+          type: integer
+          minimum: 0
+        remainingSlots:
+          type: integer
+          minimum: 0
+        maxRefereesPerPaper:
+          type: integer
+          minimum: 1
+        candidateReferees:
+          type: array
+          items:
+            type: object
+            required: [refereeId, displayName, currentWorkload, maxWorkload, eligible]
+            properties:
+              refereeId:
+                type: string
+                format: uuid
+              displayName:
+                type: string
+              currentWorkload:
+                type: integer
+                minimum: 0
+              maxWorkload:
+                type: integer
+                minimum: 1
+              eligible:
+                type: boolean
+    AssignRefereesRequest:
+      type: object
+      additionalProperties: false
+      required: [refereeIds]
+      properties:
+        refereeIds:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            format: uuid
+    AssignRefereesSuccessResponse:
+      type: object
+      required: [paperId, assignedRefereeIds, invitationStatuses, message]
+      properties:
+        paperId:
+          type: string
+          format: uuid
+        assignedRefereeIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        invitationStatuses:
+          type: array
+          items:
+            type: object
+            required: [refereeId, status]
+            properties:
+              refereeId:
+                type: string
+                format: uuid
+              status:
+                type: string
+                enum: [SENT, PENDING_RETRY]
+        message:
+          type: string
+          example: Referees assigned successfully.
+    AssignmentValidationErrorResponse:
+      type: object
+      required: [code, message, violations]
+      properties:
+        code:
+          type: string
+          enum:
+            - VALIDATION_FAILED
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            required: [rule, message]
+            properties:
+              rule:
+                type: string
+                enum:
+                  - DUPLICATE_REFEREE_IN_REQUEST
+                  - REFEREE_NOT_ASSIGNABLE
+                  - REFEREE_WORKLOAD_LIMIT_REACHED
+                  - PAPER_REFEREE_CAPACITY_REACHED
+                  - PAPER_NOT_AWAITING_ASSIGNMENT
+              refereeId:
+                type: string
+                format: uuid
+              message:
+                type: string
+    ErrorResponse:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          enum:
+            - AUTHENTICATION_REQUIRED
+            - AUTHORIZATION_FAILED
+            - PAPER_NOT_FOUND
+            - PAPER_NOT_ASSIGNABLE
+            - ASSIGNMENT_CONFLICT
+            - INTERNAL_ERROR
+        message:
+          type: string

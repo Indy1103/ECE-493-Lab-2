@@ -11,6 +11,8 @@ Auto-generated from all feature plans. Last updated: 2026-02-09
 - PostgreSQL system of record with encrypted-at-rest infrastructure controls and encrypted backups (004-change-password)
 - TypeScript 5.x (React frontend + Fastify backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-clien (005-submit-paper-manuscript)
 - PostgreSQL system of record + encrypted object storage for manuscript files + encrypted backups (005-submit-paper-manuscript)
+- TypeScript 5.x (React frontend + Fastify backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-client, rate-limiter-flexible (existing auth-related throttling stack) (007-assign-paper-referees)
+- PostgreSQL system of record for assignments/invitations + encrypted-at-rest controls + encrypted backups (007-assign-paper-referees)
 
 - TypeScript 5.x (frontend + backend) + React 18, Fastify (web API), Prisma (PostgreSQL access), Zod (validation), Pino (structured logging), Prometheus client (metrics) (001-view-conference-announcements)
 
@@ -30,9 +32,9 @@ npm test && npm run lint
 TypeScript 5.x (frontend + backend): Follow standard conventions
 
 ## Recent Changes
+- 007-assign-paper-referees: Added TypeScript 5.x (React frontend + Fastify backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-client, rate-limiter-flexible (existing auth-related throttling stack)
 - 005-submit-paper-manuscript: Added TypeScript 5.x (React frontend + Fastify backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-clien
 - 004-change-password: Added TypeScript 5.x (React frontend + Fastify backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Argon2, rate-limiter-flexible, Pino, prom-clien
-- 003-user-login: Added TypeScript 5.x (frontend + backend) + React 18, Fastify (web API), Prisma (PostgreSQL access), Zod (validation), Argon2 (credential verification), rate-limiter-flexible (failed-login throttling), Pino (structured logging), Prometheus client (metrics)
 
 
 <!-- MANUAL ADDITIONS START -->
