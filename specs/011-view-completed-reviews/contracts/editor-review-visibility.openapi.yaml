@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: UC-11 Editor Review Visibility API
+  version: 1.0.0
+  description: API contract for editors to view completed referee reviews for a paper.
+servers:
+  - url: https://api.cms.example.com
+paths:
+  /api/editor/papers/{paperId}/reviews:
+    get:
+      summary: Retrieve completed referee reviews for a paper (editors only)
+      tags: [ReviewVisibility]
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: paperId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Completed reviews visible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedReviewsResponse'
+        '403':
+          description: Generic unavailable/denied outcome for non-editor access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Generic unavailable/denied outcome for non-existent or inaccessible paper
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Reviews pending; completed review content not shown
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PendingReviewsResponse'
+        '401':
+          description: Session expired or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: session
+  schemas:
+    AnonymizedReviewEntry:
+      type: object
+      required: [reviewId, summary, scores, recommendation, submittedAt]
+      properties:
+        reviewId:
+          type: string
+          format: uuid
+        summary:
+          type: string
+        scores:
+          type: object
+          additionalProperties: true
+        recommendation:
+          type: string
+          enum: [ACCEPT, REJECT, BORDERLINE]
+        submittedAt:
+          type: string
+          format: date-time
+    CompletedReviewsResponse:
+      type: object
+      required: [messageCode, paperId, completedReviewCount, requiredReviewCount, reviews]
+      properties:
+        messageCode:
+          type: string
+          enum: [REVIEWS_VISIBLE]
+        paperId:
+          type: string
+          format: uuid
+        completedReviewCount:
+          type: integer
+        requiredReviewCount:
+          type: integer
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnonymizedReviewEntry'
+    PendingReviewsResponse:
+      type: object
+      required: [messageCode, message, completedReviewCount, requiredReviewCount]
+      properties:
+        messageCode:
+          type: string
+          enum: [REVIEWS_PENDING]
+        message:
+          type: string
+        completedReviewCount:
+          type: integer
+        requiredReviewCount:
+          type: integer
+    ErrorResponse:
+      type: object
+      required: [messageCode, message]
+      properties:
+        messageCode:
+          type: string
+          enum:
+            - UNAVAILABLE_DENIED
+            - SESSION_EXPIRED
+        message:
+          type: string

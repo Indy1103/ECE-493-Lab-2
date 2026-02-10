@@ -18,6 +18,7 @@ Auto-generated from all feature plans. Last updated: 2026-02-09
 - TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible (009-access-assigned-paper)
 - PostgreSQL for assignments/access metadata + encrypted object storage for paper files (009-access-assigned-paper)
 - PostgreSQL for review records and assignment linkage + encrypted object/file storage for manuscript artifacts already in system scope (009-submit-paper-review)
+- PostgreSQL for papers, assignments, and reviews; encrypted-at-rest controls for stored review data and backups (011-view-completed-reviews)
 
 - TypeScript 5.x (frontend + backend) + React 18, Fastify (web API), Prisma (PostgreSQL access), Zod (validation), Pino (structured logging), Prometheus client (metrics) (001-view-conference-announcements)
 
@@ -37,9 +38,9 @@ npm test && npm run lint
 TypeScript 5.x (frontend + backend): Follow standard conventions
 
 ## Recent Changes
+- 011-view-completed-reviews: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
 - 009-submit-paper-review: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
 - 009-access-assigned-paper: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
-- 008-review-invitation-response: Added TypeScript 5.x (React frontend + Fastify backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-client, rate-limiter-flexible (existing throttling stack)
 
 
 <!-- MANUAL ADDITIONS START -->
