@@ -1,0 +1,186 @@
+openapi: 3.0.3
+info:
+  title: CMS Submission Draft API
+  version: 1.0.0
+  description: Contract for UC-06 Save Paper Submission Draft.
+servers:
+  - url: https://api.cms.local
+paths:
+  /api/v1/submission-drafts/{submissionId}:
+    get:
+      summary: Get current saved draft for an in-progress submission
+      operationId: getSubmissionDraft
+      tags: [SubmissionDrafts]
+      security:
+        - sessionAuth: []
+      parameters:
+        - in: path
+          name: submissionId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Current draft retrieved for owning author.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDraftResponse'
+        '401':
+          description: Unauthenticated or expired session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Author is not owner of the in-progress submission.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: No saved draft found for the submission.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Save current draft state for an in-progress submission
+      operationId: saveSubmissionDraft
+      tags: [SubmissionDrafts]
+      security:
+        - sessionAuth: []
+      parameters:
+        - in: path
+          name: submissionId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveDraftRequest'
+      responses:
+        '200':
+          description: Draft saved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveDraftSuccessResponse'
+        '400':
+          description: Draft validation failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: Unauthenticated or expired session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Author is not owner of the in-progress submission.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Concurrent save conflict resolved deterministically; latest state preserved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Operational failure; prior saved valid draft remains available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: cms_session
+  schemas:
+    SaveDraftRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - title
+        - draftPayload
+      properties:
+        title:
+          type: string
+          minLength: 1
+        draftPayload:
+          type: object
+          additionalProperties: true
+    SaveDraftSuccessResponse:
+      type: object
+      required: [submissionId, savedAt, message]
+      properties:
+        submissionId:
+          type: string
+          format: uuid
+        savedAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+          example: Draft saved successfully.
+    GetDraftResponse:
+      type: object
+      required: [submissionId, title, draftPayload, lastSavedAt]
+      properties:
+        submissionId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        draftPayload:
+          type: object
+          additionalProperties: true
+        lastSavedAt:
+          type: string
+          format: date-time
+    ValidationErrorResponse:
+      type: object
+      required: [code, message, violations]
+      properties:
+        code:
+          type: string
+          example: VALIDATION_FAILED
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            required: [field, rule, message]
+            properties:
+              field:
+                type: string
+              rule:
+                type: string
+              message:
+                type: string
+    ErrorResponse:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          enum:
+            - AUTHENTICATION_REQUIRED
+            - AUTHORIZATION_FAILED
+            - DRAFT_NOT_FOUND
+            - CONCURRENT_SAVE_RESOLVED
+            - OPERATIONAL_FAILURE
+        message:
+          type: string
