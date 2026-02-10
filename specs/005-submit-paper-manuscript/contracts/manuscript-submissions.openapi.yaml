@@ -1,0 +1,209 @@
+openapi: 3.0.3
+info:
+  title: CMS Manuscript Submission API
+  version: 1.0.0
+  description: Contract for UC-05 Submit Paper Manuscript.
+servers:
+  - url: https://api.cms.local
+paths:
+  /api/v1/manuscript-submissions/requirements:
+    get:
+      summary: Get required metadata policy for active submission cycle
+      operationId: getSubmissionRequirements
+      tags: [ManuscriptSubmissions]
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Active cycle metadata requirements and limits returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionRequirementsResponse'
+        '401':
+          description: Unauthenticated or expired session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Authenticated but not authorized as Author.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Submission intake closed for active cycle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/manuscript-submissions:
+    post:
+      summary: Submit manuscript metadata and file
+      operationId: createManuscriptSubmission
+      tags: [ManuscriptSubmissions]
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [metadata, manuscriptFile]
+              properties:
+                metadata:
+                  description: JSON metadata payload serialized as string.
+                  type: string
+                  example: '{"title":"Paper Title","abstract":"...","keywords":["ai"],"fullAuthorList":[{"name":"A"}],"correspondingAuthorEmail":"author@example.com","primarySubjectArea":"AI"}'
+                manuscriptFile:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Submission accepted and queued for review assignment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSubmissionSuccessResponse'
+        '400':
+          description: Metadata validation failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: Unauthenticated or expired session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Authenticated but not authorized as Author.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Duplicate active submission or intake closed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Manuscript file exceeds 20 MB limit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Unsupported manuscript file type; only PDF is accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Operational failure with no accepted submission persisted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: cms_session
+  schemas:
+    SubmissionRequirementsResponse:
+      type: object
+      required:
+        - cycleId
+        - intakeStatus
+        - metadataPolicyVersion
+        - requiredMetadataFields
+        - fileConstraints
+      properties:
+        cycleId:
+          type: string
+          format: uuid
+        intakeStatus:
+          type: string
+          enum: [OPEN, CLOSED]
+        metadataPolicyVersion:
+          type: string
+          example: CMS Manuscript Submission Policy v1.0
+        requiredMetadataFields:
+          type: array
+          items:
+            type: string
+            enum:
+              - title
+              - abstract
+              - keywords
+              - fullAuthorList
+              - correspondingAuthorEmail
+              - primarySubjectArea
+        fileConstraints:
+          type: object
+          required: [allowedMediaTypes, maxBytes]
+          properties:
+            allowedMediaTypes:
+              type: array
+              items:
+                type: string
+                enum: [application/pdf]
+            maxBytes:
+              type: integer
+              example: 20971520
+    CreateSubmissionSuccessResponse:
+      type: object
+      required: [submissionId, status, message]
+      properties:
+        submissionId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [SUBMITTED]
+        message:
+          type: string
+          example: Manuscript submitted successfully.
+    ValidationErrorResponse:
+      type: object
+      required: [code, message, violations]
+      properties:
+        code:
+          type: string
+          example: VALIDATION_FAILED
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            required: [field, rule, message]
+            properties:
+              field:
+                type: string
+              rule:
+                type: string
+              message:
+                type: string
+    ErrorResponse:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          enum:
+            - AUTHENTICATION_REQUIRED
+            - AUTHORIZATION_FAILED
+            - INTAKE_CLOSED
+            - DUPLICATE_ACTIVE_SUBMISSION
+            - FILE_TOO_LARGE
+            - FILE_TYPE_NOT_ALLOWED
+            - OPERATIONAL_FAILURE
+        message:
+          type: string
