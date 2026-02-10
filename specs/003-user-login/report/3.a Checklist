@@ -1,0 +1,449 @@
+### API.md
+
+```c
+Output File: specs/003-user-login/checklists/evaluations/api.evaluation.md
+
+## Checklist: API Checklist: User Login Authentication
+Target File(s): spec.md
+
+### CHK001
+- [x] CHK001 Are request-input requirements for login explicitly defined for all required fields and submission conditions? [Completeness, Spec §FR-002]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-01
+  - Constitution §VI
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-002
+### END-CHK001
+
+### CHK002
+- [x] CHK002 Are success-outcome requirements specified so API-facing behavior for authenticated access is complete? [Completeness, Spec §FR-004, Spec §FR-005]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-01
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-004
+  - specs/003-user-login/spec.md §FR-005
+### END-CHK002
+
+### CHK003
+- [x] CHK003 Are invalid-credential requirements fully specified for denial of access and user-visible feedback? [Completeness, Spec §FR-006, Spec §FR-007, Spec §FR-008]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-02
+  - Constitution §VI
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-006
+  - specs/003-user-login/spec.md §FR-007
+  - specs/003-user-login/spec.md §FR-008
+### END-CHK003
+
+### CHK004
+- [x] CHK004 Are throttling requirements fully specified for trigger, scope, and response expectations? [Completeness, Spec §FR-009]
+- Status: Satisfied
+- Required: No
+- Authority:
+  - Constitution §IV
+  - Constitution §VII
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-009
+### END-CHK004
+
+### CHK005
+- [ ] CHK005 Is the term "login entry point" sufficiently specific to avoid multiple API interpretation paths? [Clarity, Spec §FR-001]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - None (not mandated explicitly by Constitution, UC-03, or AT-UC03)
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-001
+### END-CHK005
+
+### CHK006
+- [ ] CHK006 Is "client-based throttle" defined clearly enough to avoid conflicting interpretations of client identity? [Ambiguity, Spec §FR-009]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - None (throttling mechanism specificity is not mandated by Constitution, UC-03, or AT-UC03)
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-009
+### END-CHK006
+
+### CHK007
+- [ ] CHK007 Is "role-specific home page" precise enough to map to deterministic API response expectations? [Clarity, Spec §FR-005]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - UC-03
+  - AT-UC03-01
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-005
+### END-CHK007
+
+### CHK008
+- [x] CHK008 Are user-scenario outcome statements consistent with functional requirement outcomes for success and invalid credentials? [Consistency, Spec §User Scenarios, Spec §FR-004, Spec §FR-006]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-01
+  - AT-UC03-02
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §User Scenarios & Testing
+  - specs/003-user-login/spec.md §FR-004
+  - specs/003-user-login/spec.md §FR-006
+### END-CHK008
+
+### CHK009
+- [x] CHK009 Are requirement statements for invalid credentials consistent with measurable success criteria language? [Consistency, Spec §FR-006, Spec §FR-007, Spec §SC-002]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-02
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-006
+  - specs/003-user-login/spec.md §FR-007
+  - specs/003-user-login/spec.md §SC-002
+### END-CHK009
+
+### CHK010
+- [x] CHK010 Are throttling requirement statements consistent between edge cases, functional requirements, and measurable outcomes? [Consistency, Spec §Edge Cases, Spec §FR-009, Spec §SC-006]
+- Status: Satisfied
+- Required: No
+- Authority:
+  - Constitution §IV
+  - Constitution §VII
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §Edge Cases
+  - specs/003-user-login/spec.md §FR-009
+  - specs/003-user-login/spec.md §SC-006
+### END-CHK010
+
+### CHK011
+- [x] CHK011 Can each core API-facing outcome (success, invalid credentials, throttled) be objectively validated from requirement text alone? [Measurability, Spec §FR-004, Spec §FR-006, Spec §FR-009, Spec §SC-001, Spec §SC-002, Spec §SC-006]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-01
+  - AT-UC03-02
+  - Constitution §I
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-004
+  - specs/003-user-login/spec.md §FR-006
+  - specs/003-user-login/spec.md §FR-009
+  - specs/003-user-login/spec.md §SC-001
+  - specs/003-user-login/spec.md §SC-002
+  - specs/003-user-login/spec.md §SC-006
+### END-CHK011
+
+### CHK012
+- [x] CHK012 Are percentages and thresholds in success criteria paired with clearly scoped scenarios so pass/fail decisions are unambiguous? [Acceptance Criteria, Spec §SC-001, Spec §SC-002, Spec §SC-006]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §I
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §SC-001
+  - specs/003-user-login/spec.md §SC-002
+  - specs/003-user-login/spec.md §SC-006
+### END-CHK012
+
+### CHK013
+- [x] CHK013 Are assumptions about existing account repository and login identifier explicit enough to avoid hidden API requirement gaps? [Assumption, Spec §Assumptions]
+- Status: Satisfied
+- Required: No
+- Authority:
+  - None (assumption-writing granularity is not explicitly mandated)
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §Assumptions
+### END-CHK013
+
+### CHK014
+- [x] CHK014 Are dependency statements sufficient to validate that API requirements remain traceable to UC-03 and AT-UC03-01/02? [Dependency, Spec §Dependencies, Spec §AMR-003]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §I
+  - UC-03
+  - AT-UC03-01
+  - AT-UC03-02
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §Dependencies
+  - specs/003-user-login/spec.md §AMR-003
+### END-CHK014
+
+### CHK015
+- [x] CHK015 Is there any conflict between security/privacy wording and user-visible error wording that could produce contradictory API requirements? [Conflict, Spec §SPR-003, Spec §FR-007]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §IV
+  - Constitution §VI
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §SPR-003
+  - specs/003-user-login/spec.md §FR-007
+### END-CHK015
+
+### CHK016
+- [ ] CHK016 Does the spec define whether any API-facing requirement is intentionally out of scope (rather than omitted)? [Gap, Spec §Requirements]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - None (explicit out-of-scope declaration is not mandated by Constitution, UC-03, or AT-UC03)
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §Requirements
+### END-CHK016
+
+### Checklist Summary
+
+| Category | Count |
+|----------|-------|
+| Checklist Items | 16 |
+| Satisfied | 12 |
+| Missing but Required | 0 |
+| Missing but Not Required | 4 |
+
+### Required Remediation Summary (Natural Language)
+
+> All required checklist items for this checklist are satisfied. No specification updates are required.
+
+### Human-Readable Summary (Lab-Ready)
+
+This checklist passes for required content: no required checklist items are missing under Constitution/UC-03/AT-UC03 authority. A few quality items are unsatisfied but are not mandated by the governing sources, so re-running `/speckit.specify` is not required for compliance.
+
+The following checklist IDs were detected and evaluated:
+CHK001, CHK002, CHK003, CHK004, CHK005, CHK006, CHK007, CHK008, CHK009, CHK010, CHK011, CHK012, CHK013, CHK014, CHK015, CHK016
+
+```
+
+### Security.md
+
+```c
+Output File: specs/003-user-login/checklists/evaluations/security.evaluation.md
+
+## Checklist: Security Checklist: User Login Authentication
+Target File(s): spec.md
+
+### CHK001
+- [x] CHK001 Are credential input requirements fully specified for the login request path (identifier + secret) without missing required fields? [Completeness, Spec §FR-002]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-01
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-002
+### END-CHK001
+
+### CHK002
+- [x] CHK002 Are invalid-credential handling requirements defined for all failure outcomes that must remain unauthenticated? [Completeness, Spec §FR-006, Spec §FR-008]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-02
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-006
+  - specs/003-user-login/spec.md §FR-008
+### END-CHK002
+
+### CHK003
+- [x] CHK003 Are throttling requirements defined with trigger condition, scope, and user-visible response expectations? [Completeness, Spec §FR-009]
+- Status: Satisfied
+- Required: No
+- Authority:
+  - Constitution §IV
+  - Constitution §VII
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-009
+### END-CHK003
+
+### CHK004
+- [x] CHK004 Are data-protection requirements defined for both transport and storage surfaces used by authentication data? [Completeness, Spec §SPR-001, Spec §SPR-002]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §IV
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §SPR-001
+  - specs/003-user-login/spec.md §SPR-002
+### END-CHK004
+
+### CHK005
+- [x] CHK005 Is the login identifier terminology unambiguous and used consistently across stories, requirements, and assumptions? [Clarity, Spec §User Scenarios, Spec §Assumptions]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-01
+  - AT-UC03-02
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §User Scenarios & Testing
+  - specs/003-user-login/spec.md §Assumptions
+### END-CHK005
+
+### CHK006
+- [ ] CHK006 Is the phrase "client-based throttle" defined clearly enough to avoid conflicting interpretations of who/what is throttled? [Ambiguity, Spec §FR-009]
+- Status: Not Satisfied
+- Required: No
+- Authority:
+  - None (client-identity granularity for throttling is not explicitly mandated by Constitution, UC-03, or AT-UC03)
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §FR-009
+### END-CHK006
+
+### CHK007
+- [ ] CHK007 Is "role-appropriate access" defined with enough precision to verify authorization boundaries from requirement text alone? [Clarity, Spec §SPR-004]
+- Status: Not Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §V
+  - Constitution §106-112
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §SPR-004
+### END-CHK007
+
+### CHK008
+- [x] CHK008 Are invalid-credential messaging requirements consistent between user stories and functional/security requirements? [Consistency, Spec §User Story 2, Spec §FR-007, Spec §SPR-003]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-02
+  - Constitution §VI
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §User Story 2
+  - specs/003-user-login/spec.md §FR-007
+  - specs/003-user-login/spec.md §SPR-003
+### END-CHK008
+
+### CHK009
+- [x] CHK009 Are deterministic outcome requirements consistent with listed edge cases for invalid credentials, throttling, and operational failure? [Consistency, Spec §Edge Cases, Spec §RAR-002]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §VII
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §Edge Cases
+  - specs/003-user-login/spec.md §RAR-002
+### END-CHK009
+
+### CHK010
+- [x] CHK010 Are confidentiality requirements consistent with error-message requirements so no sensitive detail is exposed in failure paths? [Consistency, Spec §SPR-003, Spec §RAR-003]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §IV
+  - Constitution §VI
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §SPR-003
+  - specs/003-user-login/spec.md §RAR-003
+### END-CHK010
+
+### CHK011
+- [ ] CHK011 Can each security requirement be objectively validated using measurable success criteria or explicit acceptance evidence? [Measurability, Spec §SPR-001, Spec §SPR-002, Spec §SPR-003, Spec §SC-005, Spec §SC-006]
+- Status: Not Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §I
+  - Constitution §IV
+  - Constitution §123-136
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §SPR-001
+  - specs/003-user-login/spec.md §SPR-002
+  - specs/003-user-login/spec.md §SPR-003
+  - specs/003-user-login/spec.md §SC-005
+  - specs/003-user-login/spec.md §SC-006
+### END-CHK011
+
+### CHK012
+- [x] CHK012 Are success criteria for invalid credentials and throttling specific enough to evaluate pass/fail without implementation assumptions? [Acceptance Criteria, Spec §SC-002, Spec §SC-006]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-02
+  - Constitution §I
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §SC-002
+  - specs/003-user-login/spec.md §SC-006
+### END-CHK012
+
+### CHK013
+- [x] CHK013 Are primary, alternate, and security-related exception scenarios all reflected in requirements with no missing authentication failure class? [Coverage, Spec §User Scenarios, Spec §Edge Cases]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - UC-03
+  - AT-UC03-01
+  - AT-UC03-02
+  - Constitution §VI
+  - Constitution §VII
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §User Scenarios & Testing
+  - specs/003-user-login/spec.md §Edge Cases
+### END-CHK013
+
+### CHK014
+- [x] CHK014 Are concurrent login and temporary operational failure scenarios covered by explicit reliability/security requirements rather than implied behavior? [Coverage, Spec §Edge Cases, Spec §RAR-001, Spec §RAR-003]
+- Status: Satisfied
+- Required: Yes
+- Authority:
+  - Constitution §VII
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §Edge Cases
+  - specs/003-user-login/spec.md §RAR-001
+  - specs/003-user-login/spec.md §RAR-003
+### END-CHK014
+
+### CHK015
+- [x] CHK015 Are assumptions about existing account repository and role-home mapping explicitly testable and non-contradictory with stated dependencies? [Assumption, Spec §Assumptions, Spec §Dependencies]
+- Status: Satisfied
+- Required: No
+- Authority:
+  - None (assumption-writing style is not directly mandated)
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §Assumptions
+  - specs/003-user-login/spec.md §Dependencies
+### END-CHK015
+
+### CHK016
+- [x] CHK016 Are external dependency expectations for account/role data availability explicit enough to assess security and failure-handling risk in requirement review? [Dependency, Spec §Dependencies, Gap]
+- Status: Satisfied
+- Required: No
+- Authority:
+  - None (external dependency detail depth is not explicitly mandated)
+- Evidence Reviewed:
+  - specs/003-user-login/spec.md §Dependencies
+### END-CHK016
+
+| Category | Count |
+|----------|-------|
+| Checklist Items | 16 |
+| Satisfied | 13 |
+| Missing but Required | 2 |
+| Missing but Not Required | 1 |
+
+**You need to add the following to the specification to satisfy this checklist:**
+
+- Define role-appropriate access boundaries with explicit role-to-permission constraints so authorization limits are objectively verifiable from requirement text.
+- Add explicit measurable acceptance evidence that validates at-rest protection and no-plaintext handling requirements, not only transport and throttling outcomes.
+
+This checklist does not pass because required security requirement-quality items are missing under Constitution authority. `/speckit.specify` should be re-run to add the missing required security precision and measurable validation language before implementation planning continues.
+
+The following checklist IDs were detected and evaluated:
+CHK001, CHK002, CHK003, CHK004, CHK005, CHK006, CHK007, CHK008, CHK009, CHK010, CHK011, CHK012, CHK013, CHK014, CHK015, CHK016
+
+```
+
+### Checklist Second analysis
+
+All checklist met

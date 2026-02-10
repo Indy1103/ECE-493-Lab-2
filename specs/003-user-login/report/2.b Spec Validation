@@ -1,0 +1,37 @@
+- FAIL — Unjustified Additional Behavior Detected.
+
+The active use case is UC-03, and the specification does restate the primary and alternate login
+flows in structure: successful authentication to a role-specific home page, and invalid-credential
+rejection with no access. It also includes additional security, reliability, and error-handling
+constraints (for example encrypted transport, plaintext protection, deterministic failure handling,
+recoverability, and explicit error messaging) that are Constitution-mandated or Constitution-
+permitted operational constraints, and these do not count as new user features.
+
+However, the spec introduces an identity constraint that is not in UC-03 or AT-UC03-01/02 and is not
+mandated by the Constitution: it changes login credentials from “username and password” to “email and
+password” and makes email the canonical login identifier. Under the authority hierarchy, that is an
+unjustified behavioral change relative to the active Use Case and Acceptance Test Suite. Therefore
+the validation result is FAIL.
+
+### Fix
+
+Fixed by switching email to username as the usecase specifed 
+
+### Rerun analysis
+
+The active use case is UC-03, and the specification now matches its primary and alternate flows:
+login initiation, username/password credential submission, credential verification, successful
+authentication to a role-specific home page, and invalid-credential failure with no access. The
+functional requirements for those flows are congruent with UC-03 and AT-UC03-01/02, and there is no
+longer a conflicting email-only login rule.
+
+Additional requirements do exist beyond the explicit UC text, but they are constitution-mandated or
+constitution-permitted operational constraints rather than new user features. Specifically,
+transport/data protection and no-plaintext handling align with Constitution security mandates;
+deterministic failure outcomes, concurrency safety, recoverability, and retry-capable operational
+error messaging align with reliability/error-communication mandates; and role-appropriate access
+controls align with least-privilege authorization policy. The failed-login throttling requirement is
+an allowed security/reliability safeguard under that constitution framework and does not introduce a
+separate user-visible feature domain.
+
+No unjustified additional behavior was detected.
