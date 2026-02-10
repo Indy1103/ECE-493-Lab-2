@@ -1,0 +1,183 @@
+openapi: 3.0.3
+info:
+  title: UC-10 Review Submission API
+  version: 1.0.0
+  description: API contract for submitting a completed review form for an assigned paper.
+servers:
+  - url: https://api.cms.example.com
+paths:
+  /api/referee/assignments/{assignmentId}/review-form:
+    get:
+      summary: Retrieve review form for an eligible assignment
+      tags: [ReviewSubmission]
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: assignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Review form retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewFormResponse'
+        '404':
+          description: Submission-unavailable outcome for non-owned/non-assigned access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Session expired or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/referee/assignments/{assignmentId}/review-submissions:
+    post:
+      summary: Submit completed review for an eligible assignment
+      tags: [ReviewSubmission]
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: assignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewSubmissionRequest'
+      responses:
+        '201':
+          description: Review submission accepted and recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewSubmissionSuccessResponse'
+        '400':
+          description: validation-failed outcome
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '404':
+          description: submission-unavailable outcome for non-owned/non-assigned submissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: submission-unavailable outcome for duplicate final submission or stale submit-time ineligibility
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Session expired or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: session
+  schemas:
+    ReviewFieldRule:
+      type: object
+      required: [fieldId, required]
+      properties:
+        fieldId:
+          type: string
+        required:
+          type: boolean
+        constraints:
+          type: array
+          items:
+            type: string
+    ReviewFormResponse:
+      type: object
+      required: [messageCode, assignmentId, formVersion, fields]
+      properties:
+        messageCode:
+          type: string
+          enum: [REVIEW_FORM_AVAILABLE]
+        assignmentId:
+          type: string
+          format: uuid
+        formVersion:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewFieldRule'
+    ReviewSubmissionRequest:
+      type: object
+      required: [responses]
+      properties:
+        responses:
+          type: object
+          additionalProperties: true
+    ReviewSubmissionSuccessResponse:
+      type: object
+      required: [messageCode, submissionId, submittedAt]
+      properties:
+        messageCode:
+          type: string
+          enum: [REVIEW_SUBMISSION_ACCEPTED]
+        submissionId:
+          type: string
+          format: uuid
+        submittedAt:
+          type: string
+          format: date-time
+    ValidationIssue:
+      type: object
+      required: [fieldId, issue]
+      properties:
+        fieldId:
+          type: string
+        issue:
+          type: string
+    ValidationErrorResponse:
+      type: object
+      required: [messageCode, message, issues]
+      properties:
+        messageCode:
+          type: string
+          enum: [validation-failed]
+        message:
+          type: string
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationIssue'
+    ErrorResponse:
+      type: object
+      required: [messageCode, message]
+      properties:
+        messageCode:
+          type: string
+          enum:
+            - session-expired
+            - submission-unavailable
+        message:
+          type: string
+        reasonCode:
+          type: string
+          enum:
+            - non-owned-or-non-assigned
+            - submit-time-ineligible
+            - duplicate-final-submission
