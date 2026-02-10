@@ -5,6 +5,14 @@
 **Status**: Draft
 **Input**: User description: "Allow an editor to record a final acceptance or rejection decision for a paper so that the author is informed of the outcome, including gating on completed reviews for UC-12 with traceability to AT-UC12-01 and AT-UC12-02."
 
+## Clarifications
+
+### Session 2026-02-10
+
+- Q: What final decision options are allowed for UC-12? → A: Accept or Reject only.
+- Q: Can editors change a final decision after it is recorded? → A: Final decision is immutable once recorded.
+- Q: If reviews are pending, should completed review content be shown? → A: Do not show review content; only show decision not allowed yet.
+
 ## User Scenarios & Testing *(mandatory)*
 
 Every story in this section MUST be independently testable and MUST identify its traceability
@@ -61,12 +69,14 @@ A logged-in editor attempting to record a final decision before all required rev
 - **FR-001**: The system MUST allow a logged-in editor to select a submitted paper with completed reviews and record a final acceptance or rejection decision.
 - **FR-002**: The system MUST verify all required referee reviews are completed before allowing a final decision to be recorded.
 - **FR-003**: When a final decision is recorded, the system MUST persist the decision status for the paper.
-- **FR-004**: The system MUST present clear decision options for acceptance and rejection to the editor.
+- **FR-004**: The system MUST present only two final decision options to the editor: acceptance or rejection.
 - **FR-005**: The system MUST confirm to the editor that the decision has been recorded.
 - **FR-006**: When required reviews are pending, the system MUST inform the editor that a final decision cannot be made yet.
 - **FR-007**: When required reviews are pending, the system MUST NOT record any final decision.
 - **FR-008**: The system MUST notify the author when a final decision is successfully recorded.
 - **FR-009**: The system MUST preserve traceability of this feature behavior to UC-12 and AT-UC12-01/02.
+- **FR-010**: Once a final decision is recorded, the system MUST prevent further edits to that decision.
+- **FR-011**: When required reviews are pending, the system MUST NOT present any review content for that paper.
 
 ### Security & Privacy Requirements *(mandatory)*
 
