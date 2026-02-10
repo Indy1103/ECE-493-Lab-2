@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Author Decision Access API
+  version: 1.0.0
+paths:
+  /api/author/papers/{paperId}/decision:
+    get:
+      summary: View final decision for an author's paper
+      parameters:
+        - in: path
+          name: paperId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Decision available
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecisionAvailableResponse'
+        '409':
+          description: Notification failed (decision available but not delivered)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationFailedResponse'
+        '401':
+          description: Session expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Unauthorized or unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Unavailable (no disclosure)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    DecisionAvailableResponse:
+      type: object
+      required:
+        - outcome
+        - paperId
+        - decision
+      properties:
+        outcome:
+          type: string
+          enum: [DECISION_AVAILABLE]
+        paperId:
+          type: string
+        decision:
+          type: string
+          enum: [ACCEPT, REJECT]
+    NotificationFailedResponse:
+      type: object
+      required:
+        - outcome
+        - message
+      properties:
+        outcome:
+          type: string
+          enum: [NOTIFICATION_FAILED]
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - outcome
+        - message
+      properties:
+        outcome:
+          type: string
+          enum: [UNAVAILABLE_DENIED, SESSION_EXPIRED]
+        message:
+          type: string

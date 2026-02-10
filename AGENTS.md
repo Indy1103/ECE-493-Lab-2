@@ -20,6 +20,7 @@ Auto-generated from all feature plans. Last updated: 2026-02-09
 - PostgreSQL for review records and assignment linkage + encrypted object/file storage for manuscript artifacts already in system scope (009-submit-paper-review)
 - PostgreSQL for papers, assignments, and reviews; encrypted-at-rest controls for stored review data and backups (011-view-completed-reviews)
 - PostgreSQL for papers, reviews, and decisions; encrypted-at-rest controls for stored decision data and backups (012-record-final-decision)
+- PostgreSQL for papers, decisions, and notifications; encrypted-at-rest controls for stored decision data and backups (013-author-receive-decision)
 
 - TypeScript 5.x (frontend + backend) + React 18, Fastify (web API), Prisma (PostgreSQL access), Zod (validation), Pino (structured logging), Prometheus client (metrics) (001-view-conference-announcements)
 
@@ -39,9 +40,9 @@ npm test && npm run lint
 TypeScript 5.x (frontend + backend): Follow standard conventions
 
 ## Recent Changes
+- 013-author-receive-decision: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
 - 012-record-final-decision: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
 - 011-view-completed-reviews: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
-- 009-submit-paper-review: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
 
 
 <!-- MANUAL ADDITIONS START -->
