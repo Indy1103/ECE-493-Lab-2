@@ -1,9 +1,15 @@
 # Feature Specification: Edit Conference Schedule
 
-**Feature Branch**: `001-edit-conference-schedule`
+**Feature Branch**: `015-edit-conference-schedule`
 **Created**: 2026-02-10
 **Status**: Draft
 **Input**: User description: "Allow an editor to modify an existing conference schedule so that it reflects the final conference arrangements (UC-15 with AT-UC15-01/02)."
+
+## Clarifications
+
+### Session 2026-02-10
+
+- Q: Who may edit schedules? → A: Editor-only access with RBAC.
 
 ## User Scenarios & Testing *(mandatory)*
 

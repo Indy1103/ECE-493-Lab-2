@@ -23,6 +23,7 @@ Auto-generated from all feature plans. Last updated: 2026-02-09
 - PostgreSQL for papers, decisions, and notifications; encrypted-at-rest controls for stored decision data and backups (013-author-receive-decision)
 - TypeScript (frontend + backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-client, rate-limiter-flexible (existing stack) (014-generate-conference-schedule)
 - PostgreSQL for schedules and accepted paper metadata (014-generate-conference-schedule)
+- PostgreSQL for schedules and schedule modification records (015-edit-conference-schedule)
 
 - TypeScript 5.x (frontend + backend) + React 18, Fastify (web API), Prisma (PostgreSQL access), Zod (validation), Pino (structured logging), Prometheus client (metrics) (001-view-conference-announcements)
 
@@ -42,9 +43,9 @@ npm test && npm run lint
 TypeScript 5.x (frontend + backend): Follow standard conventions
 
 ## Recent Changes
+- 015-edit-conference-schedule: Added TypeScript (frontend + backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-client, rate-limiter-flexible (existing stack)
 - 014-generate-conference-schedule: Added TypeScript (frontend + backend) + React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-client, rate-limiter-flexible (existing stack)
 - 013-author-receive-decision: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
-- 012-record-final-decision: Added TypeScript 5.x (frontend + backend) + React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
 
 
 <!-- MANUAL ADDITIONS START -->

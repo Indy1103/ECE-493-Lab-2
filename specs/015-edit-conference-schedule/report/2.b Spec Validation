@@ -1,0 +1,20 @@
+• FAIL — Unjustified Additional Behavior Detected.
+
+  The specification aligns with UC‑15’s primary and extension flows for viewing the schedule, submitting modifications, applying
+  valid changes, and rejecting invalid changes. However, it introduces additional behavior not required by UC‑15 or the acceptance
+  tests: restricting editable elements to session/time/room only and rejecting stale edits via schedule versioning (optimistic
+  concurrency). These constraints are not mandated by the Constitution either. Because these are user-visible behavior constraints
+  not present in the UC or Test Suite, they constitute unjustified additional behavior, so the result is FAIL.
+
+### Fix
+
+Updated specs/015-edit-conference-schedule/spec.md to remove UC‑15‑external behavior:
+
+  - Removed edit-scope restriction and stale‑version rejection.
+  - Kept RBAC-only clarification (constitution-mandated).
+  - Adjusted scenarios, edge case, and FRs accordingly.
+  - Removed ScheduleVersion entity.
+
+  Run the UC alignment validation again when ready.
+
+  
