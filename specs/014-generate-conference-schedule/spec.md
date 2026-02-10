@@ -1,9 +1,16 @@
 # Feature Specification: Generate Conference Schedule
 
-**Feature Branch**: `001-generate-conference-schedule`
+**Feature Branch**: `014-generate-conference-schedule`
 **Created**: 2026-02-10
 **Status**: Draft
 **Input**: User description: "Allow an administrator to generate a conference schedule for accepted papers so that conference sessions are organized, including schedule generation for UC-14 with traceability to AT-UC14-01 and AT-UC14-02."
+
+## Clarifications
+
+### Session 2026-02-10
+
+- Q: Should schedule generation assign sessions/time slots or produce a draft without assignments? → A: Generate a draft schedule without session/time assignments.
+- Q: What ordering should be used for accepted papers in the draft schedule? → A: Order by submission time.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -62,6 +69,9 @@ When no accepted papers exist, schedule generation is blocked and the administra
 - **FR-002**: The system MUST verify that at least one accepted paper exists before generating a schedule.
 - **FR-003**: When accepted papers exist, the system MUST generate a schedule that includes all accepted papers.
 - **FR-004**: The system MUST present the generated schedule to the administrator for review.
+- **FR-008**: The generated schedule MUST be a draft without assigned sessions or time slots.
+- **FR-009**: The system MUST restrict viewing generated schedules to administrators only.
+- **FR-010**: The draft schedule MUST order accepted papers by submission time.
 - **FR-005**: When no accepted papers exist, the system MUST inform the administrator that a schedule cannot be generated.
 - **FR-006**: When no accepted papers exist, the system MUST NOT generate a schedule.
 - **FR-007**: The system MUST preserve traceability of this feature behavior to UC-14 and AT-UC14-01/02.

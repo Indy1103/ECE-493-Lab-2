@@ -2,7 +2,7 @@
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-02-10
-**Feature**: `/Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/001-generate-conference-schedule/spec.md`
+**Feature**: `/Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/014-generate-conference-schedule/spec.md`
 
 ## Content Quality
 
