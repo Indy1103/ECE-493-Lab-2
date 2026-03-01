@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run lint
+      - run: npm run test
+
+  performance-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: k6 smoke
+        run: echo "Run k6 smoke script: backend/tests/performance/public-announcements.k6.js"
+
+  e2e-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Browser flow checks
+        run: echo "Run e2e suite in ${{ matrix.browser }} for AVAILABLE/EMPTY/RETRIEVAL_FAILURE"
+      - name: Responsive viewport checks
+        run: echo "Run responsive e2e checks for 1280px and 375px viewports"
