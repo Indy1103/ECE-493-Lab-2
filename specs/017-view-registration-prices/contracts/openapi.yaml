@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: Registration Price List API
+  version: 1.0.0
+  description: Public read-only access to the published registration price list.
+paths:
+  /public/registration-prices:
+    get:
+      summary: Get published registration price list
+      operationId: getPublishedRegistrationPrices
+      responses:
+        "200":
+          description: Published registration price list returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegistrationPriceList"
+        "404":
+          description: Registration price list unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    RegistrationPriceList:
+      type: object
+      required:
+        - id
+        - title
+        - status
+        - prices
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        status:
+          type: string
+          enum: [PUBLISHED]
+        publishedAt:
+          type: string
+          format: date-time
+          nullable: true
+        effectiveFrom:
+          type: string
+          format: date
+          nullable: true
+        effectiveTo:
+          type: string
+          format: date
+          nullable: true
+        prices:
+          type: array
+          items:
+            $ref: "#/components/schemas/RegistrationPrice"
+    RegistrationPrice:
+      type: object
+      required:
+        - id
+        - attendanceType
+        - amount
+        - currency
+      properties:
+        id:
+          type: string
+          format: uuid
+        attendanceType:
+          type: string
+        amount:
+          type: number
+          format: double
+        currency:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - message
+        - code
+      properties:
+        message:
+          type: string
+        code:
+          type: string

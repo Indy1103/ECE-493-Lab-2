@@ -1,0 +1,154 @@
+openapi: 3.0.3
+info:
+  title: UC-09 Assigned Paper Access API
+  version: 1.0.0
+  description: API contract for retrieving assigned papers and accessing assigned paper + review form.
+servers:
+  - url: https://api.cms.example.com
+paths:
+  /api/referee/assignments:
+    get:
+      summary: List papers assigned to authenticated referee
+      tags: [AssignedPaperAccess]
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Assigned papers retrieved (may be empty)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentListResponse'
+        '401':
+          description: Session expired or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/referee/assignments/{assignmentId}/access:
+    post:
+      summary: Access selected assigned paper and associated review form
+      tags: [AssignedPaperAccess]
+      security:
+        - sessionAuth: []
+      parameters:
+        - name: assignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Access granted to paper and review form
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessGrantedResponse'
+        '404':
+          description: Generic unavailable-or-not-found outcome (includes non-owned/non-assigned)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Assignment changed since list retrieval; return canonical `UNAVAILABLE` outcome and refresh list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Session expired or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: session
+  schemas:
+    AssignmentSummary:
+      type: object
+      required: [assignmentId, paperId, title, availability]
+      properties:
+        assignmentId:
+          type: string
+          format: uuid
+        paperId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        availability:
+          type: string
+          enum: [AVAILABLE, UNAVAILABLE]
+    AssignmentListResponse:
+      type: object
+      required: [items, messageCode]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssignmentSummary'
+        messageCode:
+          type: string
+          enum: [ASSIGNMENTS_AVAILABLE, NO_ASSIGNMENTS]
+    AccessGrantedResponse:
+      type: object
+      required: [messageCode, paper, reviewForm]
+      properties:
+        messageCode:
+          type: string
+          enum: [ACCESS_GRANTED]
+        paper:
+          type: object
+          required: [paperId, title, contentUrl]
+          properties:
+            paperId:
+              type: string
+              format: uuid
+            title:
+              type: string
+            contentUrl:
+              type: string
+              format: uri
+        reviewForm:
+          type: object
+          required: [reviewFormId, schemaVersion, formUrl]
+          properties:
+            reviewFormId:
+              type: string
+              format: uuid
+            schemaVersion:
+              type: string
+            formUrl:
+              type: string
+              format: uri
+    ErrorResponse:
+      type: object
+      required: [messageCode, message]
+      properties:
+        messageCode:
+          type: string
+          enum:
+            - SESSION_EXPIRED
+            - UNAVAILABLE
+            - UNAVAILABLE_OR_NOT_FOUND
+            - INTERNAL_ERROR
+        message:
+          type: string

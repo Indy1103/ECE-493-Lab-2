@@ -1,0 +1,10 @@
+PASS — Use Case Aligned with Constitution-Justified Additions.
+
+  The specification for 017-view-registration-prices faithfully restates UC-17’s primary flow (request → present published price list
+  → attendee reviews) and the alternate flow where no price list is available, matching AT-UC17-01 and AT-UC17-02. The functional
+  requirements align with the UC intent and do not introduce new user-visible features beyond viewing prices and receiving an
+  explicit unavailability message.
+
+  Additional requirements present in specs/017-view-registration-prices/spec.md (security, reliability, and layered architecture
+  constraints) are constitution-mandated behaviors, not new features, and are therefore allowed. No unjustified additional behavior
+  is introduced, so the specification remains fully aligned with the Use Case.

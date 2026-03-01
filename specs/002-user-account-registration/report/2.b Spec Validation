@@ -1,0 +1,7 @@
+The active Use Case is UC-02 (Register User Account), and the specification accurately restates its primary flow and both alternate flows: request registration, present form, submit required information, validate, create account, handle invalid/incomplete data with correction/resubmission, and handle duplicate email with correction/resubmission. It preserves the UC-02 success outcome—the user can proceed to login after successful registration—and remains congruent with AT-UC02-01/02/03.
+
+Additional behavior exists in the spec, including explicit security/reliability constraints and stricter validation rules (transport/data protection constraints, deterministic failure outcomes, recoverability language, password validation baseline, email normalization rule, and retry throttling with explicit messaging). These are not new product features; they are Constitution-justified constraints under security/confidentiality, strict validation with explicit error communication, and reliability/recoverability principles.
+
+Under the mandatory classification rule, all requirements fall into either Use-Case-Mandated Behavior or Constitution-Mandated/Permitted Behavior. None fall into Unjustified Additional Behavior.
+
+### Checklist

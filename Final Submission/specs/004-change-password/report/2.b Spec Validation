@@ -1,0 +1,18 @@
+### Spec Analysis
+
+PASS — Use Case Aligned with Constitution-Justified Additions.
+
+The active use case is UC-04 (Change Account Password), and the specification restates its primary
+flow and alternate validation-failure flow accurately: request password-change information, validate
+it, update on valid input, confirm success, reject invalid input, keep the old password unchanged,
+and allow retry. This is also consistent with AT-UC04-01 and AT-UC04-02.
+
+Additional requirements do exist beyond the explicit UC/TestSuite text, including full-session
+revocation after change, failed-attempt throttling, password history reuse prevention, audit logging
+metadata, concurrency safety, backup/recovery expectations, encrypted transport, and no-plaintext
+credential handling. These are not unjustified new features; they are Constitution-justified
+security, reliability, validation, and auditability constraints under .specify/memory/constitution.md
+(especially Security and Confidentiality by Default, Strict Validation and Explicit Error
+Communication, Reliability/Recoverability, and audit gate requirements).
+
+No requirement in the current [spec.md](http://spec.md/) needs to be classified as unjustified additional behavior.

@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: CMS Public Announcements API
+  version: 1.0.0
+  description: Public retrieval contract for conference announcements aligned to UC-01.
+servers:
+  - url: https://cms.example.com
+paths:
+  /api/public/announcements:
+    get:
+      summary: Retrieve currently publicly available conference announcements
+      operationId: getPublicAnnouncements
+      tags:
+        - PublicAnnouncements
+      security: []
+      responses:
+        '200':
+          description: Announcements retrieved successfully (available or empty).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicAnnouncementsResponse'
+              examples:
+                available:
+                  summary: Announcements available
+                  value:
+                    state: AVAILABLE
+                    announcements:
+                      - id: 233a6b26-a22a-4c89-a5ec-2ef31a6b6f17
+                        title: Submission Deadline Extended
+                        content: The submission deadline is extended by one week.
+                        publishStart: '2026-02-01T00:00:00Z'
+                        publishEnd: '2026-02-15T23:59:59Z'
+                    message: Announcements available.
+                empty:
+                  summary: No announcements available
+                  value:
+                    state: EMPTY
+                    announcements: []
+                    message: No conference announcements are currently available.
+        '503':
+          description: Announcement retrieval failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                retrievalFailure:
+                  value:
+                    code: ANNOUNCEMENTS_UNAVAILABLE
+                    message: Conference announcements are temporarily unavailable. Please try again.
+                    requestId: req_7f17ca4f1d4d
+components:
+  schemas:
+    PublicAnnouncementsResponse:
+      type: object
+      required:
+        - state
+        - announcements
+        - message
+      properties:
+        state:
+          type: string
+          enum: [AVAILABLE, EMPTY]
+        announcements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Announcement'
+        message:
+          type: string
+    Announcement:
+      type: object
+      required:
+        - id
+        - title
+        - content
+        - publishStart
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        content:
+          type: string
+        publishStart:
+          type: string
+          format: date-time
+        publishEnd:
+          type: string
+          format: date-time
+          nullable: true
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+        - requestId
+      properties:
+        code:
+          type: string
+          enum: [ANNOUNCEMENTS_UNAVAILABLE]
+        message:
+          type: string
+        requestId:
+          type: string

@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: Editor Final Decision API
+  version: 1.0.0
+paths:
+  /api/editor/papers/{paperId}/decision:
+    post:
+      summary: Record final acceptance or rejection decision
+      parameters:
+        - in: path
+          name: paperId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecisionRequest'
+      responses:
+        '200':
+          description: Decision recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecisionRecordedResponse'
+        '409':
+          description: Reviews pending or decision already finalized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecisionBlockedResponse'
+        '401':
+          description: Session expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Unauthorized or unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Unavailable (no disclosure)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    DecisionRequest:
+      type: object
+      required:
+        - decision
+      properties:
+        decision:
+          type: string
+          enum: [ACCEPT, REJECT]
+    DecisionRecordedResponse:
+      type: object
+      required:
+        - outcome
+        - paperId
+        - decision
+        - decidedAt
+      properties:
+        outcome:
+          type: string
+          enum: [DECISION_RECORDED]
+        paperId:
+          type: string
+        decision:
+          type: string
+          enum: [ACCEPT, REJECT]
+        decidedAt:
+          type: string
+          format: date-time
+    DecisionBlockedResponse:
+      type: object
+      required:
+        - outcome
+        - message
+      properties:
+        outcome:
+          type: string
+          enum: [REVIEWS_PENDING, DECISION_FINALIZED]
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - outcome
+        - message
+      properties:
+        outcome:
+          type: string
+          enum: [UNAVAILABLE_DENIED, SESSION_EXPIRED]
+        message:
+          type: string

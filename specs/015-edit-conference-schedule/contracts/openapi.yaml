@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: CMS Schedule Edit API
+  version: 1.0.0
+  description: API contracts for UC-15 schedule edits.
+servers:
+  - url: /api
+paths:
+  /editor/conferences/{conferenceId}/schedule:
+    get:
+      summary: Get current conference schedule
+      operationId: getConferenceSchedule
+      parameters:
+        - name: conferenceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Schedule retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConferenceSchedule'
+        '401':
+          description: Unauthenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden (not an editor)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update conference schedule
+      operationId: updateConferenceSchedule
+      parameters:
+        - name: conferenceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleModificationRequest'
+      responses:
+        '200':
+          description: Schedule updated and finalized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConferenceSchedule'
+        '400':
+          description: Invalid modifications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden (not an editor)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ConferenceSchedule:
+      type: object
+      required:
+        - id
+        - conferenceId
+        - status
+        - entries
+      properties:
+        id:
+          type: string
+          format: uuid
+        conferenceId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [DRAFT, FINAL]
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleEntry'
+    ScheduleEntry:
+      type: object
+      required:
+        - paperId
+        - sessionId
+        - roomId
+        - timeSlotId
+      properties:
+        paperId:
+          type: string
+          format: uuid
+        sessionId:
+          type: string
+          format: uuid
+        roomId:
+          type: string
+          format: uuid
+        timeSlotId:
+          type: string
+          format: uuid
+    ScheduleModificationRequest:
+      type: object
+      required:
+        - scheduleId
+        - entries
+      properties:
+        scheduleId:
+          type: string
+          format: uuid
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleEntry'
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string

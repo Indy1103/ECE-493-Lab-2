@@ -1,0 +1,208 @@
+openapi: 3.0.3
+info:
+  title: CMS Review Invitation Response API
+  version: 1.0.0
+  description: Contract for UC-08 Respond to Review Invitation.
+servers:
+  - url: https://api.cms.local
+paths:
+  /api/v1/review-invitations/{invitationId}:
+    get:
+      summary: Get pending review invitation details for invited referee
+      operationId: getReviewInvitation
+      tags: [ReviewInvitations]
+      security:
+        - sessionAuth: []
+      parameters:
+        - in: path
+          name: invitationId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Invitation details retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewInvitationResponse'
+        '401':
+          description: Unauthenticated or expired session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Invitation does not belong to authenticated referee.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Invitation not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/review-invitations/{invitationId}/response:
+    post:
+      summary: Record invited referee accept/reject decision for pending invitation
+      operationId: respondToReviewInvitation
+      tags: [ReviewInvitations]
+      security:
+        - sessionAuth: []
+      parameters:
+        - in: path
+          name: invitationId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvitationDecisionRequest'
+      responses:
+        '200':
+          description: Invitation response recorded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationDecisionSuccessResponse'
+        '400':
+          description: Invalid decision payload or invitation not pending.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+        '401':
+          description: Unauthenticated or expired session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Authenticated user is not invited referee.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Invitation already resolved by earlier valid response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Response-recording failure; invitation remains pending.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: cms_session
+  schemas:
+    ReviewInvitationResponse:
+      type: object
+      required:
+        - invitationId
+        - paperId
+        - paperTitle
+        - paperSummary
+        - reviewDueAt
+        - responseDeadlineAt
+        - status
+      properties:
+        invitationId:
+          type: string
+          format: uuid
+        paperId:
+          type: string
+          format: uuid
+        paperTitle:
+          type: string
+        paperSummary:
+          type: string
+        reviewDueAt:
+          type: string
+          format: date-time
+        responseDeadlineAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [PENDING, ACCEPTED, REJECTED, EXPIRED]
+    InvitationDecisionRequest:
+      type: object
+      additionalProperties: false
+      required: [decision]
+      properties:
+        decision:
+          type: string
+          enum: [ACCEPT, REJECT]
+    InvitationDecisionSuccessResponse:
+      type: object
+      required:
+        - invitationId
+        - decision
+        - invitationStatus
+        - assignmentCreated
+        - message
+      properties:
+        invitationId:
+          type: string
+          format: uuid
+        decision:
+          type: string
+          enum: [ACCEPT, REJECT]
+        invitationStatus:
+          type: string
+          enum: [ACCEPTED, REJECTED]
+        assignmentCreated:
+          type: boolean
+        message:
+          type: string
+          example: Your response has been recorded.
+    ValidationErrorResponse:
+      type: object
+      required: [code, message, violations]
+      properties:
+        code:
+          type: string
+          enum: [VALIDATION_FAILED]
+        message:
+          type: string
+        violations:
+          type: array
+          items:
+            type: object
+            required: [rule, message]
+            properties:
+              rule:
+                type: string
+                enum:
+                  - INVITATION_NOT_PENDING
+                  - INVALID_DECISION_VALUE
+              message:
+                type: string
+    ErrorResponse:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          enum:
+            - AUTHENTICATION_REQUIRED
+            - AUTHORIZATION_FAILED
+            - INVITATION_NOT_FOUND
+            - INVITATION_ALREADY_RESOLVED
+            - RESPONSE_RECORDING_FAILED
+        message:
+          type: string

@@ -1,0 +1,143 @@
+openapi: 3.0.3
+info:
+  title: CMS User Login API
+  version: 1.0.0
+  description: Public login contract aligned to UC-03.
+servers:
+  - url: https://cms.example.com
+paths:
+  /api/public/login:
+    post:
+      summary: Authenticate a registered CMS user
+      operationId: loginUser
+      tags:
+        - UserLogin
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authentication succeeded and role-specific home destination is provided.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginSuccessResponse'
+        '401':
+          description: Invalid username or password.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Login attempts are temporarily throttled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottledResponse'
+        '403':
+          description: Authenticated identity has no recognized role-home mapping; access is denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleMappingDeniedResponse'
+        '503':
+          description: Authentication unavailable due to temporary operational failure.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnavailableResponse'
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 1
+        password:
+          type: string
+          minLength: 1
+    LoginSuccessResponse:
+      type: object
+      required:
+        - state
+        - message
+        - roleHomePath
+        - requestId
+      properties:
+        state:
+          type: string
+          enum: [AUTHENTICATED]
+        message:
+          type: string
+        roleHomePath:
+          type: string
+        requestId:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+        - requestId
+      properties:
+        code:
+          type: string
+          enum: [INVALID_CREDENTIALS]
+        message:
+          type: string
+        requestId:
+          type: string
+    ThrottledResponse:
+      type: object
+      required:
+        - code
+        - message
+        - retryAfterSeconds
+        - requestId
+      properties:
+        code:
+          type: string
+          enum: [LOGIN_THROTTLED]
+        message:
+          type: string
+        retryAfterSeconds:
+          type: integer
+          minimum: 1
+        requestId:
+          type: string
+    RoleMappingDeniedResponse:
+      type: object
+      required:
+        - code
+        - message
+        - requestId
+      properties:
+        code:
+          type: string
+          enum: [ROLE_MAPPING_UNAVAILABLE]
+        message:
+          type: string
+        requestId:
+          type: string
+    UnavailableResponse:
+      type: object
+      required:
+        - code
+        - message
+        - requestId
+      properties:
+        code:
+          type: string
+          enum: [AUTHENTICATION_UNAVAILABLE]
+        message:
+          type: string
+        requestId:
+          type: string
