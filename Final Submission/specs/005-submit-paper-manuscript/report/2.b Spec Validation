@@ -1,0 +1,18 @@
+### Spec Analysis
+
+PASS — Use Case Aligned with Constitution-Justified Additions.
+
+The active use case is UC-05, and the specification correctly restates the primary flow and both
+alternate/exception flows: successful submission with required metadata and valid file, rejection for
+invalid/missing metadata with retry, and rejection for invalid file with retry. These are consistent
+with AT-UC05-01, AT-UC05-02, and AT-UC05-03.
+
+Additional behaviors are present beyond the literal UC/TestSuite wording (for example, encrypted
+object storage handling, PDF/20MB policy, duplicate active-submission prevention, fixed per-cycle
+metadata set, explicit audit logging, and reliability/error-handling controls). These are permissible
+as Constitution-mandated or Constitution-allowed constraints for security, validation clarity,
+reliability, and auditability, and therefore are not unjustified new user features.
+
+One quality note is that the Key Entities section currently repeats Submission Metadata Package
+multiple times with progressively refined wording, which is an internal spec duplication issue rather
+than an unjustified behavior. This does not change the pass classification under your rule set.

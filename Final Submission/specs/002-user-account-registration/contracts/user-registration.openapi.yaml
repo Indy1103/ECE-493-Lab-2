@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  title: CMS User Registration API
+  version: 1.0.0
+  description: Public registration contract aligned to UC-02.
+servers:
+  - url: https://cms.example.com
+paths:
+  /api/public/registrations:
+    post:
+      summary: Register a new CMS user account
+      operationId: createUserRegistration
+      tags:
+        - UserRegistration
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationRequest'
+            examples:
+              valid:
+                value:
+                  fullName: Alex Johnson
+                  email: alex.johnson@example.com
+                  password: Passw0rd88
+      responses:
+        '201':
+          description: Registration succeeded and account is login-eligible.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrationSuccessResponse'
+              examples:
+                registered:
+                  value:
+                    state: REGISTERED
+                    message: Account created successfully. You can now log in.
+        '400':
+          description: Invalid or incomplete registration input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+              examples:
+                invalidInput:
+                  value:
+                    code: VALIDATION_FAILED
+                    message: Some registration information is invalid or missing.
+                    errors:
+                      - field: password
+                        rule: min_length_and_composition
+                        message: Password must be at least 8 characters and include at least one letter and one number.
+        '409':
+          description: Submitted email is already registered.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                duplicateEmail:
+                  value:
+                    code: EMAIL_ALREADY_REGISTERED
+                    message: This email is already registered. Please use a different email address.
+        '429':
+          description: Registration throttled due to repeated failed submissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrottledResponse'
+              examples:
+                throttled:
+                  value:
+                    code: REGISTRATION_THROTTLED
+                    message: Too many failed registration attempts. Please try again later.
+                    retryAfterSeconds: 600
+        '503':
+          description: Registration could not be completed due to temporary service failure.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnavailableResponse'
+              examples:
+                unavailable:
+                  value:
+                    code: REGISTRATION_UNAVAILABLE
+                    message: Registration is temporarily unavailable. Please try again.
+                    requestId: req_4aeb1d53dd31
+components:
+  schemas:
+    RegistrationRequest:
+      type: object
+      required:
+        - fullName
+        - email
+        - password
+      properties:
+        fullName:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+          description: Must include at least one letter and one number.
+    RegistrationSuccessResponse:
+      type: object
+      required:
+        - state
+        - message
+      properties:
+        state:
+          type: string
+          enum: [REGISTERED]
+        message:
+          type: string
+    ValidationErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+        - errors
+      properties:
+        code:
+          type: string
+          enum: [VALIDATION_FAILED]
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldError'
+    FieldError:
+      type: object
+      required:
+        - field
+        - rule
+        - message
+      properties:
+        field:
+          type: string
+          enum: [fullName, email, password]
+        rule:
+          type: string
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          enum: [EMAIL_ALREADY_REGISTERED]
+        message:
+          type: string
+    ThrottledResponse:
+      type: object
+      required:
+        - code
+        - message
+        - retryAfterSeconds
+      properties:
+        code:
+          type: string
+          enum: [REGISTRATION_THROTTLED]
+        message:
+          type: string
+        retryAfterSeconds:
+          type: integer
+          minimum: 1
+    UnavailableResponse:
+      type: object
+      required:
+        - code
+        - message
+        - requestId
+      properties:
+        code:
+          type: string
+          enum: [REGISTRATION_UNAVAILABLE]
+        message:
+          type: string
+        requestId:
+          type: string
