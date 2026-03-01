@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserAccount {
+  id              String   @id @default(uuid()) @db.Uuid
+  fullName        String   @map("full_name")
+  emailOriginal   String   @map("email_original")
+  emailNormalized String   @unique @map("email_normalized")
+  passwordHash    String   @map("password_hash")
+  role            String
+  status          String
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("user_accounts")
+}
+
+model RegistrationThrottleRecord {
+  clientKey        String   @id @map("client_key")
+  windowStart      DateTime @map("window_start")
+  failedAttemptCount Int    @map("failed_attempt_count")
+  blockedUntil     DateTime? @map("blocked_until")
+
+  @@map("registration_throttle_records")
+}

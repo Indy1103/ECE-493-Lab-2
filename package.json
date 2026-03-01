@@ -1,0 +1,13 @@
+{
+  "name": "ece-493-lab-2",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "lint": "npm run lint -w backend && npm run lint -w frontend",
+    "test": "npm run test -w backend && npm run test -w frontend",
+    "coverage": "npm run coverage -w backend"
+  }
+}
