@@ -38,3 +38,28 @@ All files                              |     100 |      100 |     100 |     100 
   announcementMetrics.ts               |     100 |      100 |     100 |     100 |                   
 ---------------------------------------|---------|----------|---------|---------|-------------------
 ```
+
+---
+
+# Coverage Report (Appendix: UC-02)
+
+Date: 2026-03-01
+Branch: `002-user-account-registration`
+
+Command run:
+
+```bash
+npm run coverage -w backend
+```
+
+Result:
+- Statements: 100%
+- Branches: 100%
+- Functions: 100%
+- Lines: 100%
+
+## c8 output summary
+
+```text
+All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
+```
