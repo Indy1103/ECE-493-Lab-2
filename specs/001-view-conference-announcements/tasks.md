@@ -23,11 +23,11 @@
 
 **Purpose**: Initialize repository scaffolding and baseline tooling for the three-layer web app.
 
-- [ ] T001 Create root workspace scripts for lint and test execution in `package.json`
-- [ ] T002 Create backend TypeScript project configuration in `backend/package.json` and `backend/tsconfig.json`
-- [ ] T003 [P] Create frontend TypeScript project configuration in `frontend/package.json` and `frontend/tsconfig.json`
-- [ ] T004 [P] Scaffold layer directories with placeholders in `backend/src/presentation/.gitkeep`, `backend/src/business/.gitkeep`, `backend/src/data/.gitkeep`, `frontend/src/presentation/.gitkeep`, `frontend/src/business/.gitkeep`, and `frontend/src/data/.gitkeep`
-- [ ] T005 [P] Add baseline CI pipeline for lint and tests in `.github/workflows/ci.yml`
+- [X] T001 Create root workspace scripts for lint and test execution in `package.json`
+- [X] T002 Create backend TypeScript project configuration in `backend/package.json` and `backend/tsconfig.json`
+- [X] T003 [P] Create frontend TypeScript project configuration in `frontend/package.json` and `frontend/tsconfig.json`
+- [X] T004 [P] Scaffold layer directories with placeholders in `backend/src/presentation/.gitkeep`, `backend/src/business/.gitkeep`, `backend/src/data/.gitkeep`, `frontend/src/presentation/.gitkeep`, `frontend/src/business/.gitkeep`, and `frontend/src/data/.gitkeep`
+- [X] T005 [P] Add baseline CI pipeline for lint and tests in `.github/workflows/ci.yml`
 
 ---
 
@@ -39,20 +39,20 @@
 
 ### Tests for Foundational Rules (REQUIRED BEFORE PHASE 2 IMPLEMENTATION)
 
-- [ ] T042 Add failing unit test for visibility-window rule behavior in `backend/tests/unit/publicAnnouncementEligibility.unit.test.ts`
-- [ ] T043 Add failing integration test for unauthenticated route shell and `requestId` propagation in `backend/tests/integration/public-announcements.route-foundation.integration.test.ts`
-- [ ] T044 Add failing integration test for retrieval-failure observability contract (log + metric) in `backend/tests/integration/public-announcements.observability-foundation.integration.test.ts`
+- [X] T042 Add failing unit test for visibility-window rule behavior in `backend/tests/unit/publicAnnouncementEligibility.unit.test.ts`
+- [X] T043 Add failing integration test for unauthenticated route shell and `requestId` propagation in `backend/tests/integration/public-announcements.route-foundation.integration.test.ts`
+- [X] T044 Add failing integration test for retrieval-failure observability contract (log + metric) in `backend/tests/integration/public-announcements.observability-foundation.integration.test.ts`
 
-- [ ] T006 Define `ConferenceAnnouncement` model and datasource settings in `backend/prisma/schema.prisma`
-- [ ] T007 Create initial SQL migration for public announcements in `infra/db/migrations/001_public_announcements_init.sql`
-- [ ] T008 Define repository port interface in `backend/src/business/ports/conferenceAnnouncementRepository.ts`
-- [ ] T009 [P] Implement Prisma repository adapter scaffold in `backend/src/data/prismaConferenceAnnouncementRepository.ts`
-- [ ] T010 Implement authoritative visibility-window rules in `backend/src/business/rules/publicAnnouncementEligibility.ts`
-- [ ] T011 [P] Define response and error Zod schemas in `backend/src/shared/contracts/publicAnnouncementsSchemas.ts`
-- [ ] T012 [P] Bootstrap Fastify server with request-id and structured logging in `backend/src/presentation/http/server.ts`
-- [ ] T013 Implement Prometheus retrieval-failure metric registration in `backend/src/shared/observability/announcementMetrics.ts`
-- [ ] T014 Configure alert rule for failure rate >5% for 5 minutes in `infra/ops/monitoring/public-announcements-alert.rules.yml`
-- [ ] T015 Register unauthenticated public announcements route shell in `backend/src/presentation/routes/publicAnnouncementsRoute.ts`
+- [X] T006 Define `ConferenceAnnouncement` model and datasource settings in `backend/prisma/schema.prisma`
+- [X] T007 Create initial SQL migration for public announcements in `infra/db/migrations/001_public_announcements_init.sql`
+- [X] T008 Define repository port interface in `backend/src/business/ports/conferenceAnnouncementRepository.ts`
+- [X] T009 [P] Implement Prisma repository adapter scaffold in `backend/src/data/prismaConferenceAnnouncementRepository.ts`
+- [X] T010 Implement authoritative visibility-window rules in `backend/src/business/rules/publicAnnouncementEligibility.ts`
+- [X] T011 [P] Define response and error Zod schemas in `backend/src/shared/contracts/publicAnnouncementsSchemas.ts`
+- [X] T012 [P] Bootstrap Fastify server with request-id and structured logging in `backend/src/presentation/http/server.ts`
+- [X] T013 Implement Prometheus retrieval-failure metric registration in `backend/src/shared/observability/announcementMetrics.ts`
+- [X] T014 Configure alert rule for failure rate >5% for 5 minutes in `infra/ops/monitoring/public-announcements-alert.rules.yml`
+- [X] T015 Register unauthenticated public announcements route shell in `backend/src/presentation/routes/publicAnnouncementsRoute.ts`
 
 **Checkpoint**: Foundation ready; user-story implementation can begin.
 
@@ -66,18 +66,18 @@
 
 ### Tests for User Story 1 (REQUIRED)
 
-- [ ] T016 [P] [US1] Add contract test for `200 AVAILABLE` response in `backend/tests/contract/public-announcements.available.contract.test.ts`
-- [ ] T017 [P] [US1] Add integration test for visibility-window filtering in `backend/tests/integration/public-announcements.available.integration.test.ts`
-- [ ] T018 [P] [US1] Add e2e test for anonymous readable announcements in `frontend/tests/e2e/public-announcements.available.e2e.spec.ts`
+- [X] T016 [P] [US1] Add contract test for `200 AVAILABLE` response in `backend/tests/contract/public-announcements.available.contract.test.ts`
+- [X] T017 [P] [US1] Add integration test for visibility-window filtering in `backend/tests/integration/public-announcements.available.integration.test.ts`
+- [X] T018 [P] [US1] Add e2e test for anonymous readable announcements in `frontend/tests/e2e/public-announcements.available.e2e.spec.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T019 [US1] Implement eligible-announcement query (`is_public` + publish window) in `backend/src/data/prismaConferenceAnnouncementRepository.ts`
-- [ ] T020 [US1] Implement service mapping for `AVAILABLE` state in `backend/src/business/services/publicAnnouncementService.ts`
-- [ ] T021 [US1] Implement GET handler success path for available announcements in `backend/src/presentation/routes/publicAnnouncementsRoute.ts`
-- [ ] T022 [US1] Implement public announcements API client in `frontend/src/data/publicAnnouncementsApi.ts`
-- [ ] T023 [US1] Implement frontend business orchestration for anonymous fetch in `frontend/src/business/loadPublicAnnouncements.ts`
-- [ ] T024 [US1] Render available announcement list without authentication prompts in `frontend/src/presentation/pages/PublicAnnouncementsPage.tsx`
+- [X] T019 [US1] Implement eligible-announcement query (`is_public` + publish window) in `backend/src/data/prismaConferenceAnnouncementRepository.ts`
+- [X] T020 [US1] Implement service mapping for `AVAILABLE` state in `backend/src/business/services/publicAnnouncementService.ts`
+- [X] T021 [US1] Implement GET handler success path for available announcements in `backend/src/presentation/routes/publicAnnouncementsRoute.ts`
+- [X] T022 [US1] Implement public announcements API client in `frontend/src/data/publicAnnouncementsApi.ts`
+- [X] T023 [US1] Implement frontend business orchestration for anonymous fetch in `frontend/src/business/loadPublicAnnouncements.ts`
+- [X] T024 [US1] Render available announcement list without authentication prompts in `frontend/src/presentation/pages/PublicAnnouncementsPage.tsx`
 
 **Checkpoint**: User Story 1 is independently functional and testable.
 
@@ -91,20 +91,20 @@
 
 ### Tests for User Story 2 (REQUIRED)
 
-- [ ] T025 [P] [US2] Add contract test for `200 EMPTY` response in `backend/tests/contract/public-announcements.empty.contract.test.ts`
-- [ ] T026 [P] [US2] Add integration test for empty retrieval outcome in `backend/tests/integration/public-announcements.empty.integration.test.ts`
-- [ ] T027 [P] [US2] Add integration test for `503 ANNOUNCEMENTS_UNAVAILABLE` response in `backend/tests/integration/public-announcements.failure.integration.test.ts`
-- [ ] T028 [P] [US2] Add e2e test for empty-state message with zero entries in `frontend/tests/e2e/public-announcements.empty.e2e.spec.ts`
-- [ ] T029 [P] [US2] Add e2e test for retrieval-failure message distinct from empty state in `frontend/tests/e2e/public-announcements.failure.e2e.spec.ts`
+- [X] T025 [P] [US2] Add contract test for `200 EMPTY` response in `backend/tests/contract/public-announcements.empty.contract.test.ts`
+- [X] T026 [P] [US2] Add integration test for empty retrieval outcome in `backend/tests/integration/public-announcements.empty.integration.test.ts`
+- [X] T027 [P] [US2] Add integration test for `503 ANNOUNCEMENTS_UNAVAILABLE` response in `backend/tests/integration/public-announcements.failure.integration.test.ts`
+- [X] T028 [P] [US2] Add e2e test for empty-state message with zero entries in `frontend/tests/e2e/public-announcements.empty.e2e.spec.ts`
+- [X] T029 [P] [US2] Add e2e test for retrieval-failure message distinct from empty state in `frontend/tests/e2e/public-announcements.failure.e2e.spec.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T030 [US2] Extend service to produce deterministic `EMPTY` and `RETRIEVAL_FAILURE` states in `backend/src/business/services/publicAnnouncementService.ts`
-- [ ] T031 [US2] Return `503` error payload with `requestId` in `backend/src/presentation/routes/publicAnnouncementsRoute.ts`
-- [ ] T032 [US2] Emit structured retrieval-failure logs with failure category in `backend/src/presentation/routes/publicAnnouncementsRoute.ts`
-- [ ] T033 [US2] Increment retrieval-failure metrics on error path in `backend/src/shared/observability/announcementMetrics.ts`
-- [ ] T034 [US2] Render explicit empty-state message and suppress announcement list in `frontend/src/presentation/pages/PublicAnnouncementsPage.tsx`
-- [ ] T035 [US2] Render explicit retrieval-failure message distinct from empty-state text in `frontend/src/presentation/pages/PublicAnnouncementsPage.tsx`
+- [X] T030 [US2] Extend service to produce deterministic `EMPTY` and `RETRIEVAL_FAILURE` states in `backend/src/business/services/publicAnnouncementService.ts`
+- [X] T031 [US2] Return `503` error payload with `requestId` in `backend/src/presentation/routes/publicAnnouncementsRoute.ts`
+- [X] T032 [US2] Emit structured retrieval-failure logs with failure category in `backend/src/presentation/routes/publicAnnouncementsRoute.ts`
+- [X] T033 [US2] Increment retrieval-failure metrics on error path in `backend/src/shared/observability/announcementMetrics.ts`
+- [X] T034 [US2] Render explicit empty-state message and suppress announcement list in `frontend/src/presentation/pages/PublicAnnouncementsPage.tsx`
+- [X] T035 [US2] Render explicit retrieval-failure message distinct from empty-state text in `frontend/src/presentation/pages/PublicAnnouncementsPage.tsx`
 
 **Checkpoint**: User Stories 1 and 2 both pass independently.
 
@@ -114,20 +114,20 @@
 
 **Purpose**: Complete performance, browser, resilience, and traceability requirements before release.
 
-- [ ] T036 [P] Add 100-concurrent-user p95 performance test for public announcements in `backend/tests/performance/public-announcements.k6.js`
-- [ ] T037 [P] Add CI job executing announcement performance smoke checks in `.github/workflows/ci.yml`
-- [ ] T038 Add Chrome and Firefox e2e matrix for announcement flows in `.github/workflows/ci.yml`
-- [ ] T039 Update announcement incident and alert response runbook in `infra/ops/monitoring/public-announcements-runbook.md`
-- [ ] T040 Validate and document backup/restore verification for announcements data in `infra/db/backup/restore-verification.md`
-- [ ] T041 Record UC-01 and AT-UC01 traceability checks in `specs/001-view-conference-announcements/quickstart.md`
-- [ ] T045 [P] Add responsive e2e viewport tests (mobile + desktop) for AVAILABLE/EMPTY/RETRIEVAL_FAILURE states in `frontend/tests/e2e/public-announcements.responsive.e2e.spec.ts`
-- [ ] T046 Add CI step to run responsive viewport checks in `.github/workflows/ci.yml`
-- [ ] T047 Enforce HTTPS-only access policy for public announcements endpoint in `backend/src/presentation/http/server.ts` and `infra/ops/monitoring/public-announcements-https-policy.md`
-- [ ] T048 [P] Add integration test for non-TLS request context handling in `backend/tests/integration/public-announcements.tls.integration.test.ts`
-- [ ] T049 Define public announcements availability SLI/SLO and alerts in `infra/ops/monitoring/public-announcements-slo.yml`
-- [ ] T050 [P] Add synthetic availability probe configuration for public announcements in `infra/ops/monitoring/public-announcements-availability-probe.yml`
-- [ ] T051 Add integration test validating automatic recovery from transient retrieval failures to normal read states in `backend/tests/integration/public-announcements.recovery.integration.test.ts`
-- [ ] T052 [P] Add fault-injection scenario for retrieval outage and recovery timing in `backend/tests/integration/public-announcements.fault-recovery.integration.test.ts`
+- [X] T036 [P] Add 100-concurrent-user p95 performance test for public announcements in `backend/tests/performance/public-announcements.k6.js`
+- [X] T037 [P] Add CI job executing announcement performance smoke checks in `.github/workflows/ci.yml`
+- [X] T038 Add Chrome and Firefox e2e matrix for announcement flows in `.github/workflows/ci.yml`
+- [X] T039 Update announcement incident and alert response runbook in `infra/ops/monitoring/public-announcements-runbook.md`
+- [X] T040 Validate and document backup/restore verification for announcements data in `infra/db/backup/restore-verification.md`
+- [X] T041 Record UC-01 and AT-UC01 traceability checks in `specs/001-view-conference-announcements/quickstart.md`
+- [X] T045 [P] Add responsive e2e viewport tests (mobile + desktop) for AVAILABLE/EMPTY/RETRIEVAL_FAILURE states in `frontend/tests/e2e/public-announcements.responsive.e2e.spec.ts`
+- [X] T046 Add CI step to run responsive viewport checks in `.github/workflows/ci.yml`
+- [X] T047 Enforce HTTPS-only access policy for public announcements endpoint in `backend/src/presentation/http/server.ts` and `infra/ops/monitoring/public-announcements-https-policy.md`
+- [X] T048 [P] Add integration test for non-TLS request context handling in `backend/tests/integration/public-announcements.tls.integration.test.ts`
+- [X] T049 Define public announcements availability SLI/SLO and alerts in `infra/ops/monitoring/public-announcements-slo.yml`
+- [X] T050 [P] Add synthetic availability probe configuration for public announcements in `infra/ops/monitoring/public-announcements-availability-probe.yml`
+- [X] T051 Add integration test validating automatic recovery from transient retrieval failures to normal read states in `backend/tests/integration/public-announcements.recovery.integration.test.ts`
+- [X] T052 [P] Add fault-injection scenario for retrieval outage and recovery timing in `backend/tests/integration/public-announcements.fault-recovery.integration.test.ts`
 
 ---
 

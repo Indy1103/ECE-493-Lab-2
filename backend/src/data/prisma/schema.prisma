@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserAccount {
+  id              String   @id @default(uuid()) @db.Uuid
+  fullName        String   @map("full_name")
+  emailOriginal   String   @map("email_original")
+  emailNormalized String   @unique @map("email_normalized")
+  passwordHash    String   @map("password_hash")
+  role            String
+  status          String
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("user_accounts")
+}
+
+model RegistrationThrottleRecord {
+  clientKey        String   @id @map("client_key")
+  windowStart      DateTime @map("window_start")
+  failedAttemptCount Int    @map("failed_attempt_count")
+  blockedUntil     DateTime? @map("blocked_until")
+
+  @@map("registration_throttle_records")
+}
+
+enum ConferenceScheduleStatus {
+  DRAFT
+  FINAL
+}
+
+enum ScheduleModificationStatus {
+  PENDING
+  APPLIED
+  REJECTED
+}
+
+enum SchedulePublicationStatus {
+  PUBLISHED
+}
+
+enum AuthorNotificationStatus {
+  SENT
+  FAILED
+}
+
+enum RegistrationPriceListStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model ConferenceSchedule {
+  id                String                    @id @default(uuid()) @db.Uuid
+  conferenceId      String                    @unique @map("conference_id") @db.Uuid
+  status            ConferenceScheduleStatus
+  updatedAt         DateTime                  @updatedAt @map("updated_at")
+  updatedByEditorId String                    @map("updated_by_editor_id") @db.Uuid
+  entries           ScheduleEntry[]
+  publication       SchedulePublication?
+  authorNotifications AuthorNotification[]
+  modificationRequests ScheduleModificationRequest[]
+
+  @@map("conference_schedules")
+}
+
+model ScheduleEntry {
+  id          String             @id @default(uuid()) @db.Uuid
+  scheduleId  String             @map("schedule_id") @db.Uuid
+  paperId     String             @map("paper_id") @db.Uuid
+  sessionId   String             @map("session_id") @db.Uuid
+  roomId      String             @map("room_id") @db.Uuid
+  timeSlotId  String             @map("time_slot_id") @db.Uuid
+  schedule    ConferenceSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@index([scheduleId], map: "schedule_entries_schedule_idx")
+  @@map("schedule_entries")
+}
+
+model ScheduleModificationRequest {
+  id                  String                     @id @default(uuid()) @db.Uuid
+  scheduleId          String                     @map("schedule_id") @db.Uuid
+  requestedByEditorId String                     @map("requested_by_editor_id") @db.Uuid
+  requestedAt         DateTime                   @default(now()) @map("requested_at")
+  status              ScheduleModificationStatus
+  schedule            ConferenceSchedule         @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@index([scheduleId, requestedAt], map: "schedule_modification_requests_schedule_time_idx")
+  @@map("schedule_modification_requests")
+}
+
+model SchedulePublication {
+  id                  String                    @id @default(uuid()) @db.Uuid
+  scheduleId          String                    @unique @map("schedule_id") @db.Uuid
+  publishedAt         DateTime                  @map("published_at")
+  publishedByEditorId String                    @map("published_by_editor_id") @db.Uuid
+  status              SchedulePublicationStatus
+  schedule            ConferenceSchedule         @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@map("schedule_publications")
+}
+
+model AuthorNotification {
+  id          String                   @id @default(uuid()) @db.Uuid
+  authorId    String                   @map("author_id") @db.Uuid
+  scheduleId  String                   @map("schedule_id") @db.Uuid
+  notifiedAt  DateTime                 @default(now()) @map("notified_at")
+  status      AuthorNotificationStatus
+  schedule    ConferenceSchedule       @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@index([authorId], map: "author_notifications_author_idx")
+  @@index([scheduleId, notifiedAt], map: "author_notifications_schedule_time_idx")
+  @@map("author_notifications")
+}
+
+model RegistrationPriceList {
+  id           String                      @id @default(uuid()) @db.Uuid
+  title        String
+  status       RegistrationPriceListStatus
+  publishedAt  DateTime?                   @map("published_at")
+  effectiveFrom DateTime?                  @db.Date @map("effective_from")
+  effectiveTo  DateTime?                   @db.Date @map("effective_to")
+  createdAt    DateTime                    @default(now()) @map("created_at")
+  updatedAt    DateTime                    @updatedAt @map("updated_at")
+  prices       RegistrationPrice[]
+
+  @@map("registration_price_lists")
+}
+
+model RegistrationPrice {
+  id             String                @id @default(uuid()) @db.Uuid
+  priceListId    String                @map("price_list_id") @db.Uuid
+  attendanceType String                @map("attendance_type")
+  amount         Decimal               @db.Decimal(10, 2)
+  currency       String                @db.Char(3)
+  createdAt      DateTime              @default(now()) @map("created_at")
+  updatedAt      DateTime              @updatedAt @map("updated_at")
+  priceList      RegistrationPriceList @relation(fields: [priceListId], references: [id], onDelete: Cascade)
+
+  @@unique([priceListId, attendanceType], map: "registration_prices_unique_attendance_type_idx")
+  @@index([priceListId], map: "registration_prices_price_list_idx")
+  @@map("registration_prices")
+}

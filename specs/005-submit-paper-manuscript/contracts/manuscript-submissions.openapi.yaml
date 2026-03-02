@@ -20,6 +20,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubmissionRequirementsResponse'
+              examples:
+                openIntake:
+                  value:
+                    cycleId: "00000000-0000-4000-9000-000000000501"
+                    intakeStatus: OPEN
+                    metadataPolicyVersion: "CMS Manuscript Submission Policy v1.0"
+                    requiredMetadataFields:
+                      - title
+                      - abstract
+                      - keywords
+                      - fullAuthorList
+                      - correspondingAuthorEmail
+                      - primarySubjectArea
+                    fileConstraints:
+                      allowedMediaTypes: [application/pdf]
+                      maxBytes: 20971520
+        '426':
+          description: Non-TLS transport rejected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
           description: Unauthenticated or expired session.
           content:
@@ -67,12 +89,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateSubmissionSuccessResponse'
+              examples:
+                accepted:
+                  value:
+                    submissionId: "00000000-0000-4000-8000-0000000005ab"
+                    status: SUBMITTED
+                    message: Manuscript submitted successfully.
         '400':
           description: Metadata validation failed.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationErrorResponse'
+              examples:
+                metadataValidationFailure:
+                  value:
+                    code: VALIDATION_FAILED
+                    message: Metadata validation failed.
+                    violations:
+                      - field: correspondingAuthorEmail
+                        rule: invalid_string
+                        message: Invalid email
+        '426':
+          description: Non-TLS transport rejected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
           description: Unauthenticated or expired session.
           content:
@@ -204,6 +247,7 @@ components:
             - DUPLICATE_ACTIVE_SUBMISSION
             - FILE_TOO_LARGE
             - FILE_TYPE_NOT_ALLOWED
+            - TLS_REQUIRED
             - OPERATIONAL_FAILURE
         message:
           type: string

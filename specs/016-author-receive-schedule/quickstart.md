@@ -19,3 +19,10 @@ Validate UC-16 behavior for author notification and schedule access, including u
    - Precondition: User is not authenticated as an author.
    - Action: User requests schedule.
    - Expected: Access denied with explicit error.
+
+## Browser Compatibility Checklist (UC-16)
+
+- [x] Chrome (current): Published schedule view loads and displays author presentation details.
+- [x] Chrome (current): Unpublished schedule flow shows explicit unavailability message.
+- [x] Firefox (current): Published schedule view loads and displays author presentation details.
+- [x] Firefox (current): Unpublished schedule flow shows explicit unavailability message.

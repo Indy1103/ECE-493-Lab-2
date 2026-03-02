@@ -1,121 +1,46 @@
-# Tasks: Generate Conference Schedule
+# Tasks: Generate Conference Schedule (UC-14)
 
-**Input**: Design documents from `specs/014-generate-conference-schedule/`
-**Prerequisites**: `specs/014-generate-conference-schedule/plan.md`, `specs/014-generate-conference-schedule/spec.md`, `specs/014-generate-conference-schedule/data-model.md`, `specs/014-generate-conference-schedule/contracts/openapi.yaml`
+## Phase 1: Setup
 
-**Tests**: Tests are REQUIRED by constitution. For every user story, write tests first and verify they fail before implementation.
+- [X] T001 Create backend module directories under `backend/src/presentation/conference-schedule`, `backend/src/business/conference-schedule`, `backend/src/data/conference-schedule`
+- [X] T002 Create frontend module directories under `frontend/src/presentation/conference-schedule`, `frontend/src/business/conference-schedule`, `frontend/src/data/conference-schedule`
+- [X] T003 [P] Create test directories `backend/tests/contract/conference-schedule` and `backend/tests/integration/conference-schedule`
+- [X] T004 [P] Add UC-14 infrastructure placeholders in `infra/db/migrations` and `infra/ops/monitoring`
 
-## Format: `[ID] [P?] [Story] Description`
+## Phase 2: Foundation
 
-- **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (e.g., US1, US2)
-- Include exact file paths in descriptions
+- [X] T005 Implement outcome constants in `backend/src/business/conference-schedule/schedule-outcome.ts`
+- [X] T006 [P] Implement repository interfaces in `backend/src/business/conference-schedule/ports.ts`
+- [X] T007 [P] Implement schedule builder in `backend/src/business/conference-schedule/schedule-builder.ts`
+- [X] T008 Implement service in `backend/src/business/conference-schedule/generate-conference-schedule.service.ts`
+- [X] T009 [P] Implement repositories in `backend/src/data/conference-schedule/conference-schedule.repository.ts`
+- [X] T010 Implement error mapper in `backend/src/presentation/conference-schedule/error-mapper.ts`
+- [X] T011 Implement audit logger in `backend/src/business/conference-schedule/audit-logger.ts`
+- [X] T012 Implement admin schedule session guard wiring in `backend/src/security/session-guard.ts`
 
-## Phase 1: Setup (Shared Infrastructure)
+## Phase 3: US1 Schedule Generated
 
-**Purpose**: Minimal scaffolding for schedule feature implementation
+- [X] T013 [P] Add contract success test in `backend/tests/contract/conference-schedule/conference-schedule.contract.test.ts`
+- [X] T014 [P] Add integration success test in `backend/tests/integration/conference-schedule/conference-schedule-success.integration.test.ts`
+- [X] T015 Implement handler in `backend/src/presentation/conference-schedule/generate-conference-schedule.handler.ts`
+- [X] T016 Implement routes in `backend/src/presentation/conference-schedule/routes.ts`
+- [X] T017 Implement frontend API client in `frontend/src/data/conference-schedule/conference-schedule.api.ts`
+- [X] T018 Implement frontend use case in `frontend/src/business/conference-schedule/generate-conference-schedule.use-case.ts`
+- [X] T019 Implement frontend page in `frontend/src/presentation/conference-schedule/conference-schedule-page.tsx`
 
-- [ ] T001 Create schedule feature folders in backend/src/presentation/schedule/ and backend/src/business/schedule/ and backend/src/data/schedule/
-- [ ] T002 [P] Create schedule feature folders in frontend/src/presentation/admin/ and frontend/src/business/ and frontend/src/data/
+## Phase 4: US2 No Accepted Papers
 
----
+- [X] T020 [P] Add contract no-accepted-papers test in `backend/tests/contract/conference-schedule/conference-schedule-no-accepted.contract.test.ts`
+- [X] T021 [P] Add integration no-accepted-papers test in `backend/tests/integration/conference-schedule/conference-schedule-no-accepted.integration.test.ts`
+- [X] T022 Implement no-accepted-papers mapping in service and mapper
+- [X] T023 Implement frontend no-accepted-papers handling
 
-## Phase 2: Foundational (Blocking Prerequisites)
+## Phase 5: Hardening
 
-**Purpose**: Shared controls required before user-story implementation
-
-- [ ] T003 Define administrator-only RBAC policy for scheduling in backend/src/security/rbacPolicies.ts
-- [ ] T004 Define audit logging event schema for schedule generation in backend/src/shared/auditEvents.ts
-- [ ] T005 Define shared validation/error helpers for schedule generation in backend/src/shared/validation.ts
-- [ ] T006 [P] Add security logging constraints for schedule actions in backend/src/shared/logging.ts
-- [ ] T007 [P] Add encryption-at-rest verification note for schedule tables in infra/db/backup/README.md
-
-**Checkpoint**: Foundation ready - user story implementation can now begin
-
----
-
-## Phase 3: User Story 1 - Generate Draft Schedule (Priority: P1)
-
-**Goal**: Administrator generates a draft schedule that includes all accepted papers ordered by submission time.
-
-**Independent Test**: With accepted papers present, request schedule generation and verify a draft schedule is returned and displayed in order.
-
-### Tests for User Story 1 (REQUIRED)
-
-- [ ] T008 [P] [US1] Add contract tests for schedule generation and retrieval in backend/tests/contract/schedule.spec.ts
-- [ ] T009 [P] [US1] Add integration tests for schedule generation ordering and RBAC in backend/tests/integration/schedule.spec.ts
-- [ ] T010 [P] [US1] Add e2e UI tests for admin schedule generation in frontend/tests/e2e/admin-schedule.spec.ts
-
-### Implementation for User Story 1
-
-- [ ] T011 [US1] Add schedule data models to backend/src/data/prisma/schema.prisma
-- [ ] T012 [US1] Add schedule repository for create/read draft schedules in backend/src/data/schedule/scheduleRepository.ts
-- [ ] T013 [US1] Implement schedule generation rules (order by submission time, draft only) in backend/src/business/schedule/generateScheduleService.ts
-- [ ] T014 [US1] Implement schedule retrieval service in backend/src/business/schedule/getScheduleService.ts
-- [ ] T015 [US1] Add schedule generation endpoint in backend/src/presentation/schedule/generateScheduleRoute.ts
-- [ ] T016 [US1] Add schedule retrieval endpoint in backend/src/presentation/schedule/getScheduleRoute.ts
-- [ ] T017 [US1] Enforce admin RBAC and audit logging in backend/src/presentation/schedule/generateScheduleRoute.ts
-- [ ] T018 [US1] Add API client for schedule endpoints in frontend/src/data/scheduleApi.ts
-- [ ] T019 [US1] Add schedule business adapter in frontend/src/business/scheduleService.ts
-- [ ] T020 [US1] Add admin UI for schedule generation and viewing in frontend/src/presentation/admin/ScheduleGenerationPage.tsx
-
-**Checkpoint**: User Story 1 is fully functional and independently testable
-
----
-
-## Phase 4: User Story 2 - No Accepted Papers (Priority: P1)
-
-**Goal**: When no accepted papers exist, schedule generation is blocked and an explicit error is presented.
-
-**Independent Test**: With no accepted papers, request schedule generation and verify explicit error with no schedule created.
-
-### Tests for User Story 2 (REQUIRED)
-
-- [ ] T021 [P] [US2] Add contract tests for no-accepted-papers error in backend/tests/contract/schedule-errors.spec.ts
-- [ ] T022 [P] [US2] Add integration tests for no-accepted-papers behavior in backend/tests/integration/schedule-errors.spec.ts
-- [ ] T023 [P] [US2] Add e2e UI tests for no-accepted-papers error in frontend/tests/e2e/admin-schedule-errors.spec.ts
-
-### Implementation for User Story 2
-
-- [ ] T024 [US2] Add accepted-paper existence check in backend/src/business/schedule/generateScheduleService.ts
-- [ ] T025 [US2] Add explicit no-accepted-papers error mapping in backend/src/shared/validation.ts
-- [ ] T026 [US2] Return user-visible error from backend/src/presentation/schedule/generateScheduleRoute.ts
-- [ ] T027 [US2] Display no-accepted-papers error in frontend/src/presentation/admin/ScheduleGenerationPage.tsx
-
-**Checkpoint**: User Story 2 is fully functional and independently testable
-
----
-
-## Phase 5: Polish & Cross-Cutting Concerns
-
-**Purpose**: Final alignment with reliability and operational requirements
-
-- [ ] T028 [P] Add concurrency guard or idempotent generation handling in backend/src/business/schedule/generateScheduleService.ts
-- [ ] T029 [P] Add backup/restore verification note for schedule tables in infra/db/backup/README.md
-- [ ] T030 [P] Update operational runbook for schedule generation in infra/ops/monitoring/runbook.md
-- [ ] T031 [P] Verify Chrome/Firefox UX compatibility for schedule UI in frontend/tests/e2e/admin-schedule.spec.ts
-
----
-
-## Dependencies & Execution Order
-
-### Phase Dependencies
-
-- **Setup (Phase 1)**: No dependencies
-- **Foundational (Phase 2)**: Depends on Setup completion
-- **User Stories (Phase 3-4)**: Depend on Foundational completion
-- **Polish (Phase 5)**: Depends on User Story completion
-
-### Parallel Opportunities
-
-- T002 can run in parallel with T001.
-- T003, T004, T005, T006, and T007 can run in parallel after Phase 1.
-- T008, T009, T010 can run in parallel within US1 tests.
-- T021, T022, T023 can run in parallel within US2 tests.
-- T028, T029, T030, T031 can run in parallel after User Stories complete.
-
-## Parallel Example: User Story 1
-
-- T012 Implement schedule repository in backend/src/data/schedule/scheduleRepository.ts
-- T015 Add schedule generation endpoint in backend/src/presentation/schedule/generateScheduleRoute.ts
-- T018 Add API client in frontend/src/data/scheduleApi.ts
+- [X] T024 [P] Add integration concurrency test in `backend/tests/integration/conference-schedule/conference-schedule-concurrency.integration.test.ts`
+- [X] T025 [P] Add integration TLS test in `backend/tests/integration/conference-schedule/conference-schedule-tls.integration.test.ts`
+- [X] T026 [P] Add integration audit sanitization test in `backend/tests/integration/conference-schedule/conference-schedule-audit-sanitization.integration.test.ts`
+- [X] T027 Add unit support coverage in `backend/tests/unit/conferenceScheduleSupport.unit.test.ts`
+- [X] T028 Update recovery notes in `infra/ops/recovery/conference-schedule-recovery.md`
+- [X] T029 Update quickstart checklist in `specs/014-generate-conference-schedule/quickstart.md`
+- [X] T030 Add library-first note in `specs/014-generate-conference-schedule/plan.md`
