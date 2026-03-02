@@ -72,3 +72,29 @@ Backend passing suite includes:
 - Integration tests (success, throttling, deterministic outcomes, TLS-only, no-plaintext, concurrency, performance)
 - Release-evidence integration tests (at-rest protection, transport rejection, no-plaintext findings)
 - UC-03 unit tests for login use-case, role policy, throttle policy, and auth data protection helpers
+
+---
+
+# Status Report (Appendix: UC-04)
+
+Date: 2026-03-02  
+Branch: `004-change-password`
+
+## Test Status
+
+Command run:
+
+```bash
+npm test
+```
+
+Result:
+- Backend tests: 108 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Backend passing suite includes:
+- Contract tests (`200`, `400`, `401`, `409`, `429`, `500`)
+- Integration tests (success flow, invalid current password, expired session, throttling, rollback on operational failure, conflict mapping)
+- Performance integration test (`p95 <= 500ms` target)
+- UC-04 support unit tests for validation, throttling, repositories, observability, session auth middleware, and controller mapping

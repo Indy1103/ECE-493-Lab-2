@@ -88,3 +88,28 @@ Result:
 ```text
 All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
 ```
+
+---
+
+# Coverage Report (Appendix: UC-04)
+
+Date: 2026-03-02  
+Branch: `004-change-password`
+
+Command run:
+
+```bash
+npm run coverage -w backend
+```
+
+Result:
+- Statements: 100%
+- Branches: 100%
+- Functions: 100%
+- Lines: 100%
+
+## c8 output summary
+
+```text
+All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
+```
