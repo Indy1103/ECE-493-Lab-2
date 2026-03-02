@@ -1,6 +1,6 @@
 # Status Report (After Debugging)
 
-Date: 2026-03-01
+Date: 2026-03-01  
 Branch: `001-view-conference-announcements`
 
 ## Test Status
@@ -25,7 +25,7 @@ Backend passing suite includes:
 
 # Status Report (Appendix: UC-02)
 
-Date: 2026-03-01
+Date: 2026-03-01  
 Branch: `002-user-account-registration`
 
 ## Test Status
@@ -46,3 +46,29 @@ Backend passing suite includes:
 - Integration tests (success, validation, duplicate email, throttling, failure)
 - Foundational security/reliability/observability registration tests
 - Unit tests for registration business/security/observability helpers
+
+---
+
+# Status Report (Appendix: UC-03)
+
+Date: 2026-03-02  
+Branch: `003-user-login`
+
+## Test Status
+
+Command run:
+
+```bash
+npm test
+```
+
+Result:
+- Backend tests: 71 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Backend passing suite includes:
+- Contract tests (`200`, `401`, `403`, `429`, `503`)
+- Integration tests (success, throttling, deterministic outcomes, TLS-only, no-plaintext, concurrency, performance)
+- Release-evidence integration tests (at-rest protection, transport rejection, no-plaintext findings)
+- UC-03 unit tests for login use-case, role policy, throttle policy, and auth data protection helpers
