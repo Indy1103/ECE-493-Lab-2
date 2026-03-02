@@ -1,0 +1,4 @@
+-- Seed fixture for UC-03 login scenarios
+-- Username: editor.jane
+-- Password (plaintext for fixture context only): Passw0rd88 (hashed at app bootstrap)
+-- Role: EDITOR

@@ -109,3 +109,22 @@ Planning is complete through Phase 1 design outputs. Task decomposition is inten
 ## Complexity Tracking
 
 No constitution violations identified; no waiver required.
+
+## Constitution Compliance Evidence (UC-05 Implementation)
+
+Date: 2026-03-02
+
+- Test-first delivery evidence:
+  - Contract, integration, and unit coverage for success/failure paths implemented under `backend/tests/**`.
+- Layering evidence:
+  - Presentation: `backend/src/presentation/manuscripts/manuscript-submissions.controller.ts`
+  - Business: `backend/src/business/manuscripts/*.ts`
+  - Data: `backend/src/data/manuscripts/*.ts`
+- Security posture evidence:
+  - TLS transport rejection middleware and integration test coverage (`426 TLS_REQUIRED`).
+  - Redaction helper coverage to prevent manuscript payload leakage.
+- Reliability evidence:
+  - Deterministic duplicate single-winner integration coverage.
+  - Rollback behavior validated for operational failures with no accepted partial state.
+- Observability evidence:
+  - Audit outcome repository and metrics wrappers exercised in integration/unit suites.

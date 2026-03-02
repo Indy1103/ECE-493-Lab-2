@@ -49,3 +49,24 @@ Validate UC-03 behavior and constitutional constraints for login before implemen
 - Research: `research.md`
 - Data model: `data-model.md`
 - Contract: `contracts/user-login.openapi.yaml`
+
+## 5. SC-004 Evidence Capture (Messaging Clarity)
+
+1. Run a scripted validation with participants across successful, invalid, throttled, and unavailable outcomes.
+2. Capture participant responses for the prompt: "Was the login message clear and actionable?"
+3. Store aggregated results in release evidence with timestamp, sample size, and positive-response rate.
+4. Pass criterion: at least 95% positive responses for login failure messaging clarity.
+
+## 6. Requirement-to-Test Traceability Matrix (UC-03)
+
+| Requirement / Acceptance | Verification Artifact |
+|---|---|
+| UC-03 main flow, AT-UC03-01 | `backend/tests/contract/auth/login.success.contract.test.ts` |
+| UC-03 alternative flow 4a, AT-UC03-02 | `backend/tests/contract/auth/login-invalid.contract.test.ts` |
+| FR-009 throttling | `backend/tests/contract/auth/login-throttled.contract.test.ts`, `backend/tests/integration/auth/login-throttle-window.integration.test.ts` |
+| SPR-001 TLS-only transport | `backend/tests/integration/auth/login-tls-only.integration.test.ts` |
+| SPR-002 at-rest protection | `backend/tests/integration/auth/login-at-rest-encryption.integration.test.ts`, `backend/tests/integration/auth/login-at-rest-evidence.integration.test.ts` |
+| SPR-003 no plaintext credentials | `backend/tests/integration/auth/login-no-plaintext.integration.test.ts`, `backend/tests/integration/auth/login-security-evidence.integration.test.ts` |
+| RAR-001 concurrent safety | `backend/tests/integration/auth/login-concurrency.integration.test.ts` |
+| RAR-002 deterministic outcomes | `backend/tests/integration/auth/login-deterministic-outcomes.integration.test.ts` |
+| RAR-003 retry-capable unavailable response | `backend/tests/contract/auth/login-unavailable.contract.test.ts` |

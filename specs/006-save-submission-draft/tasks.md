@@ -13,10 +13,10 @@
 
 **Purpose**: Prepare shared project and tooling context for UC-06 implementation.
 
-- [ ] T001 Validate feature scaffolding and create draft module folders in `backend/src/presentation/submission-drafts/`, `backend/src/business/submission-drafts/`, and `backend/src/data/submission-drafts/`
-- [ ] T002 Create feature-specific frontend folders in `frontend/src/presentation/submission-drafts/`, `frontend/src/business/submission-drafts/`, and `frontend/src/data/submission-drafts/`
-- [ ] T003 [P] Register contract artifact location and lint checks for `specs/006-save-submission-draft/contracts/submission-drafts.openapi.yaml` in `backend/package.json`
-- [ ] T004 [P] Add test suite placeholders for UC-06 in `backend/tests/contract/submission-drafts/`, `backend/tests/integration/submission-drafts/`, and `frontend/tests/e2e/submission-drafts/`
+- [X] T001 Validate feature scaffolding and create draft module folders in `backend/src/presentation/submission-drafts/`, `backend/src/business/submission-drafts/`, and `backend/src/data/submission-drafts/`
+- [X] T002 Create feature-specific frontend folders in `frontend/src/presentation/submission-drafts/`, `frontend/src/business/submission-drafts/`, and `frontend/src/data/submission-drafts/`
+- [X] T003 [P] Register contract artifact location and lint checks for `specs/006-save-submission-draft/contracts/submission-drafts.openapi.yaml` in `backend/package.json`
+- [X] T004 [P] Add test suite placeholders for UC-06 in `backend/tests/contract/submission-drafts/`, `backend/tests/integration/submission-drafts/`, and `frontend/tests/e2e/submission-drafts/`
 
 ---
 
@@ -26,17 +26,17 @@
 
 **⚠️ CRITICAL**: No user story implementation starts before this phase is complete.
 
-- [ ] T005 [P] Add failing integration test for one-current-draft uniqueness constraint in `backend/tests/integration/submission-drafts/draftUniqueness.foundation.integration.test.ts`
-- [ ] T006 [P] Add failing integration test for submission-draft ownership enforcement in `backend/tests/integration/submission-drafts/ownershipGuard.foundation.integration.test.ts`
-- [ ] T007 [P] Add failing integration test for title-required draft baseline validation in `backend/tests/integration/submission-drafts/validationBaseline.foundation.integration.test.ts`
-- [ ] T008 [P] Add failing integration test for draft-save audit redaction baseline in `backend/tests/integration/submission-drafts/auditFoundation.redaction.integration.test.ts`
-- [ ] T009 Create database migration for `SubmissionDraft`, `DraftSnapshot`, and `DraftSaveAttempt` tables with one-current-draft uniqueness in `backend/prisma/migrations/*_submission_drafts_uc06/migration.sql`
-- [ ] T010 Update Prisma schema for UC-06 entities and enums in `backend/prisma/schema.prisma`
-- [ ] T011 [P] Implement shared draft DTO validation schemas (title baseline + provided-field validation) in `backend/src/business/submission-drafts/draftValidation.ts`
-- [ ] T012 [P] Implement shared ownership/authorization guard helpers for submission draft access in `backend/src/security/submissionDraftOwnership.ts`
-- [ ] T013 Implement draft repository interfaces and transaction boundary contracts in `backend/src/data/submission-drafts/SubmissionDraftRepository.ts`
-- [ ] T014 [P] Implement audit event model and logger helpers (without payload logging) in `backend/src/shared/audit/submissionDraftAudit.ts`
-- [ ] T015 [P] Add backup/restore coverage notes for new tables in `infra/ops/backup-restore.md`
+- [X] T005 [P] Add failing integration test for one-current-draft uniqueness constraint in `backend/tests/integration/submission-drafts/draftUniqueness.foundation.integration.test.ts`
+- [X] T006 [P] Add failing integration test for submission-draft ownership enforcement in `backend/tests/integration/submission-drafts/ownershipGuard.foundation.integration.test.ts`
+- [X] T007 [P] Add failing integration test for title-required draft baseline validation in `backend/tests/integration/submission-drafts/validationBaseline.foundation.integration.test.ts`
+- [X] T008 [P] Add failing integration test for draft-save audit redaction baseline in `backend/tests/integration/submission-drafts/auditFoundation.redaction.integration.test.ts`
+- [X] T009 Create database migration for `SubmissionDraft`, `DraftSnapshot`, and `DraftSaveAttempt` tables with one-current-draft uniqueness in `backend/prisma/migrations/*_submission_drafts_uc06/migration.sql`
+- [X] T010 Update Prisma schema for UC-06 entities and enums in `backend/prisma/schema.prisma`
+- [X] T011 [P] Implement shared draft DTO validation schemas (title baseline + provided-field validation) in `backend/src/business/submission-drafts/draftValidation.ts`
+- [X] T012 [P] Implement shared ownership/authorization guard helpers for submission draft access in `backend/src/security/submissionDraftOwnership.ts`
+- [X] T013 Implement draft repository interfaces and transaction boundary contracts in `backend/src/data/submission-drafts/SubmissionDraftRepository.ts`
+- [X] T014 [P] Implement audit event model and logger helpers (without payload logging) in `backend/src/shared/audit/submissionDraftAudit.ts`
+- [X] T015 [P] Add backup/restore coverage notes for new tables in `infra/ops/backup-restore.md`
 
 **Checkpoint**: Persistence, auth, validation, and audit foundations are ready.
 
@@ -50,20 +50,20 @@
 
 ### Tests for User Story 1 (REQUIRED)
 
-- [ ] T016 [P] [US1] Add failing contract test for `PUT /api/v1/submission-drafts/{submissionId}` success response in `backend/tests/contract/submission-drafts/saveDraft.success.contract.test.ts`
-- [ ] T017 [P] [US1] Add failing integration test for first valid save persistence in `backend/tests/integration/submission-drafts/saveDraft.success.integration.test.ts`
-- [ ] T018 [P] [US1] Add failing integration test for overwrite behavior on repeated valid saves in `backend/tests/integration/submission-drafts/saveDraft.overwrite.integration.test.ts`
-- [ ] T019 [P] [US1] Add failing UI/e2e test for visible save confirmation in `frontend/tests/e2e/submission-drafts/saveDraft.success.e2e.test.ts`
+- [X] T016 [P] [US1] Add failing contract test for `PUT /api/v1/submission-drafts/{submissionId}` success response in `backend/tests/contract/submission-drafts/saveDraft.success.contract.test.ts`
+- [X] T017 [P] [US1] Add failing integration test for first valid save persistence in `backend/tests/integration/submission-drafts/saveDraft.success.integration.test.ts`
+- [X] T018 [P] [US1] Add failing integration test for overwrite behavior on repeated valid saves in `backend/tests/integration/submission-drafts/saveDraft.overwrite.integration.test.ts`
+- [X] T019 [P] [US1] Add failing UI/e2e test for visible save confirmation in `frontend/tests/e2e/submission-drafts/saveDraft.success.e2e.test.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T020 [US1] Implement save-draft use case orchestration and success path in `backend/src/business/submission-drafts/SaveSubmissionDraftUseCase.ts`
-- [ ] T021 [US1] Implement transactional repository save + snapshot creation + last-write-wins update in `backend/src/data/submission-drafts/PrismaSubmissionDraftRepository.ts`
-- [ ] T022 [US1] Implement presentation endpoint handler for successful save response in `backend/src/presentation/submission-drafts/saveSubmissionDraftHandler.ts`
-- [ ] T023 [US1] Implement frontend draft-save API client in `frontend/src/data/submission-drafts/saveSubmissionDraftClient.ts`
-- [ ] T024 [US1] Implement frontend save action workflow and success message state in `frontend/src/business/submission-drafts/saveDraftAction.ts`
-- [ ] T025 [US1] Implement draft save UI trigger and success feedback rendering in `frontend/src/presentation/submission-drafts/SubmissionDraftSavePanel.tsx`
-- [ ] T026 [US1] Emit success attempt audit event with non-sensitive fields in `backend/src/shared/audit/submissionDraftAudit.ts`
+- [X] T020 [US1] Implement save-draft use case orchestration and success path in `backend/src/business/submission-drafts/SaveSubmissionDraftUseCase.ts`
+- [X] T021 [US1] Implement transactional repository save + snapshot creation + last-write-wins update in `backend/src/data/submission-drafts/PrismaSubmissionDraftRepository.ts`
+- [X] T022 [US1] Implement presentation endpoint handler for successful save response in `backend/src/presentation/submission-drafts/saveSubmissionDraftHandler.ts`
+- [X] T023 [US1] Implement frontend draft-save API client in `frontend/src/data/submission-drafts/saveSubmissionDraftClient.ts`
+- [X] T024 [US1] Implement frontend save action workflow and success message state in `frontend/src/business/submission-drafts/saveDraftAction.ts`
+- [X] T025 [US1] Implement draft save UI trigger and success feedback rendering in `frontend/src/presentation/submission-drafts/SubmissionDraftSavePanel.tsx`
+- [X] T026 [US1] Emit success attempt audit event with non-sensitive fields in `backend/src/shared/audit/submissionDraftAudit.ts`
 
 **Checkpoint**: US1 is fully functional and independently testable.
 
@@ -77,20 +77,20 @@
 
 ### Tests for User Story 2 (REQUIRED)
 
-- [ ] T027 [P] [US2] Add failing contract tests for `400`, `401`, and `403` save-draft responses in `backend/tests/contract/submission-drafts/saveDraft.errors.contract.test.ts`
-- [ ] T028 [P] [US2] Add failing integration test for validation failure preserving prior valid draft in `backend/tests/integration/submission-drafts/saveDraft.validationFailure.integration.test.ts`
-- [ ] T029 [P] [US2] Add failing integration test for expired-session/unauthenticated rejection in `backend/tests/integration/submission-drafts/saveDraft.authnFailure.integration.test.ts`
-- [ ] T030 [P] [US2] Add failing integration test for non-owner rejection in `backend/tests/integration/submission-drafts/saveDraft.authzFailure.integration.test.ts`
-- [ ] T031 [P] [US2] Add failing UI/e2e test for explicit validation issue messaging in `frontend/tests/e2e/submission-drafts/saveDraft.validationError.e2e.test.ts`
+- [X] T027 [P] [US2] Add failing contract tests for `400`, `401`, and `403` save-draft responses in `backend/tests/contract/submission-drafts/saveDraft.errors.contract.test.ts`
+- [X] T028 [P] [US2] Add failing integration test for validation failure preserving prior valid draft in `backend/tests/integration/submission-drafts/saveDraft.validationFailure.integration.test.ts`
+- [X] T029 [P] [US2] Add failing integration test for expired-session/unauthenticated rejection in `backend/tests/integration/submission-drafts/saveDraft.authnFailure.integration.test.ts`
+- [X] T030 [P] [US2] Add failing integration test for non-owner rejection in `backend/tests/integration/submission-drafts/saveDraft.authzFailure.integration.test.ts`
+- [X] T031 [P] [US2] Add failing UI/e2e test for explicit validation issue messaging in `frontend/tests/e2e/submission-drafts/saveDraft.validationError.e2e.test.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T032 [US2] Implement invalid-draft rule evaluation and structured violation mapping in `backend/src/business/submission-drafts/draftValidation.ts`
-- [ ] T033 [US2] Implement authn/authz enforcement path for save endpoint in `backend/src/presentation/submission-drafts/saveSubmissionDraftHandler.ts`
-- [ ] T034 [US2] Implement no-mutation-on-failure safeguards in draft persistence service in `backend/src/business/submission-drafts/SaveSubmissionDraftUseCase.ts`
-- [ ] T035 [US2] Implement explicit error response mapper for validation/auth errors in `backend/src/presentation/submission-drafts/submissionDraftErrorMapper.ts`
-- [ ] T036 [US2] Implement frontend error rendering for validation and authorization failures in `frontend/src/presentation/submission-drafts/SubmissionDraftSavePanel.tsx`
-- [ ] T037 [US2] Emit validation/auth failure audit events (without payload) in `backend/src/shared/audit/submissionDraftAudit.ts`
+- [X] T032 [US2] Implement invalid-draft rule evaluation and structured violation mapping in `backend/src/business/submission-drafts/draftValidation.ts`
+- [X] T033 [US2] Implement authn/authz enforcement path for save endpoint in `backend/src/presentation/submission-drafts/saveSubmissionDraftHandler.ts`
+- [X] T034 [US2] Implement no-mutation-on-failure safeguards in draft persistence service in `backend/src/business/submission-drafts/SaveSubmissionDraftUseCase.ts`
+- [X] T035 [US2] Implement explicit error response mapper for validation/auth errors in `backend/src/presentation/submission-drafts/submissionDraftErrorMapper.ts`
+- [X] T036 [US2] Implement frontend error rendering for validation and authorization failures in `frontend/src/presentation/submission-drafts/SubmissionDraftSavePanel.tsx`
+- [X] T037 [US2] Emit validation/auth failure audit events (without payload) in `backend/src/shared/audit/submissionDraftAudit.ts`
 
 **Checkpoint**: US2 is fully functional and independently testable.
 
@@ -104,19 +104,19 @@
 
 ### Tests for User Story 3 (REQUIRED)
 
-- [ ] T038 [P] [US3] Add failing contract tests for `GET /api/v1/submission-drafts/{submissionId}` (`200`, `401`, `403`, `404`) in `backend/tests/contract/submission-drafts/getDraft.contract.test.ts`
-- [ ] T039 [P] [US3] Add failing integration test for successful owner resume retrieval in `backend/tests/integration/submission-drafts/getDraft.success.integration.test.ts`
-- [ ] T040 [P] [US3] Add failing integration test for no-draft-found behavior in `backend/tests/integration/submission-drafts/getDraft.notFound.integration.test.ts`
-- [ ] T041 [P] [US3] Add failing UI/e2e test for draft rehydration into submission form in `frontend/tests/e2e/submission-drafts/resumeDraft.e2e.test.ts`
+- [X] T038 [P] [US3] Add failing contract tests for `GET /api/v1/submission-drafts/{submissionId}` (`200`, `401`, `403`, `404`) in `backend/tests/contract/submission-drafts/getDraft.contract.test.ts`
+- [X] T039 [P] [US3] Add failing integration test for successful owner resume retrieval in `backend/tests/integration/submission-drafts/getDraft.success.integration.test.ts`
+- [X] T040 [P] [US3] Add failing integration test for no-draft-found behavior in `backend/tests/integration/submission-drafts/getDraft.notFound.integration.test.ts`
+- [X] T041 [P] [US3] Add failing UI/e2e test for draft rehydration into submission form in `frontend/tests/e2e/submission-drafts/resumeDraft.e2e.test.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T042 [US3] Implement get-draft use case with ownership enforcement in `backend/src/business/submission-drafts/GetSubmissionDraftUseCase.ts`
-- [ ] T043 [US3] Implement get-draft data access in `backend/src/data/submission-drafts/PrismaSubmissionDraftRepository.ts`
-- [ ] T044 [US3] Implement get-draft presentation endpoint handler in `backend/src/presentation/submission-drafts/getSubmissionDraftHandler.ts`
-- [ ] T045 [US3] Implement frontend get-draft API client in `frontend/src/data/submission-drafts/getSubmissionDraftClient.ts`
-- [ ] T046 [US3] Implement draft resume workflow state hydration in `frontend/src/business/submission-drafts/resumeDraftAction.ts`
-- [ ] T047 [US3] Implement submission form resume rendering from saved draft in `frontend/src/presentation/submission-drafts/SubmissionDraftEditor.tsx`
+- [X] T042 [US3] Implement get-draft use case with ownership enforcement in `backend/src/business/submission-drafts/GetSubmissionDraftUseCase.ts`
+- [X] T043 [US3] Implement get-draft data access in `backend/src/data/submission-drafts/PrismaSubmissionDraftRepository.ts`
+- [X] T044 [US3] Implement get-draft presentation endpoint handler in `backend/src/presentation/submission-drafts/getSubmissionDraftHandler.ts`
+- [X] T045 [US3] Implement frontend get-draft API client in `frontend/src/data/submission-drafts/getSubmissionDraftClient.ts`
+- [X] T046 [US3] Implement draft resume workflow state hydration in `frontend/src/business/submission-drafts/resumeDraftAction.ts`
+- [X] T047 [US3] Implement submission form resume rendering from saved draft in `frontend/src/presentation/submission-drafts/SubmissionDraftEditor.tsx`
 
 **Checkpoint**: US3 is fully functional and independently testable.
 
@@ -126,15 +126,15 @@
 
 **Purpose**: Finalize reliability, observability, and release readiness for UC-06.
 
-- [ ] T048 [P] Add concurrency integration test for deterministic last-write-wins saves in `backend/tests/integration/submission-drafts/saveDraft.concurrency.integration.test.ts`
-- [ ] T049 [P] Add integration test for operational-failure path preserving previous valid draft in `backend/tests/integration/submission-drafts/saveDraft.operationalFailure.integration.test.ts`
-- [ ] T050 [P] Verify no plaintext draft payload leakage in logs via log-safety test in `backend/tests/integration/submission-drafts/auditLog.redaction.integration.test.ts`
-- [ ] T051 [P] Validate Chrome and Firefox draft save/resume behavior in `frontend/tests/e2e/submission-drafts/`
-- [ ] T052 Update quickstart verification steps and evidence links in `specs/006-save-submission-draft/quickstart.md`
-- [ ] T053 [P] Add failing integration test for TLS-only draft-save and draft-resume transport behavior in `backend/tests/integration/submission-drafts/transportSecurity.integration.test.ts`
-- [ ] T054 Implement draft-route transport security enforcement in `backend/src/presentation/submission-drafts/submissionDraftRouteSecurity.ts`
-- [ ] T055 [P] Add failing integration test for encrypted-at-rest draft persistence and backup coverage in `backend/tests/integration/submission-drafts/atRestProtection.integration.test.ts`
-- [ ] T056 Implement encrypted-at-rest storage and backup verification wiring for draft records in `backend/src/data/submission-drafts/PrismaSubmissionDraftRepository.ts` and `infra/ops/backup-restore.md`
+- [X] T048 [P] Add concurrency integration test for deterministic last-write-wins saves in `backend/tests/integration/submission-drafts/saveDraft.concurrency.integration.test.ts`
+- [X] T049 [P] Add integration test for operational-failure path preserving previous valid draft in `backend/tests/integration/submission-drafts/saveDraft.operationalFailure.integration.test.ts`
+- [X] T050 [P] Verify no plaintext draft payload leakage in logs via log-safety test in `backend/tests/integration/submission-drafts/auditLog.redaction.integration.test.ts`
+- [X] T051 [P] Validate Chrome and Firefox draft save/resume behavior in `frontend/tests/e2e/submission-drafts/`
+- [X] T052 Update quickstart verification steps and evidence links in `specs/006-save-submission-draft/quickstart.md`
+- [X] T053 [P] Add failing integration test for TLS-only draft-save and draft-resume transport behavior in `backend/tests/integration/submission-drafts/transportSecurity.integration.test.ts`
+- [X] T054 Implement draft-route transport security enforcement in `backend/src/presentation/submission-drafts/submissionDraftRouteSecurity.ts`
+- [X] T055 [P] Add failing integration test for encrypted-at-rest draft persistence and backup coverage in `backend/tests/integration/submission-drafts/atRestProtection.integration.test.ts`
+- [X] T056 Implement encrypted-at-rest storage and backup verification wiring for draft records in `backend/src/data/submission-drafts/PrismaSubmissionDraftRepository.ts` and `infra/ops/backup-restore.md`
 
 ---
 

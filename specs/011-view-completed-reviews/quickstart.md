@@ -35,6 +35,13 @@
 - Run unit/integration/contract backend tests.
 - Run frontend e2e tests in Chrome and Firefox.
 - Verify no referee identity attributes appear in logs or error payloads.
+- Suggested commands:
+  - `npm run test -w backend -- tests/unit/reviewVisibilitySupport.unit.test.ts`
+  - `npm run test -w backend -- tests/contract/review-visibility/*.test.ts`
+  - `npm run test -w backend -- tests/integration/review-visibility/*.test.ts`
+  - `npm run coverage -w backend`
+  - `npx playwright test frontend/tests/e2e/review-visibility/*.ts --project=chromium`
+  - `npx playwright test frontend/tests/e2e/review-visibility/*.ts --project=firefox`
 
 ## 5. Expected outcomes
 - Editors view all completed reviews only when required reviews are complete.

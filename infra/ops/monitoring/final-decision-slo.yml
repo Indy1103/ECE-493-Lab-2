@@ -1,0 +1,17 @@
+service: final-decision
+objective: "SC-001"
+description: "95% of eligible final-decision requests complete within 3 seconds"
+indicator:
+  metric: final_decision_latency_ms
+  aggregation: p95
+  threshold_ms: 3000
+outcomes:
+  success: DECISION_RECORDED
+  pending: REVIEWS_PENDING
+  finalized: DECISION_FINALIZED
+  denied: UNAVAILABLE_DENIED
+alerts:
+  - name: final-decision-latency-breach
+    condition: "p95(final_decision_latency_ms, 15m) > 3000"
+  - name: final-decision-error-spike
+    condition: "rate(final_decision_failures_total[5m]) > 0.05"
