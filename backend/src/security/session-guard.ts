@@ -1,0 +1,78 @@
+import type { FastifyReply, FastifyRequest } from "fastify";
+
+import { REVIEW_SUBMISSION_OUTCOMES } from "../business/review-submission/submission-outcome.js";
+
+export interface ReviewSubmissionSessionRecord {
+  sessionId: string;
+  accountId: string;
+  role: string;
+  status: "ACTIVE" | "REVOKED" | "EXPIRED";
+}
+
+export interface ReviewSubmissionSessionRepository {
+  getSessionById(sessionId: string): Promise<ReviewSubmissionSessionRecord | null>;
+}
+
+export interface ReviewSubmissionSessionContext {
+  refereeUserId: string;
+  sessionId: string;
+}
+
+export type ReviewSubmissionSessionRequest = FastifyRequest & {
+  reviewSubmissionSession?: ReviewSubmissionSessionContext;
+};
+
+interface ReviewSubmissionSessionGuardDeps {
+  sessionRepository: ReviewSubmissionSessionRepository;
+}
+
+function parseSessionId(cookieHeader: string | undefined): string | null {
+  if (!cookieHeader) {
+    return null;
+  }
+
+  for (const cookie of cookieHeader.split(";").map((entry) => entry.trim())) {
+    if (!cookie.startsWith("session=") && !cookie.startsWith("cms_session=")) {
+      continue;
+    }
+
+    const [name, value = ""] = cookie.split("=", 2);
+    if ((name === "session" || name === "cms_session") && value.trim().length > 0) {
+      return value.trim();
+    }
+  }
+
+  return null;
+}
+
+export function createReviewSubmissionSessionGuard(deps: ReviewSubmissionSessionGuardDeps) {
+  return async function reviewSubmissionSessionGuard(
+    request: ReviewSubmissionSessionRequest,
+    reply: FastifyReply
+  ): Promise<void> {
+    const sessionId = parseSessionId(request.headers.cookie);
+
+    if (!sessionId) {
+      reply.code(401).send({
+        messageCode: REVIEW_SUBMISSION_OUTCOMES.SESSION_EXPIRED,
+        message: "Your session has expired. Please sign in again."
+      });
+      return;
+    }
+
+    const session = await deps.sessionRepository.getSessionById(sessionId);
+
+    if (!session || session.status !== "ACTIVE" || session.role !== "REFEREE") {
+      reply.code(401).send({
+        messageCode: REVIEW_SUBMISSION_OUTCOMES.SESSION_EXPIRED,
+        message: "Your session has expired. Please sign in again."
+      });
+      return;
+    }
+
+    request.reviewSubmissionSession = {
+      refereeUserId: session.accountId,
+      sessionId: session.sessionId
+    };
+  };
+}

@@ -176,3 +176,28 @@ Backend passing suite includes:
 - Foundational and story integration tests (editor authz/authn guard, per-paper serialization, duplicate atomicity, successful assignment + invitation handling, workload and capacity rejection paths, retry path after rejection)
 - Security/reliability integration tests (TLS-only transport, no-sensitive-data responses/events, at-rest protection evidence, invitation retry budget terminal handling)
 - UC-07 support unit tests for schemas, use-case branches, policy evaluators, mapper branches, repository lock/persistence branches, handler authless branches, guard parsing branches, and audit helpers
+
+---
+
+# Status Report (Appendix: UC-10)
+
+Date: 2026-03-02  
+Branch: `010-submit-paper-review`
+
+## Test Status
+
+Command run:
+
+```bash
+npm run test -w backend
+```
+
+Result:
+- Backend tests: 282 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Backend passing suite includes:
+- UC-10 contract tests for review-form retrieval and final review submission outcomes
+- UC-10 integration tests for success, validation failures, submit-time ineligibility, duplicate denial, session-expired handling, concurrency control, and audit redaction
+- UC-10 unit tests for eligibility/validation policies, submit orchestrator branches, handler mappings, session guard parsing, and repository utility paths
