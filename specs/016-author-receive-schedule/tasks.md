@@ -22,9 +22,9 @@ description: "Task list for Author Schedule Access"
 
 **Purpose**: Confirm feature scaffolding and shared plumbing for author schedule access
 
-- [ ] T001 Verify author schedule routes are registered in `backend/src/presentation/routes/authorRoutes.ts`
-- [ ] T002 [P] Add author schedule API client wrapper in `frontend/src/data/api/authorScheduleApi.ts`
-- [ ] T003 [P] Add shared error type for schedule access failures in `backend/src/shared/errors/scheduleAccessErrors.ts`
+- [X] T001 Verify author schedule routes are registered in `backend/src/presentation/routes/authorRoutes.ts`
+- [X] T002 [P] Add author schedule API client wrapper in `frontend/src/data/api/authorScheduleApi.ts`
+- [X] T003 [P] Add shared error type for schedule access failures in `backend/src/shared/errors/scheduleAccessErrors.ts`
 
 ---
 
@@ -32,18 +32,18 @@ description: "Task list for Author Schedule Access"
 
 **Purpose**: Core controls that MUST be complete before user-story implementation
 
-- [ ] T004 [P] Add integration test for RBAC guard (403) in `backend/tests/integration/authorSchedule.auth.int.test.ts`
-- [ ] T005 [P] Add integration test for unpublished schedule (409) in `backend/tests/integration/authorSchedule.unpublished.int.test.ts`
-- [ ] T006 [P] Add concurrency access test for schedule reads in `backend/tests/integration/authorSchedule.concurrency.int.test.ts`
-- [ ] T007 Implement author RBAC guard for schedule endpoint in `backend/src/security/guards/authorGuard.ts`
-- [ ] T008 [P] Add schedule access audit log event helpers in `backend/src/shared/audit/scheduleAccessAudit.ts`
-- [ ] T009 Define schedule access validation schema in `backend/src/business/validation/authorScheduleSchema.ts`
-- [ ] T010 [P] Add concurrency-safe read helper in `backend/src/data/schedules/scheduleReadConsistency.ts`
-- [ ] T011 Add Prisma schema updates for schedule publication/notification entities in `backend/src/data/prisma/schema.prisma`
-- [ ] T012 [P] Create migration for schedule publication/notification entities in `infra/db/migrations/`
-- [ ] T013 Add storage encryption verification note for schedule data in `infra/db/backup/encryption.md`
-- [ ] T014 Add TLS enforcement note for schedule access endpoints in `infra/ops/security/tls.md`
-- [ ] T015 Add log redaction guidance for schedule access payloads in `backend/src/shared/logging/redaction.ts`
+- [X] T004 [P] Add integration test for RBAC guard (403) in `backend/tests/integration/authorSchedule.auth.int.test.ts`
+- [X] T005 [P] Add integration test for unpublished schedule (409) in `backend/tests/integration/authorSchedule.unpublished.int.test.ts`
+- [X] T006 [P] Add concurrency access test for schedule reads in `backend/tests/integration/authorSchedule.concurrency.int.test.ts`
+- [X] T007 Implement author RBAC guard for schedule endpoint in `backend/src/security/guards/authorGuard.ts`
+- [X] T008 [P] Add schedule access audit log event helpers in `backend/src/shared/audit/scheduleAccessAudit.ts`
+- [X] T009 Define schedule access validation schema in `backend/src/business/validation/authorScheduleSchema.ts`
+- [X] T010 [P] Add concurrency-safe read helper in `backend/src/data/schedules/scheduleReadConsistency.ts`
+- [X] T011 Add Prisma schema updates for schedule publication/notification entities in `backend/src/data/prisma/schema.prisma`
+- [X] T012 [P] Create migration for schedule publication/notification entities in `infra/db/migrations/`
+- [X] T013 Add storage encryption verification note for schedule data in `infra/db/backup/encryption.md`
+- [X] T014 Add TLS enforcement note for schedule access endpoints in `infra/ops/security/tls.md`
+- [X] T015 Add log redaction guidance for schedule access payloads in `backend/src/shared/logging/redaction.ts`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -57,19 +57,19 @@ description: "Task list for Author Schedule Access"
 
 ### Tests for User Story 1 (REQUIRED)
 
-- [ ] T016 [P] [US1] Add contract test for GET author schedule in `backend/tests/contract/authorSchedule.get.contract.test.ts`
-- [ ] T017 [P] [US1] Add integration tests for schedule retrieval in `backend/tests/integration/authorSchedule.int.test.ts`
-- [ ] T018 [P] [US1] Add UI/e2e test for published schedule view in `frontend/tests/e2e/authorSchedule.published.e2e.ts`
+- [X] T016 [P] [US1] Add contract test for GET author schedule in `backend/tests/contract/authorSchedule.get.contract.test.ts`
+- [X] T017 [P] [US1] Add integration tests for schedule retrieval in `backend/tests/integration/authorSchedule.int.test.ts`
+- [X] T018 [P] [US1] Add UI/e2e test for published schedule view in `frontend/tests/e2e/authorSchedule.published.e2e.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T019 [US1] Implement schedule retrieval query in `backend/src/data/schedules/authorScheduleRepository.ts`
-- [ ] T020 [US1] Implement schedule access workflow service in `backend/src/business/schedules/authorScheduleService.ts`
-- [ ] T021 [US1] Wire GET author schedule endpoint in `backend/src/presentation/controllers/authorScheduleController.ts`
-- [ ] T022 [US1] Implement author schedule view in `frontend/src/presentation/schedule/AuthorScheduleView.tsx`
-- [ ] T023 [US1] Connect UI to API client in `frontend/src/business/schedule/authorScheduleFacade.ts`
-- [ ] T024 [US1] Map API schedule model to UI state in `frontend/src/data/mappers/authorScheduleMapper.ts`
-- [ ] T025 [US1] Record notification creation for authors in `backend/src/data/notifications/authorNotificationRepository.ts`
+- [X] T019 [US1] Implement schedule retrieval query in `backend/src/data/schedules/authorScheduleRepository.ts`
+- [X] T020 [US1] Implement schedule access workflow service in `backend/src/business/schedules/authorScheduleService.ts`
+- [X] T021 [US1] Wire GET author schedule endpoint in `backend/src/presentation/controllers/authorScheduleController.ts`
+- [X] T022 [US1] Implement author schedule view in `frontend/src/presentation/schedule/AuthorScheduleView.tsx`
+- [X] T023 [US1] Connect UI to API client in `frontend/src/business/schedule/authorScheduleFacade.ts`
+- [X] T024 [US1] Map API schedule model to UI state in `frontend/src/data/mappers/authorScheduleMapper.ts`
+- [X] T025 [US1] Record notification creation for authors in `backend/src/data/notifications/authorNotificationRepository.ts`
 
 **Checkpoint**: User Story 1 is fully functional and independently testable
 
@@ -83,15 +83,15 @@ description: "Task list for Author Schedule Access"
 
 ### Tests for User Story 2 (REQUIRED)
 
-- [ ] T026 [P] [US2] Add contract test for unpublished schedule (409) in `backend/tests/contract/authorSchedule.unpublished.contract.test.ts`
-- [ ] T027 [P] [US2] Add integration tests for unpublished schedule handling in `backend/tests/integration/authorSchedule.unpublished.int.test.ts`
-- [ ] T028 [P] [US2] Add UI/e2e test for unpublished schedule message in `frontend/tests/e2e/authorSchedule.unpublished.e2e.ts`
+- [X] T026 [P] [US2] Add contract test for unpublished schedule (409) in `backend/tests/contract/authorSchedule.unpublished.contract.test.ts`
+- [X] T027 [P] [US2] Add integration tests for unpublished schedule handling in `backend/tests/integration/authorSchedule.unpublished.int.test.ts`
+- [X] T028 [P] [US2] Add UI/e2e test for unpublished schedule message in `frontend/tests/e2e/authorSchedule.unpublished.e2e.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T029 [US2] Enforce published-status checks in `backend/src/business/schedules/authorScheduleService.ts`
-- [ ] T030 [US2] Return explicit unpublished error response in `backend/src/presentation/controllers/authorScheduleController.ts`
-- [ ] T031 [US2] Surface unpublished message in UI in `frontend/src/presentation/schedule/AuthorScheduleView.tsx`
+- [X] T029 [US2] Enforce published-status checks in `backend/src/business/schedules/authorScheduleService.ts`
+- [X] T030 [US2] Return explicit unpublished error response in `backend/src/presentation/controllers/authorScheduleController.ts`
+- [X] T031 [US2] Surface unpublished message in UI in `frontend/src/presentation/schedule/AuthorScheduleView.tsx`
 
 **Checkpoint**: User Stories 1 and 2 both work independently
 
@@ -101,11 +101,11 @@ description: "Task list for Author Schedule Access"
 
 **Purpose**: Reliability, security, and operational hardening before release
 
-- [ ] T032 [P] Document schedule access backup/restore impact in `infra/ops/recovery/author-schedule.md`
-- [ ] T033 [P] Add monitoring metric for schedule access outcomes in `backend/src/shared/metrics/authorScheduleMetrics.ts`
-- [ ] T034 [P] Add latency check for schedule view responses in `backend/tests/integration/authorSchedule.performance.int.test.ts`
-- [ ] T035 [P] Verify Chrome and Firefox compatibility checklist in `specs/016-author-receive-schedule/quickstart.md`
-- [ ] T036 Confirm constitution compliance checklist is attached to PR in `specs/016-author-receive-schedule/report/constitution-check.md`
+- [X] T032 [P] Document schedule access backup/restore impact in `infra/ops/recovery/author-schedule.md`
+- [X] T033 [P] Add monitoring metric for schedule access outcomes in `backend/src/shared/metrics/authorScheduleMetrics.ts`
+- [X] T034 [P] Add latency check for schedule view responses in `backend/tests/integration/authorSchedule.performance.int.test.ts`
+- [X] T035 [P] Verify Chrome and Firefox compatibility checklist in `specs/016-author-receive-schedule/quickstart.md`
+- [X] T036 Confirm constitution compliance checklist is attached to PR in `specs/016-author-receive-schedule/report/constitution-check.md`
 
 ---
 

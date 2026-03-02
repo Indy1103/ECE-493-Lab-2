@@ -308,3 +308,32 @@ All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
 Notes:
 - Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
 - UC-15 branch coverage is fully satisfied, including schedule edit validation, conflict detection, auth/session guard branches, controller mapping, and repository lock/update branches.
+
+---
+
+# Coverage Report (Appendix: UC-16)
+
+Date: 2026-03-02  
+Branch: `016-author-receive-schedule`
+
+Command run:
+
+```bash
+npm run coverage
+```
+
+Result:
+- Statements: 100%
+- Branches: 100%
+- Functions: 100%
+- Lines: 100%
+
+## c8 output summary
+
+```text
+All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
+```
+
+Notes:
+- Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
+- UC-16 branch coverage is fully satisfied, including author schedule availability/unavailability branches, access/session guard branches, TLS route enforcement, repository fallbacks, and audit redaction paths.
