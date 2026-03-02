@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum DraftSaveOutcome {
+  SUCCESS
+  VALIDATION_FAILED
+  AUTHZ_FAILED
+  OPERATIONAL_FAILED
+}
+
 model ConferenceAnnouncement {
   id           String    @id @default(uuid()) @db.Uuid
   title        String
@@ -18,4 +25,48 @@ model ConferenceAnnouncement {
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
   @@map("conference_announcements")
+}
+
+model SubmissionDraft {
+  id                     String   @id @default(uuid()) @db.Uuid
+  authorId               String   @map("author_id") @db.Uuid
+  inProgressSubmissionId String   @map("in_progress_submission_id") @db.Uuid
+  title                  String
+  draftPayload           Json     @map("draft_payload")
+  payloadVersion         Int      @map("payload_version")
+  policyVersion          String   @map("policy_version")
+  lastSavedAt            DateTime @map("last_saved_at")
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+  snapshots              DraftSnapshot[]
+
+  @@unique([authorId, inProgressSubmissionId], map: "submission_drafts_unique_current")
+  @@index([authorId, inProgressSubmissionId], map: "submission_drafts_author_submission_idx")
+  @@map("submission_drafts")
+}
+
+model DraftSnapshot {
+  id               String          @id @default(uuid()) @db.Uuid
+  submissionDraftId String         @map("submission_draft_id") @db.Uuid
+  version          Int
+  snapshotPayload  Json            @map("snapshot_payload")
+  savedAt          DateTime        @map("saved_at")
+  submissionDraft  SubmissionDraft @relation(fields: [submissionDraftId], references: [id], onDelete: Cascade)
+
+  @@unique([submissionDraftId, version], map: "draft_snapshots_submission_version_unique")
+  @@index([submissionDraftId, savedAt], map: "draft_snapshots_submission_saved_idx")
+  @@map("draft_snapshots")
+}
+
+model DraftSaveAttempt {
+  id                   String           @id @default(uuid()) @db.Uuid
+  authorId             String?          @map("author_id") @db.Uuid
+  inProgressSubmissionId String?        @map("in_progress_submission_id") @db.Uuid
+  outcome              DraftSaveOutcome
+  reasonCode           String           @map("reason_code")
+  requestId            String           @map("request_id")
+  occurredAt           DateTime         @default(now()) @map("occurred_at")
+
+  @@index([inProgressSubmissionId, occurredAt], map: "draft_save_attempts_submission_time_idx")
+  @@map("draft_save_attempts")
 }
