@@ -1,7 +1,7 @@
 /speckit.implementyes
 
 
-Implement UC-10 exactly as defined in spec.md and plan.md.
+Implement UC-11 exactly as defined in spec.md and plan.md.
 
 Requirements:
 - Follow the data model.
@@ -10,6 +10,6 @@ Requirements:
 - Write integration tests using Supertest.
 - Ensure all branches are covered.
 - Mock external dependencies if necessary.
-- Stop after UC-10 is complete.
+- Stop after UC-11 is complete.
 
 Do not move to the next use case.
