@@ -29,3 +29,51 @@ model RegistrationThrottleRecord {
 
   @@map("registration_throttle_records")
 }
+
+enum ConferenceScheduleStatus {
+  DRAFT
+  FINAL
+}
+
+enum ScheduleModificationStatus {
+  PENDING
+  APPLIED
+  REJECTED
+}
+
+model ConferenceSchedule {
+  id                String                    @id @default(uuid()) @db.Uuid
+  conferenceId      String                    @unique @map("conference_id") @db.Uuid
+  status            ConferenceScheduleStatus
+  updatedAt         DateTime                  @updatedAt @map("updated_at")
+  updatedByEditorId String                    @map("updated_by_editor_id") @db.Uuid
+  entries           ScheduleEntry[]
+  modificationRequests ScheduleModificationRequest[]
+
+  @@map("conference_schedules")
+}
+
+model ScheduleEntry {
+  id          String             @id @default(uuid()) @db.Uuid
+  scheduleId  String             @map("schedule_id") @db.Uuid
+  paperId     String             @map("paper_id") @db.Uuid
+  sessionId   String             @map("session_id") @db.Uuid
+  roomId      String             @map("room_id") @db.Uuid
+  timeSlotId  String             @map("time_slot_id") @db.Uuid
+  schedule    ConferenceSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@index([scheduleId], map: "schedule_entries_schedule_idx")
+  @@map("schedule_entries")
+}
+
+model ScheduleModificationRequest {
+  id                  String                     @id @default(uuid()) @db.Uuid
+  scheduleId          String                     @map("schedule_id") @db.Uuid
+  requestedByEditorId String                     @map("requested_by_editor_id") @db.Uuid
+  requestedAt         DateTime                   @default(now()) @map("requested_at")
+  status              ScheduleModificationStatus
+  schedule            ConferenceSchedule         @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@index([scheduleId, requestedAt], map: "schedule_modification_requests_schedule_time_idx")
+  @@map("schedule_modification_requests")
+}

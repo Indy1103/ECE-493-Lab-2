@@ -251,3 +251,28 @@ Backend passing suite includes:
 - UC-14 contract tests for schedule generation success and no-accepted-papers/admin-denied outcomes
 - UC-14 integration tests for generated schedule, no-accepted-papers blocking, concurrency consistency, TLS enforcement, and audit sanitization
 - UC-14 unit tests for schedule builder, service branches, repository lock/persistence branches, mapper branches, handler/routes branches, and session guard parsing
+
+---
+
+# Status Report (Appendix: UC-15)
+
+Date: 2026-03-02  
+Branch: `015-edit-conference-schedule`
+
+## Test Status
+
+Command run:
+
+```bash
+npm test
+```
+
+Result:
+- Backend tests: 383 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Backend passing suite includes:
+- UC-15 contract tests for schedule fetch and schedule edit success/validation/auth outcomes
+- UC-15 integration tests for success flow, auth guard failures, optimistic concurrency conflict handling, validation failures, and performance branch checks
+- UC-15 support unit tests for edit validation, service branching, repository mappers, and handler error/status mapping
