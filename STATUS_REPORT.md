@@ -98,3 +98,29 @@ Backend passing suite includes:
 - Integration tests (success flow, invalid current password, expired session, throttling, rollback on operational failure, conflict mapping)
 - Performance integration test (`p95 <= 500ms` target)
 - UC-04 support unit tests for validation, throttling, repositories, observability, session auth middleware, and controller mapping
+
+---
+
+# Status Report (Appendix: UC-05)
+
+Date: 2026-03-02  
+Branch: `005-submit-paper-manuscript`
+
+## Test Status
+
+Command run:
+
+```bash
+npm test
+```
+
+Result:
+- Backend tests: 141 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Backend passing suite includes:
+- Contract tests (`200`, `201`, `400`, `409`, `413`, `415`)
+- Integration tests (success path, intake closed, duplicate protection, metadata/file validation failures, operational rollback, TLS-only enforcement, author-only guard)
+- Dedicated UC-05 concurrency and performance integration tests
+- UC-05 support unit tests for middleware, service branches, policy/validation helpers, metrics/observability, redaction, and controller mapping
