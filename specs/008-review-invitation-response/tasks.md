@@ -13,10 +13,10 @@
 
 **Purpose**: Prepare feature module structure and test harnesses for UC-08.
 
-- [ ] T001 Create backend module folders in `backend/src/presentation/review-invitations/`, `backend/src/business/review-invitations/`, and `backend/src/data/review-invitations/`
-- [ ] T002 Create frontend module folders in `frontend/src/presentation/review-invitations/`, `frontend/src/business/review-invitations/`, and `frontend/src/data/review-invitations/`
-- [ ] T003 [P] Register OpenAPI contract artifact path `specs/008-review-invitation-response/contracts/review-invitation-response.openapi.yaml` in `backend/package.json`
-- [ ] T004 [P] Create test suite placeholders in `backend/tests/contract/review-invitations/`, `backend/tests/integration/review-invitations/`, and `frontend/tests/e2e/review-invitations/`
+- [X] T001 Create backend module folders in `backend/src/presentation/review-invitations/`, `backend/src/business/review-invitations/`, and `backend/src/data/review-invitations/`
+- [X] T002 Create frontend module folders in `frontend/src/presentation/review-invitations/`, `frontend/src/business/review-invitations/`, and `frontend/src/data/review-invitations/`
+- [X] T003 [P] Register OpenAPI contract artifact path `specs/008-review-invitation-response/contracts/review-invitation-response.openapi.yaml` in `backend/package.json`
+- [X] T004 [P] Create test suite placeholders in `backend/tests/contract/review-invitations/`, `backend/tests/integration/review-invitations/`, and `frontend/tests/e2e/review-invitations/`
 
 ---
 
@@ -26,17 +26,17 @@
 
 **⚠️ CRITICAL**: No user story implementation begins until this phase is complete.
 
-- [ ] T005 [P] Add failing integration test for invited-referee ownership enforcement baseline in `backend/tests/integration/review-invitations/invitationOwnership.foundation.integration.test.ts`
-- [ ] T006 [P] Add failing integration test for first-valid-response-wins conflict control baseline in `backend/tests/integration/review-invitations/firstResponseWins.foundation.integration.test.ts`
-- [ ] T007 [P] Add failing integration test for unresolved-on-recording-failure baseline in `backend/tests/integration/review-invitations/recordingFailurePending.foundation.integration.test.ts`
-- [ ] T008 [P] Add failing integration test for sensitive-data log redaction baseline in `backend/tests/integration/review-invitations/logRedaction.foundation.integration.test.ts`
-- [ ] T009 Create Prisma migration for invitation response attempt and related schema updates in `backend/prisma/migrations/*_review_invitation_response_uc08/migration.sql`
-- [ ] T010 Update Prisma schema for `ReviewInvitation`, `InvitationResponseAttempt`, and `RefereeAssignment` relations/enums in `backend/prisma/schema.prisma`
-- [ ] T011 [P] Implement shared validation schemas for invitation retrieval and response payloads in `backend/src/business/review-invitations/reviewInvitationSchemas.ts`
-- [ ] T012 [P] Implement invited-referee authorization guard helpers in `backend/src/security/reviewInvitationAuthorization.ts`
-- [ ] T013 Implement repository interfaces and transaction boundary contracts in `backend/src/data/review-invitations/ReviewInvitationRepository.ts`
-- [ ] T014 [P] Implement structured audit helper for invitation response outcomes in `backend/src/shared/audit/reviewInvitationAudit.ts`
-- [ ] T015 [P] Document backup/restore impact for new invitation response records in `infra/ops/backup-restore.md`
+- [X] T005 [P] Add failing integration test for invited-referee ownership enforcement baseline in `backend/tests/integration/review-invitations/invitationOwnership.foundation.integration.test.ts`
+- [X] T006 [P] Add failing integration test for first-valid-response-wins conflict control baseline in `backend/tests/integration/review-invitations/firstResponseWins.foundation.integration.test.ts`
+- [X] T007 [P] Add failing integration test for unresolved-on-recording-failure baseline in `backend/tests/integration/review-invitations/recordingFailurePending.foundation.integration.test.ts`
+- [X] T008 [P] Add failing integration test for sensitive-data log redaction baseline in `backend/tests/integration/review-invitations/logRedaction.foundation.integration.test.ts`
+- [X] T009 Create Prisma migration for invitation response attempt and related schema updates in `backend/prisma/migrations/*_review_invitation_response_uc08/migration.sql`
+- [X] T010 Update Prisma schema for `ReviewInvitation`, `InvitationResponseAttempt`, and `RefereeAssignment` relations/enums in `backend/prisma/schema.prisma`
+- [X] T011 [P] Implement shared validation schemas for invitation retrieval and response payloads in `backend/src/business/review-invitations/reviewInvitationSchemas.ts`
+- [X] T012 [P] Implement invited-referee authorization guard helpers in `backend/src/security/reviewInvitationAuthorization.ts`
+- [X] T013 Implement repository interfaces and transaction boundary contracts in `backend/src/data/review-invitations/ReviewInvitationRepository.ts`
+- [X] T014 [P] Implement structured audit helper for invitation response outcomes in `backend/src/shared/audit/reviewInvitationAudit.ts`
+- [X] T015 [P] Document backup/restore impact for new invitation response records in `infra/ops/backup-restore.md`
 
 **Checkpoint**: Auth, validation, persistence, conflict control, audit, and backup foundations are ready.
 
@@ -50,24 +50,24 @@
 
 ### Tests for User Story 1 (REQUIRED)
 
-- [ ] T016 [P] [US1] Add failing contract test for `GET /api/v1/review-invitations/{invitationId}` success and auth errors in `backend/tests/contract/review-invitations/getReviewInvitation.contract.test.ts`
-- [ ] T017 [P] [US1] Add failing contract test for ACCEPT response on `POST /api/v1/review-invitations/{invitationId}/response` in `backend/tests/contract/review-invitations/respondAccept.contract.test.ts`
-- [ ] T018 [P] [US1] Add failing integration test for successful acceptance with assignment creation in `backend/tests/integration/review-invitations/respondAccept.success.integration.test.ts`
-- [ ] T019 [P] [US1] Add failing integration test for invitation detail retrieval minimum fields in `backend/tests/integration/review-invitations/getInvitationDetails.integration.test.ts`
-- [ ] T020 [P] [US1] Add failing UI/e2e test for invitation accept flow confirmation in `frontend/tests/e2e/review-invitations/respondAccept.success.e2e.test.ts`
+- [X] T016 [P] [US1] Add failing contract test for `GET /api/v1/review-invitations/{invitationId}` success and auth errors in `backend/tests/contract/review-invitations/getReviewInvitation.contract.test.ts`
+- [X] T017 [P] [US1] Add failing contract test for ACCEPT response on `POST /api/v1/review-invitations/{invitationId}/response` in `backend/tests/contract/review-invitations/respondAccept.contract.test.ts`
+- [X] T018 [P] [US1] Add failing integration test for successful acceptance with assignment creation in `backend/tests/integration/review-invitations/respondAccept.success.integration.test.ts`
+- [X] T019 [P] [US1] Add failing integration test for invitation detail retrieval minimum fields in `backend/tests/integration/review-invitations/getInvitationDetails.integration.test.ts`
+- [X] T020 [P] [US1] Add failing UI/e2e test for invitation accept flow confirmation in `frontend/tests/e2e/review-invitations/respondAccept.success.e2e.test.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T021 [US1] Implement invitation detail retrieval use case in `backend/src/business/review-invitations/GetReviewInvitationUseCase.ts`
-- [ ] T022 [US1] Implement invitation response orchestration use case for ACCEPT decision in `backend/src/business/review-invitations/RespondToReviewInvitationUseCase.ts`
-- [ ] T023 [US1] Implement transactional repository logic for ACCEPT state and assignment creation in `backend/src/data/review-invitations/PrismaReviewInvitationRepository.ts`
-- [ ] T024 [US1] Implement invitation detail route handler in `backend/src/presentation/review-invitations/getReviewInvitationHandler.ts`
-- [ ] T025 [US1] Implement invitation response route handler for ACCEPT flow in `backend/src/presentation/review-invitations/postReviewInvitationResponseHandler.ts`
-- [ ] T026 [US1] Implement frontend invitation detail API client in `frontend/src/data/review-invitations/getReviewInvitationClient.ts`
-- [ ] T027 [US1] Implement frontend response submission API client in `frontend/src/data/review-invitations/postReviewInvitationResponseClient.ts`
-- [ ] T028 [US1] Implement frontend ACCEPT response action workflow in `frontend/src/business/review-invitations/respondToInvitationAction.ts`
-- [ ] T029 [US1] Implement invitation response panel accept UX in `frontend/src/presentation/review-invitations/ReviewInvitationResponsePanel.tsx`
-- [ ] T030 [US1] Emit accept-success audit event for invitation response in `backend/src/shared/audit/reviewInvitationAudit.ts`
+- [X] T021 [US1] Implement invitation detail retrieval use case in `backend/src/business/review-invitations/GetReviewInvitationUseCase.ts`
+- [X] T022 [US1] Implement invitation response orchestration use case for ACCEPT decision in `backend/src/business/review-invitations/RespondToReviewInvitationUseCase.ts`
+- [X] T023 [US1] Implement transactional repository logic for ACCEPT state and assignment creation in `backend/src/data/review-invitations/PrismaReviewInvitationRepository.ts`
+- [X] T024 [US1] Implement invitation detail route handler in `backend/src/presentation/review-invitations/getReviewInvitationHandler.ts`
+- [X] T025 [US1] Implement invitation response route handler for ACCEPT flow in `backend/src/presentation/review-invitations/postReviewInvitationResponseHandler.ts`
+- [X] T026 [US1] Implement frontend invitation detail API client in `frontend/src/data/review-invitations/getReviewInvitationClient.ts`
+- [X] T027 [US1] Implement frontend response submission API client in `frontend/src/data/review-invitations/postReviewInvitationResponseClient.ts`
+- [X] T028 [US1] Implement frontend ACCEPT response action workflow in `frontend/src/business/review-invitations/respondToInvitationAction.ts`
+- [X] T029 [US1] Implement invitation response panel accept UX in `frontend/src/presentation/review-invitations/ReviewInvitationResponsePanel.tsx`
+- [X] T030 [US1] Emit accept-success audit event for invitation response in `backend/src/shared/audit/reviewInvitationAudit.ts`
 
 **Checkpoint**: US1 is fully functional and independently testable.
 
@@ -81,19 +81,19 @@
 
 ### Tests for User Story 2 (REQUIRED)
 
-- [ ] T031 [P] [US2] Add failing contract test for REJECT response on `POST /api/v1/review-invitations/{invitationId}/response` in `backend/tests/contract/review-invitations/respondReject.contract.test.ts`
-- [ ] T032 [P] [US2] Add failing integration test for successful rejection without assignment creation in `backend/tests/integration/review-invitations/respondReject.success.integration.test.ts`
-- [ ] T033 [P] [US2] Add failing integration test for pending-only validation error on resolved invitation in `backend/tests/integration/review-invitations/respondResolvedInvitation.integration.test.ts`
-- [ ] T034 [P] [US2] Add failing UI/e2e test for invitation reject flow confirmation in `frontend/tests/e2e/review-invitations/respondReject.success.e2e.test.ts`
+- [X] T031 [P] [US2] Add failing contract test for REJECT response on `POST /api/v1/review-invitations/{invitationId}/response` in `backend/tests/contract/review-invitations/respondReject.contract.test.ts`
+- [X] T032 [P] [US2] Add failing integration test for successful rejection without assignment creation in `backend/tests/integration/review-invitations/respondReject.success.integration.test.ts`
+- [X] T033 [P] [US2] Add failing integration test for pending-only validation error on resolved invitation in `backend/tests/integration/review-invitations/respondResolvedInvitation.integration.test.ts`
+- [X] T034 [P] [US2] Add failing UI/e2e test for invitation reject flow confirmation in `frontend/tests/e2e/review-invitations/respondReject.success.e2e.test.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T035 [US2] Implement REJECT decision branch in invitation response orchestration in `backend/src/business/review-invitations/RespondToReviewInvitationUseCase.ts`
-- [ ] T036 [US2] Implement repository mutation path for REJECT without assignment side effects in `backend/src/data/review-invitations/PrismaReviewInvitationRepository.ts`
-- [ ] T037 [US2] Implement resolved-invitation validation and error mapping in `backend/src/presentation/review-invitations/reviewInvitationErrorMapper.ts`
-- [ ] T038 [US2] Implement frontend REJECT response action workflow in `frontend/src/business/review-invitations/respondToInvitationAction.ts`
-- [ ] T039 [US2] Implement invitation response panel reject UX in `frontend/src/presentation/review-invitations/ReviewInvitationResponsePanel.tsx`
-- [ ] T040 [US2] Emit reject-success audit event for invitation response in `backend/src/shared/audit/reviewInvitationAudit.ts`
+- [X] T035 [US2] Implement REJECT decision branch in invitation response orchestration in `backend/src/business/review-invitations/RespondToReviewInvitationUseCase.ts`
+- [X] T036 [US2] Implement repository mutation path for REJECT without assignment side effects in `backend/src/data/review-invitations/PrismaReviewInvitationRepository.ts`
+- [X] T037 [US2] Implement resolved-invitation validation and error mapping in `backend/src/presentation/review-invitations/reviewInvitationErrorMapper.ts`
+- [X] T038 [US2] Implement frontend REJECT response action workflow in `frontend/src/business/review-invitations/respondToInvitationAction.ts`
+- [X] T039 [US2] Implement invitation response panel reject UX in `frontend/src/presentation/review-invitations/ReviewInvitationResponsePanel.tsx`
+- [X] T040 [US2] Emit reject-success audit event for invitation response in `backend/src/shared/audit/reviewInvitationAudit.ts`
 
 **Checkpoint**: US2 is fully functional and independently testable.
 
@@ -107,20 +107,20 @@
 
 ### Tests for User Story 3 (REQUIRED)
 
-- [ ] T041 [P] [US3] Add failing contract test for `500 RESPONSE_RECORDING_FAILED` on response endpoint in `backend/tests/contract/review-invitations/respondRecordingFailure.contract.test.ts`
-- [ ] T042 [P] [US3] Add failing integration test for unresolved invitation state after recording failure in `backend/tests/integration/review-invitations/respondRecordingFailure.pending.integration.test.ts`
-- [ ] T043 [P] [US3] Add failing integration test for no assignment side effects on recording failure in `backend/tests/integration/review-invitations/respondRecordingFailure.noAssignment.integration.test.ts`
-- [ ] T044 [P] [US3] Add failing integration test for first-valid-response-wins conflict rejection in `backend/tests/integration/review-invitations/respondConflict.firstWins.integration.test.ts`
-- [ ] T045 [P] [US3] Add failing UI/e2e test for explicit response-recording failure feedback in `frontend/tests/e2e/review-invitations/respondRecordingFailure.e2e.test.ts`
+- [X] T041 [P] [US3] Add failing contract test for `500 RESPONSE_RECORDING_FAILED` on response endpoint in `backend/tests/contract/review-invitations/respondRecordingFailure.contract.test.ts`
+- [X] T042 [P] [US3] Add failing integration test for unresolved invitation state after recording failure in `backend/tests/integration/review-invitations/respondRecordingFailure.pending.integration.test.ts`
+- [X] T043 [P] [US3] Add failing integration test for no assignment side effects on recording failure in `backend/tests/integration/review-invitations/respondRecordingFailure.noAssignment.integration.test.ts`
+- [X] T044 [P] [US3] Add failing integration test for first-valid-response-wins conflict rejection in `backend/tests/integration/review-invitations/respondConflict.firstWins.integration.test.ts`
+- [X] T045 [P] [US3] Add failing UI/e2e test for explicit response-recording failure feedback in `frontend/tests/e2e/review-invitations/respondRecordingFailure.e2e.test.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T046 [US3] Implement recording-failure rollback safeguards and explicit failure outcomes in `backend/src/business/review-invitations/RespondToReviewInvitationUseCase.ts`
-- [ ] T047 [US3] Implement repository transaction failure handling that preserves pending invitation state in `backend/src/data/review-invitations/PrismaReviewInvitationRepository.ts`
-- [ ] T048 [US3] Implement first-valid-response-wins conflict detection and `409` mapping in `backend/src/presentation/review-invitations/reviewInvitationErrorMapper.ts`
-- [ ] T049 [US3] Implement frontend failure-state messaging workflow for recording errors in `frontend/src/business/review-invitations/respondToInvitationAction.ts`
-- [ ] T050 [US3] Implement UI rendering for unresolved-state failure message in `frontend/src/presentation/review-invitations/ReviewInvitationResponsePanel.tsx`
-- [ ] T051 [US3] Emit recording-failure and conflict-rejected audit events in `backend/src/shared/audit/reviewInvitationAudit.ts`
+- [X] T046 [US3] Implement recording-failure rollback safeguards and explicit failure outcomes in `backend/src/business/review-invitations/RespondToReviewInvitationUseCase.ts`
+- [X] T047 [US3] Implement repository transaction failure handling that preserves pending invitation state in `backend/src/data/review-invitations/PrismaReviewInvitationRepository.ts`
+- [X] T048 [US3] Implement first-valid-response-wins conflict detection and `409` mapping in `backend/src/presentation/review-invitations/reviewInvitationErrorMapper.ts`
+- [X] T049 [US3] Implement frontend failure-state messaging workflow for recording errors in `frontend/src/business/review-invitations/respondToInvitationAction.ts`
+- [X] T050 [US3] Implement UI rendering for unresolved-state failure message in `frontend/src/presentation/review-invitations/ReviewInvitationResponsePanel.tsx`
+- [X] T051 [US3] Emit recording-failure and conflict-rejected audit events in `backend/src/shared/audit/reviewInvitationAudit.ts`
 
 **Checkpoint**: US3 is fully functional and independently testable.
 
@@ -130,15 +130,15 @@
 
 **Purpose**: Final hardening for security, reliability, observability, and release readiness.
 
-- [ ] T052 [P] Add failing integration test for unauthorized invitation access rejection in `backend/tests/integration/review-invitations/respondAuthorizationFailure.integration.test.ts`
-- [ ] T053 [P] Add failing integration test for TLS-only invitation response transport behavior in `backend/tests/integration/review-invitations/transportSecurity.integration.test.ts`
-- [ ] T054 Implement invitation route transport security enforcement in `backend/src/presentation/review-invitations/reviewInvitationRouteSecurity.ts`
-- [ ] T055 [P] Add failing integration test for encrypted-at-rest protection and backup coverage of response records in `backend/tests/integration/review-invitations/atRestProtection.integration.test.ts`
-- [ ] T056 Implement persistence and ops wiring for at-rest protection assertions in `backend/src/data/review-invitations/PrismaReviewInvitationRepository.ts` and `infra/ops/backup-restore.md`
-- [ ] T057 [P] Add integration test for sensitive-field log redaction across invitation response outcomes in `backend/tests/integration/review-invitations/securityRedaction.integration.test.ts`
-- [ ] T058 [P] Validate Chrome and Firefox invitation response flows in `frontend/tests/e2e/review-invitations/`
-- [ ] T059 Update invitation response operational runbook for conflict/failure handling in `infra/ops/incident-response.md`
-- [ ] T060 Maintain UC-08 and AT-UC08-01/02 traceability evidence in `specs/008-review-invitation-response/quickstart.md`
+- [X] T052 [P] Add failing integration test for unauthorized invitation access rejection in `backend/tests/integration/review-invitations/respondAuthorizationFailure.integration.test.ts`
+- [X] T053 [P] Add failing integration test for TLS-only invitation response transport behavior in `backend/tests/integration/review-invitations/transportSecurity.integration.test.ts`
+- [X] T054 Implement invitation route transport security enforcement in `backend/src/presentation/review-invitations/reviewInvitationRouteSecurity.ts`
+- [X] T055 [P] Add failing integration test for encrypted-at-rest protection and backup coverage of response records in `backend/tests/integration/review-invitations/atRestProtection.integration.test.ts`
+- [X] T056 Implement persistence and ops wiring for at-rest protection assertions in `backend/src/data/review-invitations/PrismaReviewInvitationRepository.ts` and `infra/ops/backup-restore.md`
+- [X] T057 [P] Add integration test for sensitive-field log redaction across invitation response outcomes in `backend/tests/integration/review-invitations/securityRedaction.integration.test.ts`
+- [X] T058 [P] Validate Chrome and Firefox invitation response flows in `frontend/tests/e2e/review-invitations/`
+- [X] T059 Update invitation response operational runbook for conflict/failure handling in `infra/ops/incident-response.md`
+- [X] T060 Maintain UC-08 and AT-UC08-01/02 traceability evidence in `specs/008-review-invitation-response/quickstart.md`
 
 ---
 

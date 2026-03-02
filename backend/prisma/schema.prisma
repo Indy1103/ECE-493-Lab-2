@@ -28,6 +28,24 @@ enum InvitationStatus {
   FAILED_FINAL
 }
 
+enum InvitationResponseStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+enum InvitationResponseAttemptOutcome {
+  SUCCESS_ACCEPTED
+  SUCCESS_REJECTED
+  REJECTED_ALREADY_RESOLVED
+  AUTHZ_FAILED
+  VALIDATION_FAILED
+  RECORDING_FAILED
+  INVITATION_NOT_FOUND
+  INTERNAL_ERROR
+}
+
 enum AssignmentAuditOutcome {
   SUCCESS
   VALIDATION_FAILED
@@ -103,7 +121,9 @@ model RefereeAssignment {
   assignmentStatus   AssignmentStatus @map("assignment_status")
   assignedAt         DateTime         @map("assigned_at")
   conferenceCycleId  String           @map("conference_cycle_id") @db.Uuid
+  sourceInvitationId String?          @unique @map("source_invitation_id") @db.Uuid
   invitations        ReviewInvitation[]
+  sourceInvitation   ReviewInvitation? @relation("InvitationSource", fields: [sourceInvitationId], references: [id], onDelete: SetNull)
 
   @@unique([paperId, refereeId], map: "referee_assignments_unique_active")
   @@index([paperId], map: "referee_assignments_paper_idx")
@@ -113,20 +133,39 @@ model RefereeAssignment {
 }
 
 model ReviewInvitation {
-  id              String           @id @default(uuid()) @db.Uuid
-  assignmentId    String           @map("assignment_id") @db.Uuid
-  paperId         String           @map("paper_id") @db.Uuid
-  refereeId       String           @map("referee_id") @db.Uuid
-  invitationStatus InvitationStatus @map("invitation_status")
-  attemptCount    Int              @default(0) @map("attempt_count")
-  lastAttemptAt   DateTime?        @map("last_attempt_at")
-  failureReasonCode String?        @map("failure_reason_code")
-  createdAt       DateTime         @default(now()) @map("created_at")
-  assignment      RefereeAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  id                 String                   @id @default(uuid()) @db.Uuid
+  assignmentId       String?                  @map("assignment_id") @db.Uuid
+  paperId            String                   @map("paper_id") @db.Uuid
+  refereeId          String                   @map("referee_id") @db.Uuid
+  invitationStatus   InvitationStatus         @map("invitation_status")
+  responseStatus     InvitationResponseStatus @default(PENDING) @map("response_status")
+  responseRecordedAt DateTime?                @map("response_recorded_at")
+  attemptCount       Int                      @default(0) @map("attempt_count")
+  lastAttemptAt      DateTime?                @map("last_attempt_at")
+  failureReasonCode  String?                  @map("failure_reason_code")
+  createdAt          DateTime                 @default(now()) @map("created_at")
+  assignment         RefereeAssignment?       @relation(fields: [assignmentId], references: [id], onDelete: SetNull)
+  sourceAssignments  RefereeAssignment[]      @relation("InvitationSource")
+  responseAttempts   InvitationResponseAttempt[]
 
   @@index([assignmentId], map: "review_invitations_assignment_idx")
   @@index([invitationStatus, lastAttemptAt], map: "review_invitations_status_idx")
   @@map("review_invitations")
+}
+
+model InvitationResponseAttempt {
+  id                String                          @id @default(uuid()) @db.Uuid
+  invitationId      String                          @map("invitation_id") @db.Uuid
+  refereeId         String?                         @map("referee_id") @db.Uuid
+  decisionRequested String                          @map("decision_requested")
+  outcome           InvitationResponseAttemptOutcome
+  reasonCode        String                          @map("reason_code")
+  requestId         String                          @map("request_id")
+  occurredAt        DateTime                        @default(now()) @map("occurred_at")
+  invitation        ReviewInvitation                @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId, occurredAt], map: "invitation_response_attempts_invitation_time_idx")
+  @@map("invitation_response_attempts")
 }
 
 model AssignmentAttemptAudit {
