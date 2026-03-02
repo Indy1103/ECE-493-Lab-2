@@ -27,3 +27,16 @@ Allow an editor to record a final acceptance/rejection decision for a paper only
 
 - UC-12-S1 → AT-UC12-01
 - UC-12-S2 → AT-UC12-02
+
+## Verification Checklist
+
+1. Run backend tests and verify UC-12 contract/integration/unit suites pass:
+   - `npm run test -w backend`
+2. Run backend coverage and verify 100% thresholds:
+   - `npm run coverage -w backend`
+3. Validate UC-12 browser scenarios in Chrome and Firefox:
+   - `npx playwright test frontend/tests/e2e/final-decision/final-decision-success.e2e.ts --project=chromium --project=firefox`
+   - `npx playwright test frontend/tests/e2e/final-decision/final-decision-pending.e2e.ts --project=chromium --project=firefox`
+4. Confirm recovery checklist and monitoring artifacts are present:
+   - `infra/ops/recovery/final-decision-recovery.md`
+   - `infra/ops/monitoring/final-decision-slo.yml`

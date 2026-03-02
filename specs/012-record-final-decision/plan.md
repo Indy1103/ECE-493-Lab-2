@@ -129,3 +129,11 @@ This plan concludes at Phase 2 readiness once research, data model, contracts, q
 ## Complexity Tracking
 
 No constitution violations requiring justification.
+
+## Library-First Justification Note
+
+UC-12 implementation remains library-first and reuses existing platform patterns:
+- Fastify route and handler composition for endpoint wiring and transport middleware.
+- Existing session-guard pattern for authenticated session parsing and editor RBAC enforcement.
+- Zod response schemas for deterministic payload validation/mapping.
+- Existing structured observability flow (audit repository/logger pattern) for outcome traceability without sensitive payload leakage.

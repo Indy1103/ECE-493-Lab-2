@@ -129,3 +129,11 @@ This plan concludes at Phase 2 readiness once research, data model, contracts, q
 ## Complexity Tracking
 
 No constitution violations requiring justification.
+
+## Library-First Implementation Note
+
+UC-11 implementation uses existing platform libraries and patterns:
+- Fastify route/pre-handler composition for transport/session controls.
+- Zod for response-shape contracts in presentation mapping.
+- In-memory Prisma-style repository adapters consistent with existing UC modules.
+- Supertest + Node.js test runner for contract/integration/unit execution.
