@@ -128,3 +128,14 @@ This plan concludes at Phase 2 readiness once research, data model, contracts, q
 ## Complexity Tracking
 
 No constitution violations requiring justification.
+
+## Library-First Justification Note (UC-13)
+
+UC-13 uses established project dependencies and patterns:
+- Fastify route handlers and pre-handlers for transport/session enforcement.
+- Zod response schemas for explicit outcome contracts.
+- Supertest for contract and integration endpoint verification.
+- Node.js test runner for deterministic unit and integration execution.
+- c8 for strict 100% branch/function/line/statement coverage gating.
+
+No custom framework or non-standard dependency was introduced for UC-13.
