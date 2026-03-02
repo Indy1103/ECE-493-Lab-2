@@ -1,6 +1,5 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import request from "supertest";
 
 import { createPasswordChangeTestApp } from "./password-change.testApp.js";
 
@@ -12,18 +11,22 @@ test("password change p95 latency is <= 500ms under normal load", async () => {
     const newPassword = `NewPassw0rd${index}9!A`;
 
     const started = Date.now();
-    const response = await request(ctx.app.server)
-      .post("/api/v1/account/password-change")
-      .set("x-forwarded-proto", "https")
-      .set("cookie", `cms_session=${ctx.sessionId}`)
-      .send({
+    const response = await ctx.app.inject({
+      method: "POST",
+      url: "/api/v1/account/password-change",
+      headers: {
+        "x-forwarded-proto": "https",
+        cookie: `cms_session=${ctx.sessionId}`
+      },
+      payload: {
         currentPassword: "Passw0rd88",
         newPassword,
         confirmNewPassword: newPassword
-      });
+      }
+    });
     samples.push(Date.now() - started);
 
-    assert.equal(response.status, 200);
+    assert.equal(response.statusCode, 200);
     await ctx.app.close();
   }
 

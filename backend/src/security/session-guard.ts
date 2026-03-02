@@ -1,6 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 
 import { REVIEW_SUBMISSION_OUTCOMES } from "../business/review-submission/submission-outcome.js";
+import { REVIEW_VISIBILITY_OUTCOMES } from "../business/review-visibility/visibility-outcome.js";
 
 export interface ReviewSubmissionSessionRecord {
   sessionId: string;
@@ -24,6 +25,31 @@ export type ReviewSubmissionSessionRequest = FastifyRequest & {
 
 interface ReviewSubmissionSessionGuardDeps {
   sessionRepository: ReviewSubmissionSessionRepository;
+}
+
+export interface ReviewVisibilitySessionRecord {
+  sessionId: string;
+  accountId: string;
+  role: string;
+  status: "ACTIVE" | "REVOKED" | "EXPIRED";
+}
+
+export interface ReviewVisibilitySessionRepository {
+  getSessionById(sessionId: string): Promise<ReviewVisibilitySessionRecord | null>;
+}
+
+export interface ReviewVisibilitySessionContext {
+  userId: string;
+  sessionId: string;
+  role: string;
+}
+
+export type ReviewVisibilitySessionRequest = FastifyRequest & {
+  reviewVisibilitySession?: ReviewVisibilitySessionContext;
+};
+
+interface ReviewVisibilitySessionGuardDeps {
+  sessionRepository: ReviewVisibilitySessionRepository;
 }
 
 function parseSessionId(cookieHeader: string | undefined): string | null {
@@ -73,6 +99,39 @@ export function createReviewSubmissionSessionGuard(deps: ReviewSubmissionSession
     request.reviewSubmissionSession = {
       refereeUserId: session.accountId,
       sessionId: session.sessionId
+    };
+  };
+}
+
+export function createReviewVisibilitySessionGuard(deps: ReviewVisibilitySessionGuardDeps) {
+  return async function reviewVisibilitySessionGuard(
+    request: ReviewVisibilitySessionRequest,
+    reply: FastifyReply
+  ): Promise<void> {
+    const sessionId = parseSessionId(request.headers.cookie);
+
+    if (!sessionId) {
+      reply.code(401).send({
+        messageCode: REVIEW_VISIBILITY_OUTCOMES.SESSION_EXPIRED,
+        message: "Your session has expired. Please sign in again."
+      });
+      return;
+    }
+
+    const session = await deps.sessionRepository.getSessionById(sessionId);
+
+    if (!session || session.status !== "ACTIVE") {
+      reply.code(401).send({
+        messageCode: REVIEW_VISIBILITY_OUTCOMES.SESSION_EXPIRED,
+        message: "Your session has expired. Please sign in again."
+      });
+      return;
+    }
+
+    request.reviewVisibilitySession = {
+      userId: session.accountId,
+      sessionId: session.sessionId,
+      role: session.role
     };
   };
 }
