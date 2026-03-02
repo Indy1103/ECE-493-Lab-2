@@ -17,15 +17,15 @@
 
 **Purpose**: Initialize folders, baseline configs, and reusable fixtures.
 
-- [ ] T001 Create backend auth folders in `backend/src/presentation/auth/`
-- [ ] T002 Create backend business auth folders in `backend/src/business/auth/`
-- [ ] T003 [P] Create backend data auth folders in `backend/src/data/auth/`
-- [ ] T004 [P] Create backend security auth folders in `backend/src/security/auth/`
-- [ ] T005 [P] Create frontend login presentation folder in `frontend/src/presentation/login/`
-- [ ] T006 [P] Create frontend login business/data folders in `frontend/src/business/login/`
-- [ ] T007 [P] Create backend auth test folders in `backend/tests/`
-- [ ] T008 [P] Create frontend login test folders in `frontend/tests/`
-- [ ] T009 [P] Add login seed fixture for existing accounts in `infra/db/seeds/login-users.seed.sql`
+- [X] T001 Create backend auth folders in `backend/src/presentation/auth/`
+- [X] T002 Create backend business auth folders in `backend/src/business/auth/`
+- [X] T003 [P] Create backend data auth folders in `backend/src/data/auth/`
+- [X] T004 [P] Create backend security auth folders in `backend/src/security/auth/`
+- [X] T005 [P] Create frontend login presentation folder in `frontend/src/presentation/login/`
+- [X] T006 [P] Create frontend login business/data folders in `frontend/src/business/login/`
+- [X] T007 [P] Create backend auth test folders in `backend/tests/`
+- [X] T008 [P] Create frontend login test folders in `frontend/tests/`
+- [X] T009 [P] Add login seed fixture for existing accounts in `infra/db/seeds/login-users.seed.sql`
 
 ---
 
@@ -37,23 +37,23 @@
 
 ### Tests for Foundational Controls (REQUIRED)
 
-- [ ] T010 [P] Add failing test for TLS-only login transport rejection in `backend/tests/integration/auth/login-tls-only.integration.test.ts`
-- [ ] T011 [P] Add failing test for at-rest encryption coverage (auth records + backups) in `backend/tests/integration/auth/login-at-rest-encryption.integration.test.ts`
-- [ ] T012 [P] Add failing test for no-plaintext credential handling in `backend/tests/integration/auth/login-no-plaintext.integration.test.ts`
-- [ ] T013 [P] Add failing test for concurrent login attempt safety in `backend/tests/integration/auth/login-concurrency.integration.test.ts`
-- [ ] T014 [P] Add failing test for deterministic outcome mapping in `backend/tests/integration/auth/login-deterministic-outcomes.integration.test.ts`
+- [X] T010 [P] Add failing test for TLS-only login transport rejection in `backend/tests/integration/auth/login-tls-only.integration.test.ts`
+- [X] T011 [P] Add failing test for at-rest encryption coverage (auth records + backups) in `backend/tests/integration/auth/login-at-rest-encryption.integration.test.ts`
+- [X] T012 [P] Add failing test for no-plaintext credential handling in `backend/tests/integration/auth/login-no-plaintext.integration.test.ts`
+- [X] T013 [P] Add failing test for concurrent login attempt safety in `backend/tests/integration/auth/login-concurrency.integration.test.ts`
+- [X] T014 [P] Add failing test for deterministic outcome mapping in `backend/tests/integration/auth/login-deterministic-outcomes.integration.test.ts`
 
 ### Implementation for Foundational Controls
 
-- [ ] T015 Implement login request/response validation schemas in `backend/src/business/auth/login.schemas.ts`
-- [ ] T016 [P] Implement auth repository interface contract in `backend/src/data/auth/auth.repository.ts`
-- [ ] T017 [P] Implement Argon2 password verifier adapter in `backend/src/security/auth/password-verifier.ts`
-- [ ] T018 Implement failed-login throttle policy service in `backend/src/business/auth/throttle-policy.ts`
-- [ ] T019 Implement role-permission and role-home policy service in `backend/src/business/auth/role-policy.ts`
-- [ ] T020 Implement TLS-only enforcement middleware for login route in `backend/src/presentation/auth/tls-only.middleware.ts`
-- [ ] T021 Implement at-rest protection policy wiring for auth persistence in `backend/src/data/auth/data-protection.policy.ts`
-- [ ] T022 Implement login observability hooks (audit logs + metrics + request ID) in `backend/src/shared/observability/login-observability.ts`
-- [ ] T023 Implement auth persistence migration (attempts/sessions/throttle records) in `infra/db/migrations/20260209_login_auth.sql`
+- [X] T015 Implement login request/response validation schemas in `backend/src/business/auth/login.schemas.ts`
+- [X] T016 [P] Implement auth repository interface contract in `backend/src/data/auth/auth.repository.ts`
+- [X] T017 [P] Implement Argon2 password verifier adapter in `backend/src/security/auth/password-verifier.ts`
+- [X] T018 Implement failed-login throttle policy service in `backend/src/business/auth/throttle-policy.ts`
+- [X] T019 Implement role-permission and role-home policy service in `backend/src/business/auth/role-policy.ts`
+- [X] T020 Implement TLS-only enforcement middleware for login route in `backend/src/presentation/auth/tls-only.middleware.ts`
+- [X] T021 Implement at-rest protection policy wiring for auth persistence in `backend/src/data/auth/data-protection.policy.ts`
+- [X] T022 Implement login observability hooks (audit logs + metrics + request ID) in `backend/src/shared/observability/login-observability.ts`
+- [X] T023 Implement auth persistence migration (attempts/sessions/throttle records) in `infra/db/migrations/20260209_login_auth.sql`
 
 **Checkpoint**: Foundational prerequisites complete.
 
@@ -67,21 +67,21 @@
 
 ### Tests for User Story 1 (REQUIRED)
 
-- [ ] T024 [P] [US1] Add failing contract test for login success response in `backend/tests/contract/auth/login.success.contract.test.ts`
-- [ ] T025 [P] [US1] Add failing contract test for role-mapping denial (`403`) in `backend/tests/contract/auth/login.role-mapping.contract.test.ts`
-- [ ] T026 [P] [US1] Add failing integration test for session creation on successful login in `backend/tests/integration/auth/login-success.integration.test.ts`
-- [ ] T027 [P] [US1] Add failing frontend unit test for success state transition in `frontend/tests/unit/login/login-success-state.test.ts`
-- [ ] T028 [P] [US1] Add failing e2e test for successful login redirect in `frontend/tests/e2e/login/login-success.e2e.spec.ts`
+- [X] T024 [P] [US1] Add failing contract test for login success response in `backend/tests/contract/auth/login.success.contract.test.ts`
+- [X] T025 [P] [US1] Add failing contract test for role-mapping denial (`403`) in `backend/tests/contract/auth/login.role-mapping.contract.test.ts`
+- [X] T026 [P] [US1] Add failing integration test for session creation on successful login in `backend/tests/integration/auth/login-success.integration.test.ts`
+- [X] T027 [P] [US1] Add failing frontend unit test for success state transition in `frontend/tests/unit/login/login-success-state.test.ts`
+- [X] T028 [P] [US1] Add failing e2e test for successful login redirect in `frontend/tests/e2e/login/login-success.e2e.spec.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T029 [US1] Implement account/session repository adapter in `backend/src/data/auth/login.repository.prisma.ts`
-- [ ] T030 [US1] Implement successful login use case orchestration in `backend/src/business/auth/login-success.use-case.ts`
-- [ ] T031 [US1] Implement login controller success and role-mapping-denial path in `backend/src/presentation/auth/login.controller.ts`
-- [ ] T032 [US1] Implement login route registration in `backend/src/presentation/auth/login.routes.ts`
-- [ ] T033 [US1] Implement frontend login API client for success path in `frontend/src/data/login/login.api.ts`
-- [ ] T034 [US1] Implement frontend login service success handling in `frontend/src/business/login/login.service.ts`
-- [ ] T035 [US1] Implement login page submit and role-home navigation flow in `frontend/src/presentation/login/LoginPage.tsx`
+- [X] T029 [US1] Implement account/session repository adapter in `backend/src/data/auth/login.repository.prisma.ts`
+- [X] T030 [US1] Implement successful login use case orchestration in `backend/src/business/auth/login-success.use-case.ts`
+- [X] T031 [US1] Implement login controller success and role-mapping-denial path in `backend/src/presentation/auth/login.controller.ts`
+- [X] T032 [US1] Implement login route registration in `backend/src/presentation/auth/login.routes.ts`
+- [X] T033 [US1] Implement frontend login API client for success path in `frontend/src/data/login/login.api.ts`
+- [X] T034 [US1] Implement frontend login service success handling in `frontend/src/business/login/login.service.ts`
+- [X] T035 [US1] Implement login page submit and role-home navigation flow in `frontend/src/presentation/login/LoginPage.tsx`
 
 **Checkpoint**: US1 is independently testable and complete.
 
@@ -95,21 +95,21 @@
 
 ### Tests for User Story 2 (REQUIRED)
 
-- [ ] T036 [P] [US2] Add failing contract test for invalid credentials (`401`) in `backend/tests/contract/auth/login-invalid.contract.test.ts`
-- [ ] T037 [P] [US2] Add failing contract test for throttled response (`429`) in `backend/tests/contract/auth/login-throttled.contract.test.ts`
-- [ ] T038 [P] [US2] Add failing contract test for unavailable response (`503`) in `backend/tests/contract/auth/login-unavailable.contract.test.ts`
-- [ ] T039 [P] [US2] Add failing integration test for throttle window behavior in `backend/tests/integration/auth/login-throttle-window.integration.test.ts`
-- [ ] T040 [P] [US2] Add failing frontend unit test for invalid/throttled/unavailable error states in `frontend/tests/unit/login/login-error-states.test.ts`
-- [ ] T041 [P] [US2] Add failing e2e test for invalid login and retry guidance in `frontend/tests/e2e/login/login-invalid.e2e.spec.ts`
+- [X] T036 [P] [US2] Add failing contract test for invalid credentials (`401`) in `backend/tests/contract/auth/login-invalid.contract.test.ts`
+- [X] T037 [P] [US2] Add failing contract test for throttled response (`429`) in `backend/tests/contract/auth/login-throttled.contract.test.ts`
+- [X] T038 [P] [US2] Add failing contract test for unavailable response (`503`) in `backend/tests/contract/auth/login-unavailable.contract.test.ts`
+- [X] T039 [P] [US2] Add failing integration test for throttle window behavior in `backend/tests/integration/auth/login-throttle-window.integration.test.ts`
+- [X] T040 [P] [US2] Add failing frontend unit test for invalid/throttled/unavailable error states in `frontend/tests/unit/login/login-error-states.test.ts`
+- [X] T041 [P] [US2] Add failing e2e test for invalid login and retry guidance in `frontend/tests/e2e/login/login-invalid.e2e.spec.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T042 [US2] Implement failed-login and throttle decision use case in `backend/src/business/auth/login-failure.use-case.ts`
-- [ ] T043 [US2] Implement throttle persistence adapter in `backend/src/data/auth/login-throttle.repository.prisma.ts`
-- [ ] T044 [US2] Implement explicit safe login error mapper in `backend/src/business/auth/login-error-mapper.ts`
-- [ ] T045 [US2] Extend login controller for `401/429/503` outcomes in `backend/src/presentation/auth/login.controller.ts`
-- [ ] T046 [US2] Implement frontend login error-state model in `frontend/src/business/login/login-error-state.ts`
-- [ ] T047 [US2] Implement explicit retry-capable error rendering in `frontend/src/presentation/login/LoginPage.tsx`
+- [X] T042 [US2] Implement failed-login and throttle decision use case in `backend/src/business/auth/login-failure.use-case.ts`
+- [X] T043 [US2] Implement throttle persistence adapter in `backend/src/data/auth/login-throttle.repository.prisma.ts`
+- [X] T044 [US2] Implement explicit safe login error mapper in `backend/src/business/auth/login-error-mapper.ts`
+- [X] T045 [US2] Extend login controller for `401/429/503` outcomes in `backend/src/presentation/auth/login.controller.ts`
+- [X] T046 [US2] Implement frontend login error-state model in `frontend/src/business/login/login-error-state.ts`
+- [X] T047 [US2] Implement explicit retry-capable error rendering in `frontend/src/presentation/login/LoginPage.tsx`
 
 **Checkpoint**: US2 is independently testable and complete.
 
@@ -119,14 +119,14 @@
 
 **Purpose**: Final verification of compliance, traceability, and operational readiness.
 
-- [ ] T048 [P] Verify OpenAPI response parity for `200/401/403/429/503` in `specs/003-user-login/contracts/user-login.openapi.yaml`
-- [ ] T049 [P] Add release evidence test for at-rest protection sampling in `backend/tests/integration/auth/login-at-rest-evidence.integration.test.ts`
-- [ ] T050 [P] Add release evidence test for transport rejection and no-plaintext findings in `backend/tests/integration/auth/login-security-evidence.integration.test.ts`
-- [ ] T051 [P] Add operational backup/restore verification checklist for auth data in `infra/ops/recovery/login-auth-recovery-checklist.md`
-- [ ] T052 [P] Add acceptance evidence capture task for SC-004 messaging clarity in `specs/003-user-login/quickstart.md`
-- [ ] T053 Update requirement-to-test traceability matrix for UC-03 and AT-UC03-01/02 in `specs/003-user-login/quickstart.md`
-- [ ] T054 [P] Add performance validation test for p95 <= 1.0s at 100 concurrent login attempts in `backend/tests/integration/auth/login-performance.integration.test.ts`
-- [ ] T055 [P] Add explicit cross-browser validation checklist for Chrome and Firefox login flows in `frontend/tests/e2e/login/login-cross-browser-checklist.md`
+- [X] T048 [P] Verify OpenAPI response parity for `200/401/403/429/503` in `specs/003-user-login/contracts/user-login.openapi.yaml`
+- [X] T049 [P] Add release evidence test for at-rest protection sampling in `backend/tests/integration/auth/login-at-rest-evidence.integration.test.ts`
+- [X] T050 [P] Add release evidence test for transport rejection and no-plaintext findings in `backend/tests/integration/auth/login-security-evidence.integration.test.ts`
+- [X] T051 [P] Add operational backup/restore verification checklist for auth data in `infra/ops/recovery/login-auth-recovery-checklist.md`
+- [X] T052 [P] Add acceptance evidence capture task for SC-004 messaging clarity in `specs/003-user-login/quickstart.md`
+- [X] T053 Update requirement-to-test traceability matrix for UC-03 and AT-UC03-01/02 in `specs/003-user-login/quickstart.md`
+- [X] T054 [P] Add performance validation test for p95 <= 1.0s at 100 concurrent login attempts in `backend/tests/integration/auth/login-performance.integration.test.ts`
+- [X] T055 [P] Add explicit cross-browser validation checklist for Chrome and Firefox login flows in `frontend/tests/e2e/login/login-cross-browser-checklist.md`
 
 ---
 
