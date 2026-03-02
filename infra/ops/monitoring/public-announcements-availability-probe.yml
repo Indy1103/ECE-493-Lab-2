@@ -1,0 +1,8 @@
+probe:
+  name: public-announcements-availability
+  type: http
+  method: GET
+  url: https://cms.example.com/api/public/announcements
+  interval: 30s
+  success_status_codes: [200, 503]
+  tls_required: true

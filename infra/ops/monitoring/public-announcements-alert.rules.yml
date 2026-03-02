@@ -1,0 +1,16 @@
+groups:
+  - name: public-announcements
+    rules:
+      - alert: PublicAnnouncementsRetrievalFailureRateHigh
+        expr: |
+          (
+            rate(public_announcements_retrieval_failures_total[5m]) /
+            clamp_min(rate(http_requests_total{route="/api/public/announcements"}[5m]), 0.0001)
+          ) > 0.05
+        for: 5m
+        labels:
+          severity: page
+          service: cms-public-announcements
+        annotations:
+          summary: Public announcement retrieval failures exceed 5%
+          description: Retrieval failures are above 5% for 5 minutes.
