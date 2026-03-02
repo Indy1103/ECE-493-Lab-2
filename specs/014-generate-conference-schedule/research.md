@@ -1,21 +1,19 @@
-# Research — Generate Conference Schedule
+# Research: Generate Conference Schedule (UC-14)
 
-## Decision 1: Draft schedule structure
-- **Decision**: Generate a draft schedule listing accepted papers ordered by submission time, without session/time assignments.
-- **Rationale**: Matches clarified scope and avoids premature session allocation before later scheduling steps.
-- **Alternatives considered**: Auto-assign sessions/time slots during generation; rejected because it exceeds UC-14 scope.
+## Decisions
 
-## Decision 2: Authorization scope
-- **Decision**: Restrict schedule generation and viewing to administrators only.
-- **Rationale**: Constitution mandates least-privilege RBAC for scheduling actions.
-- **Alternatives considered**: Allow editors or public access; rejected due to RBAC constraints.
+1. Use explicit outcomes for API responses
+- DECISION: Response outcomes include `SCHEDULE_GENERATED`, `NO_ACCEPTED_PAPERS`, `UNAVAILABLE_DENIED`, `SESSION_EXPIRED`, and `TLS_REQUIRED`.
+- RATIONALE: Matches existing explicit outcome style across backend modules.
 
-## Decision 3: Error handling for no accepted papers
-- **Decision**: Validate accepted-paper existence before generation and return explicit, user-visible error with no schedule created.
-- **Rationale**: Required by UC-14 extension 2a and Constitution validation rules.
-- **Alternatives considered**: Generate empty schedule; rejected because UC-14 requires failure end condition.
+2. Deterministic schedule order
+- DECISION: Sort accepted papers by `paperId` and assign sequential slots.
+- RATIONALE: Stable output supports repeatable tests and predictable administrator review.
 
-## Decision 4: Concurrency handling
-- **Decision**: Treat schedule generation as idempotent per conference; concurrent requests return the latest draft or serialized generation.
-- **Rationale**: Reliability requirement to avoid inconsistent output.
-- **Alternatives considered**: Allow parallel draft variants; rejected due to inconsistency risk.
+3. Concurrency handling
+- DECISION: Apply per-conference lock in repository and return consistent generated payload for concurrent requests.
+- RATIONALE: Satisfies RAR-001 with deterministic behavior.
+
+4. Security posture
+- DECISION: Enforce TLS pre-handler and admin session guard before generation.
+- RATIONALE: Satisfies SPR-001 and SPR-004.

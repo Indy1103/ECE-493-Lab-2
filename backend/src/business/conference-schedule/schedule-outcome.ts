@@ -1,0 +1,14 @@
+export const CONFERENCE_SCHEDULE_OUTCOMES = {
+  SCHEDULE_GENERATED: "SCHEDULE_GENERATED",
+  NO_ACCEPTED_PAPERS: "NO_ACCEPTED_PAPERS",
+  UNAVAILABLE_DENIED: "UNAVAILABLE_DENIED",
+  SESSION_EXPIRED: "SESSION_EXPIRED"
+} as const;
+
+export const CONFERENCE_SCHEDULE_REASON_CODES = {
+  SCHEDULE_CREATED: "schedule-created",
+  NO_ACCEPTED_PAPERS: "no-accepted-papers",
+  CONFERENCE_NOT_FOUND_OR_DENIED: "conference-not-found-or-denied",
+  NON_ADMIN_ROLE: "non-admin-role",
+  SESSION_INVALID: "session-invalid"
+} as const;

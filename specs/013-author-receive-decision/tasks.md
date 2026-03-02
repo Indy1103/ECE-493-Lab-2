@@ -23,10 +23,10 @@
 
 **Purpose**: Initialize project scaffolding and quality tooling for UC-13
 
-- [ ] T001 Create backend feature module skeletons in `backend/src/presentation/author-decision/`, `backend/src/business/author-decision/`, and `backend/src/data/author-decision/`
-- [ ] T002 Create frontend feature module skeletons in `frontend/src/presentation/author-decision/`, `frontend/src/business/author-decision/`, and `frontend/src/data/author-decision/`
-- [ ] T003 [P] Add test directories for UC-13 in `backend/tests/contract/author-decision/`, `backend/tests/integration/author-decision/`, and `frontend/tests/e2e/author-decision/`
-- [ ] T004 [P] Add fixture setup entries for author, decision, and notification states in `infra/db/migrations/` and `infra/ops/monitoring/`
+- [X] T001 Create backend feature module skeletons in `backend/src/presentation/author-decision/`, `backend/src/business/author-decision/`, and `backend/src/data/author-decision/`
+- [X] T002 Create frontend feature module skeletons in `frontend/src/presentation/author-decision/`, `frontend/src/business/author-decision/`, and `frontend/src/data/author-decision/`
+- [X] T003 [P] Add test directories for UC-13 in `backend/tests/contract/author-decision/`, `backend/tests/integration/author-decision/`, and `frontend/tests/e2e/author-decision/`
+- [X] T004 [P] Add fixture setup entries for author, decision, and notification states in `infra/db/migrations/` and `infra/ops/monitoring/`
 
 ---
 
@@ -36,14 +36,14 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Implement canonical outcome constants for author decision access in `backend/src/business/author-decision/decision-outcome.ts`
-- [ ] T006 [P] Implement author ownership verifier in `backend/src/business/author-decision/ownership-check.ts`
-- [ ] T007 [P] Implement notification status reader in `backend/src/business/author-decision/notification-status.ts`
-- [ ] T008 Implement repository interfaces for author decision access in `backend/src/business/author-decision/ports.ts`
-- [ ] T009 [P] Implement data repositories for decision access and notification status in `backend/src/data/author-decision/author-decision.repository.ts`
-- [ ] T010 Implement shared error mapping and response formatter in `backend/src/presentation/author-decision/error-mapper.ts`
-- [ ] T011 [P] Implement audit event emitter for decision access in `backend/src/business/author-decision/audit-logger.ts`
-- [ ] T012 Add author RBAC and session guard wiring for UC-13 endpoint in `backend/src/security/session-guard.ts` and `backend/src/presentation/author-decision/routes.ts`
+- [X] T005 Implement canonical outcome constants for author decision access in `backend/src/business/author-decision/decision-outcome.ts`
+- [X] T006 [P] Implement author ownership verifier in `backend/src/business/author-decision/ownership-check.ts`
+- [X] T007 [P] Implement notification status reader in `backend/src/business/author-decision/notification-status.ts`
+- [X] T008 Implement repository interfaces for author decision access in `backend/src/business/author-decision/ports.ts`
+- [X] T009 [P] Implement data repositories for decision access and notification status in `backend/src/data/author-decision/author-decision.repository.ts`
+- [X] T010 Implement shared error mapping and response formatter in `backend/src/presentation/author-decision/error-mapper.ts`
+- [X] T011 [P] Implement audit event emitter for decision access in `backend/src/business/author-decision/audit-logger.ts`
+- [X] T012 Add author RBAC and session guard wiring for UC-13 endpoint in `backend/src/security/session-guard.ts` and `backend/src/presentation/author-decision/routes.ts`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -57,19 +57,19 @@
 
 ### Tests for User Story 1 (REQUIRED) ⚠️
 
-- [ ] T013 [P] [US1] Add contract tests for `GET /api/author/papers/{paperId}/decision` success response in `backend/tests/contract/author-decision/author-decision.contract.test.ts`
-- [ ] T014 [P] [US1] Add integration test for decision access and ownership enforcement in `backend/tests/integration/author-decision/author-decision-success.integration.test.ts`
-- [ ] T015 [P] [US1] Add e2e test for author decision view in `frontend/tests/e2e/author-decision/author-decision-success.e2e.ts`
+- [X] T013 [P] [US1] Add contract tests for `GET /api/author/papers/{paperId}/decision` success response in `backend/tests/contract/author-decision/author-decision.contract.test.ts`
+- [X] T014 [P] [US1] Add integration test for decision access and ownership enforcement in `backend/tests/integration/author-decision/author-decision-success.integration.test.ts`
+- [X] T015 [P] [US1] Add e2e test for author decision view in `frontend/tests/e2e/author-decision/author-decision-success.e2e.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T016 [US1] Implement author decision handler in `backend/src/presentation/author-decision/get-author-decision.handler.ts`
-- [ ] T017 [US1] Implement decision access service in `backend/src/business/author-decision/get-author-decision.service.ts`
-- [ ] T018 [US1] Implement decision access query in `backend/src/data/author-decision/author-decision.repository.ts`
-- [ ] T019 [US1] Implement author decision page in `frontend/src/presentation/author-decision/author-decision-page.tsx`
-- [ ] T020 [US1] Implement frontend use-case adapter for author decision access in `frontend/src/business/author-decision/get-author-decision.use-case.ts`
-- [ ] T021 [US1] Implement frontend API client for UC-13 endpoint in `frontend/src/data/author-decision/author-decision.api.ts`
-- [ ] T022 [US1] Emit success audit event for decision access in `backend/src/business/author-decision/audit-logger.ts`
+- [X] T016 [US1] Implement author decision handler in `backend/src/presentation/author-decision/get-author-decision.handler.ts`
+- [X] T017 [US1] Implement decision access service in `backend/src/business/author-decision/get-author-decision.service.ts`
+- [X] T018 [US1] Implement decision access query in `backend/src/data/author-decision/author-decision.repository.ts`
+- [X] T019 [US1] Implement author decision page in `frontend/src/presentation/author-decision/author-decision-page.tsx`
+- [X] T020 [US1] Implement frontend use-case adapter for author decision access in `frontend/src/business/author-decision/get-author-decision.use-case.ts`
+- [X] T021 [US1] Implement frontend API client for UC-13 endpoint in `frontend/src/data/author-decision/author-decision.api.ts`
+- [X] T022 [US1] Emit success audit event for decision access in `backend/src/business/author-decision/audit-logger.ts`
 
 **Checkpoint**: User Story 1 is fully functional and independently testable
 
@@ -83,18 +83,18 @@
 
 ### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [ ] T023 [P] [US2] Add contract tests for notification failed outcome in `backend/tests/contract/author-decision/author-decision-notification-failed.contract.test.ts`
-- [ ] T024 [P] [US2] Add integration tests for notification-failure banner behavior in `backend/tests/integration/author-decision/author-decision-notification-failed.integration.test.ts`
-- [ ] T025 [P] [US2] Add e2e test for notification-failed banner in `frontend/tests/e2e/author-decision/author-decision-notification-failed.e2e.ts`
+- [X] T023 [P] [US2] Add contract tests for notification failed outcome in `backend/tests/contract/author-decision/author-decision-notification-failed.contract.test.ts`
+- [X] T024 [P] [US2] Add integration tests for notification-failure banner behavior in `backend/tests/integration/author-decision/author-decision-notification-failed.integration.test.ts`
+- [X] T025 [P] [US2] Add e2e test for notification-failed banner in `frontend/tests/e2e/author-decision/author-decision-notification-failed.e2e.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T026 [US2] Wire notification-failure handling in `backend/src/business/author-decision/get-author-decision.service.ts`
-- [ ] T027 [US2] Implement notification-failed outcome mapping in `backend/src/presentation/author-decision/error-mapper.ts`
-- [ ] T028 [US2] Implement generic unavailable/denied handling for non-owner access in `backend/src/presentation/author-decision/get-author-decision.handler.ts`
-- [ ] T029 [US2] Implement frontend notification-failed banner in `frontend/src/presentation/author-decision/author-decision-page.tsx`
-- [ ] T030 [US2] Implement frontend handling for `NOTIFICATION_FAILED` and `UNAVAILABLE_DENIED` outcomes in `frontend/src/business/author-decision/get-author-decision.use-case.ts`
-- [ ] T031 [US2] Emit notification-failed audit events in `backend/src/business/author-decision/audit-logger.ts`
+- [X] T026 [US2] Wire notification-failure handling in `backend/src/business/author-decision/get-author-decision.service.ts`
+- [X] T027 [US2] Implement notification-failed outcome mapping in `backend/src/presentation/author-decision/error-mapper.ts`
+- [X] T028 [US2] Implement generic unavailable/denied handling for non-owner access in `backend/src/presentation/author-decision/get-author-decision.handler.ts`
+- [X] T029 [US2] Implement frontend notification-failed banner in `frontend/src/presentation/author-decision/author-decision-page.tsx`
+- [X] T030 [US2] Implement frontend handling for `NOTIFICATION_FAILED` and `UNAVAILABLE_DENIED` outcomes in `frontend/src/business/author-decision/get-author-decision.use-case.ts`
+- [X] T031 [US2] Emit notification-failed audit events in `backend/src/business/author-decision/audit-logger.ts`
 
 **Checkpoint**: User Stories 1 and 2 both work independently
 
@@ -104,15 +104,15 @@
 
 **Purpose**: Cross-cutting controls required before release
 
-- [ ] T032 [P] Add concurrency integration tests for simultaneous decision access in `backend/tests/integration/author-decision/author-decision-concurrency.integration.test.ts`
-- [ ] T033 [P] Add audit-log sanitization tests (no sensitive leakage) in `backend/tests/integration/author-decision/author-decision-audit-sanitization.integration.test.ts`
-- [ ] T034 [P] Add browser matrix execution for UC-13 e2e scenarios in `frontend/tests/e2e/author-decision/`
-- [ ] T035 Update recovery notes for decision notification/access data paths in `infra/ops/recovery/author-decision-recovery.md`
-- [ ] T036 Update quickstart verification checklist in `specs/013-author-receive-decision/quickstart.md`
-- [ ] T037 [P] Add TLS enforcement verification test for UC-13 endpoint in `backend/tests/integration/author-decision/author-decision-tls.integration.test.ts`
-- [ ] T038 Add encryption-at-rest verification checklist for decision data in `infra/ops/recovery/author-decision-recovery.md`
-- [ ] T039 Add library-first justification note for UC-13 dependencies in `specs/013-author-receive-decision/plan.md`
-- [ ] T040 Add recovery verification checklist steps for decision data paths in `infra/ops/recovery/author-decision-recovery.md`
+- [X] T032 [P] Add concurrency integration tests for simultaneous decision access in `backend/tests/integration/author-decision/author-decision-concurrency.integration.test.ts`
+- [X] T033 [P] Add audit-log sanitization tests (no sensitive leakage) in `backend/tests/integration/author-decision/author-decision-audit-sanitization.integration.test.ts`
+- [X] T034 [P] Add browser matrix execution for UC-13 e2e scenarios in `frontend/tests/e2e/author-decision/`
+- [X] T035 Update recovery notes for decision notification/access data paths in `infra/ops/recovery/author-decision-recovery.md`
+- [X] T036 Update quickstart verification checklist in `specs/013-author-receive-decision/quickstart.md`
+- [X] T037 [P] Add TLS enforcement verification test for UC-13 endpoint in `backend/tests/integration/author-decision/author-decision-tls.integration.test.ts`
+- [X] T038 Add encryption-at-rest verification checklist for decision data in `infra/ops/recovery/author-decision-recovery.md`
+- [X] T039 Add library-first justification note for UC-13 dependencies in `specs/013-author-receive-decision/plan.md`
+- [X] T040 Add recovery verification checklist steps for decision data paths in `infra/ops/recovery/author-decision-recovery.md`
 
 ---
 

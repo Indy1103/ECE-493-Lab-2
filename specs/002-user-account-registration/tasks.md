@@ -24,12 +24,12 @@ research.md, data-model.md, contracts/
 
 **Purpose**: Initialize project scaffolding and quality tooling
 
-- [ ] T001 Create layered backend/frontend/infra scaffolding in `backend/src/`, `frontend/src/`, `infra/`, `backend/tests/`, and `frontend/tests/`
-- [ ] T002 Initialize backend TypeScript project configuration in `backend/package.json` and `backend/tsconfig.json`
-- [ ] T003 Initialize frontend React TypeScript project configuration in `frontend/package.json` and `frontend/tsconfig.json`
-- [ ] T004 Configure root quality gates in `package.json`, `eslint.config.js`, and `.prettierrc`
-- [ ] T005 [P] Configure backend test runners in `backend/tests/unit/`, `backend/tests/integration/`, and `backend/tests/contract/`
-- [ ] T006 [P] Configure frontend test runners and e2e setup in `frontend/tests/unit/`, `frontend/tests/integration/`, and `frontend/tests/e2e/`
+- [X] T001 Create layered backend/frontend/infra scaffolding in `backend/src/`, `frontend/src/`, `infra/`, `backend/tests/`, and `frontend/tests/`
+- [X] T002 Initialize backend TypeScript project configuration in `backend/package.json` and `backend/tsconfig.json`
+- [X] T003 Initialize frontend React TypeScript project configuration in `frontend/package.json` and `frontend/tsconfig.json`
+- [X] T004 Configure root quality gates in `package.json`, `eslint.config.js`, and `.prettierrc`
+- [X] T005 [P] Configure backend test runners in `backend/tests/unit/`, `backend/tests/integration/`, and `backend/tests/contract/`
+- [X] T006 [P] Configure frontend test runners and e2e setup in `frontend/tests/unit/`, `frontend/tests/integration/`, and `frontend/tests/e2e/`
 
 ---
 
@@ -41,23 +41,23 @@ research.md, data-model.md, contracts/
 
 ### Foundational Tests (REQUIRED) ⚠️
 
-- [ ] T007 Establish pre-implementation requirement traceability baseline in `specs/002-user-account-registration/traceability.md`
-- [ ] T008 [P] Add failing foundational security tests for TLS enforcement and plaintext protection in `backend/tests/integration/security/registrationFoundationSecurity.spec.ts`
-- [ ] T009 [P] Add failing foundational reliability tests for concurrency safety and deterministic outcomes in `backend/tests/integration/reliability/registrationFoundationReliability.spec.ts`
-- [ ] T010 [P] Add failing foundational observability tests for request IDs and outcome telemetry in `backend/tests/integration/observability/registrationFoundationObservability.spec.ts`
+- [X] T007 Establish pre-implementation requirement traceability baseline in `specs/002-user-account-registration/traceability.md`
+- [X] T008 [P] Add failing foundational security tests for TLS enforcement and plaintext protection in `backend/tests/integration/security/registrationFoundationSecurity.spec.ts`
+- [X] T009 [P] Add failing foundational reliability tests for concurrency safety and deterministic outcomes in `backend/tests/integration/reliability/registrationFoundationReliability.spec.ts`
+- [X] T010 [P] Add failing foundational observability tests for request IDs and outcome telemetry in `backend/tests/integration/observability/registrationFoundationObservability.spec.ts`
 
 ### Foundational Implementation
 
-- [ ] T011 Define persistence schema and migration for user accounts and throttle records in `backend/src/data/prisma/schema.prisma` and `infra/db/migrations/`
-- [ ] T012 Create shared registration outcome/error contracts in `backend/src/shared/contracts/registrationOutcome.ts`
-- [ ] T013 Implement request-context and structured logger bootstrap in `backend/src/shared/observability/requestContext.ts` and `backend/src/shared/observability/logger.ts`
-- [ ] T014 [P] Implement registration metrics scaffolding in `backend/src/shared/observability/registrationMetrics.ts`
-- [ ] T015 Implement password hashing and sensitive-data redaction helpers in `backend/src/security/passwordHasher.ts` and `backend/src/security/sensitiveDataPolicy.ts`
-- [ ] T016 Implement throttling policy service in `backend/src/business/registration/registrationThrottleService.ts`
-- [ ] T017 Implement transport-security guard for registration routes in `backend/src/presentation/middleware/transportSecurityGuard.ts`
-- [ ] T018 [P] Add backup and restore scaffolding in `infra/backup/register-account-backup.sh` and `infra/ops/recovery/restore-account-backup.sh`
-- [ ] T019 Implement public-route and default-role policy in `backend/src/presentation/routes/publicRoutePolicy.ts` and `backend/src/business/registration/defaultRolePolicy.ts`
-- [ ] T020 Implement registration workflow skeleton interfaces in `backend/src/presentation/routes/publicRegistrationRoute.ts`, `backend/src/business/registration/registerUser.ts`, and `backend/src/data/repositories/userAccountRepository.ts`
+- [X] T011 Define persistence schema and migration for user accounts and throttle records in `backend/src/data/prisma/schema.prisma` and `infra/db/migrations/`
+- [X] T012 Create shared registration outcome/error contracts in `backend/src/shared/contracts/registrationOutcome.ts`
+- [X] T013 Implement request-context and structured logger bootstrap in `backend/src/shared/observability/requestContext.ts` and `backend/src/shared/observability/logger.ts`
+- [X] T014 [P] Implement registration metrics scaffolding in `backend/src/shared/observability/registrationMetrics.ts`
+- [X] T015 Implement password hashing and sensitive-data redaction helpers in `backend/src/security/passwordHasher.ts` and `backend/src/security/sensitiveDataPolicy.ts`
+- [X] T016 Implement throttling policy service in `backend/src/business/registration/registrationThrottleService.ts`
+- [X] T017 Implement transport-security guard for registration routes in `backend/src/presentation/middleware/transportSecurityGuard.ts`
+- [X] T018 [P] Add backup and restore scaffolding in `infra/backup/register-account-backup.sh` and `infra/ops/recovery/restore-account-backup.sh`
+- [X] T019 Implement public-route and default-role policy in `backend/src/presentation/routes/publicRoutePolicy.ts` and `backend/src/business/registration/defaultRolePolicy.ts`
+- [X] T020 Implement registration workflow skeleton interfaces in `backend/src/presentation/routes/publicRegistrationRoute.ts`, `backend/src/business/registration/registerUser.ts`, and `backend/src/data/repositories/userAccountRepository.ts`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -71,18 +71,18 @@ research.md, data-model.md, contracts/
 
 ### Tests for User Story 1 (REQUIRED) ⚠️
 
-- [ ] T021 [P] [US1] Add failing contract test for `201 REGISTERED` in `backend/tests/contract/publicRegistration.contract.spec.ts`
-- [ ] T022 [P] [US1] Add failing integration test for successful account creation and login eligibility in `backend/tests/integration/registration/registrationSuccess.spec.ts`
-- [ ] T023 [P] [US1] Add failing browser e2e success-flow test (Chrome + Firefox) in `frontend/tests/e2e/registration-success.spec.ts`
+- [X] T021 [P] [US1] Add failing contract test for `201 REGISTERED` in `backend/tests/contract/publicRegistration.contract.spec.ts`
+- [X] T022 [P] [US1] Add failing integration test for successful account creation and login eligibility in `backend/tests/integration/registration/registrationSuccess.spec.ts`
+- [X] T023 [P] [US1] Add failing browser e2e success-flow test (Chrome + Firefox) in `frontend/tests/e2e/registration-success.spec.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T024 [US1] Implement registration request schema and success response mapping in `backend/src/presentation/registration/registrationSchemas.ts`
-- [ ] T025 [US1] Implement `REGISTERED` orchestration flow in `backend/src/business/registration/registerUser.ts`
-- [ ] T026 [US1] Implement user-account create persistence with normalized/original email fields in `backend/src/data/repositories/userAccountRepository.ts`
-- [ ] T027 [US1] Wire `201` success response in `backend/src/presentation/routes/publicRegistrationRoute.ts`
-- [ ] T028 [US1] Implement successful submission UI and login-ready confirmation in `frontend/src/presentation/pages/RegisterPage.tsx`
-- [ ] T029 [US1] Emit `REGISTERED` audit log and metrics events in `backend/src/shared/observability/registrationTelemetry.ts`
+- [X] T024 [US1] Implement registration request schema and success response mapping in `backend/src/presentation/registration/registrationSchemas.ts`
+- [X] T025 [US1] Implement `REGISTERED` orchestration flow in `backend/src/business/registration/registerUser.ts`
+- [X] T026 [US1] Implement user-account create persistence with normalized/original email fields in `backend/src/data/repositories/userAccountRepository.ts`
+- [X] T027 [US1] Wire `201` success response in `backend/src/presentation/routes/publicRegistrationRoute.ts`
+- [X] T028 [US1] Implement successful submission UI and login-ready confirmation in `frontend/src/presentation/pages/RegisterPage.tsx`
+- [X] T029 [US1] Emit `REGISTERED` audit log and metrics events in `backend/src/shared/observability/registrationTelemetry.ts`
 
 **Checkpoint**: User Story 1 is fully functional and independently testable
 
@@ -96,19 +96,19 @@ research.md, data-model.md, contracts/
 
 ### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [ ] T030 [P] [US2] Add failing contract tests for `400 VALIDATION_FAILED` and `429 REGISTRATION_THROTTLED` in `backend/tests/contract/publicRegistration.contract.spec.ts`
-- [ ] T031 [P] [US2] Add failing integration tests for validation rules and throttling windows in `backend/tests/integration/registration/registrationValidationAndThrottle.spec.ts`
-- [ ] T032 [P] [US2] Add failing browser e2e validation and throttling feedback test in `frontend/tests/e2e/registration-validation.spec.ts`
+- [X] T030 [P] [US2] Add failing contract tests for `400 VALIDATION_FAILED` and `429 REGISTRATION_THROTTLED` in `backend/tests/contract/publicRegistration.contract.spec.ts`
+- [X] T031 [P] [US2] Add failing integration tests for validation rules and throttling windows in `backend/tests/integration/registration/registrationValidationAndThrottle.spec.ts`
+- [X] T032 [P] [US2] Add failing browser e2e validation and throttling feedback test in `frontend/tests/e2e/registration-validation.spec.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T033 [US2] Implement field-level validation error mapper in `backend/src/business/registration/validationErrorMapper.ts`
-- [ ] T034 [US2] Implement `VALIDATION_FAILED` flow in `backend/src/business/registration/registerUser.ts`
-- [ ] T035 [US2] Implement failed-attempt persistence and cooldown enforcement in `backend/src/data/repositories/registrationThrottleRepository.ts`
-- [ ] T036 [US2] Wire explicit `400` and `429` payloads in `backend/src/presentation/routes/publicRegistrationRoute.ts`
-- [ ] T037 [US2] Implement invalid-input and throttling feedback states in `frontend/src/presentation/pages/RegisterPage.tsx`
-- [ ] T038 [US2] Implement secure operational failure message catalog in `backend/src/presentation/registration/errorMessageCatalog.ts`
-- [ ] T039 [US2] Emit `VALIDATION_FAILED`, `THROTTLED`, and `PROCESSING_FAILURE` audit/metric events in `backend/src/shared/observability/registrationTelemetry.ts`
+- [X] T033 [US2] Implement field-level validation error mapper in `backend/src/business/registration/validationErrorMapper.ts`
+- [X] T034 [US2] Implement `VALIDATION_FAILED` flow in `backend/src/business/registration/registerUser.ts`
+- [X] T035 [US2] Implement failed-attempt persistence and cooldown enforcement in `backend/src/data/repositories/registrationThrottleRepository.ts`
+- [X] T036 [US2] Wire explicit `400` and `429` payloads in `backend/src/presentation/routes/publicRegistrationRoute.ts`
+- [X] T037 [US2] Implement invalid-input and throttling feedback states in `frontend/src/presentation/pages/RegisterPage.tsx`
+- [X] T038 [US2] Implement secure operational failure message catalog in `backend/src/presentation/registration/errorMessageCatalog.ts`
+- [X] T039 [US2] Emit `VALIDATION_FAILED`, `THROTTLED`, and `PROCESSING_FAILURE` audit/metric events in `backend/src/shared/observability/registrationTelemetry.ts`
 
 **Checkpoint**: User Story 2 is fully functional and independently testable
 
@@ -122,18 +122,18 @@ research.md, data-model.md, contracts/
 
 ### Tests for User Story 3 (REQUIRED) ⚠️
 
-- [ ] T040 [P] [US3] Add failing contract test for `409 EMAIL_ALREADY_REGISTERED` in `backend/tests/contract/publicRegistration.contract.spec.ts`
-- [ ] T041 [P] [US3] Add failing integration tests for normalized duplicate-email detection in `backend/tests/integration/registration/registrationDuplicateEmail.spec.ts`
-- [ ] T042 [P] [US3] Add failing browser e2e duplicate-email path test in `frontend/tests/e2e/registration-duplicate-email.spec.ts`
+- [X] T040 [P] [US3] Add failing contract test for `409 EMAIL_ALREADY_REGISTERED` in `backend/tests/contract/publicRegistration.contract.spec.ts`
+- [X] T041 [P] [US3] Add failing integration tests for normalized duplicate-email detection in `backend/tests/integration/registration/registrationDuplicateEmail.spec.ts`
+- [X] T042 [P] [US3] Add failing browser e2e duplicate-email path test in `frontend/tests/e2e/registration-duplicate-email.spec.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T043 [US3] Add normalized-email utility in `backend/src/business/registration/emailNormalization.ts`
-- [ ] T044 [US3] Implement duplicate-email lookup guard in `backend/src/data/repositories/userAccountRepository.ts`
-- [ ] T045 [US3] Implement `DUPLICATE_EMAIL` flow in `backend/src/business/registration/registerUser.ts`
-- [ ] T046 [US3] Wire `409` duplicate-email payload in `backend/src/presentation/routes/publicRegistrationRoute.ts`
-- [ ] T047 [US3] Implement duplicate-email UI messaging and retry state in `frontend/src/presentation/pages/RegisterPage.tsx`
-- [ ] T048 [US3] Emit `DUPLICATE_EMAIL` audit and metrics events in `backend/src/shared/observability/registrationTelemetry.ts`
+- [X] T043 [US3] Add normalized-email utility in `backend/src/business/registration/emailNormalization.ts`
+- [X] T044 [US3] Implement duplicate-email lookup guard in `backend/src/data/repositories/userAccountRepository.ts`
+- [X] T045 [US3] Implement `DUPLICATE_EMAIL` flow in `backend/src/business/registration/registerUser.ts`
+- [X] T046 [US3] Wire `409` duplicate-email payload in `backend/src/presentation/routes/publicRegistrationRoute.ts`
+- [X] T047 [US3] Implement duplicate-email UI messaging and retry state in `frontend/src/presentation/pages/RegisterPage.tsx`
+- [X] T048 [US3] Emit `DUPLICATE_EMAIL` audit and metrics events in `backend/src/shared/observability/registrationTelemetry.ts`
 
 **Checkpoint**: User Story 3 is fully functional and independently testable
 
@@ -143,12 +143,12 @@ research.md, data-model.md, contracts/
 
 **Purpose**: Cross-cutting hardening and release evidence
 
-- [ ] T049 [P] Add failing contract/integration tests for `503 REGISTRATION_UNAVAILABLE` and request-id correlation in `backend/tests/contract/publicRegistration.contract.spec.ts` and `backend/tests/integration/registration/registrationFailure.spec.ts`
-- [ ] T050 [P] Execute registration performance run for `p95 <= 1.5s` (50 concurrent attempts) and capture evidence in `infra/ops/monitoring/registration-load.report.md`
-- [ ] T051 [P] Perform backup/restore drill and capture evidence in `infra/ops/recovery/registration-restore-drill.md`
-- [ ] T052 Finalize requirement-to-test traceability mappings in `specs/002-user-account-registration/traceability.md`
-- [ ] T053 Verify full test/lint gate (`npm test && npm run lint`) and record release readiness in `specs/002-user-account-registration/checklists/release-readiness.md`
-- [ ] T054 [P] Record cross-browser execution evidence for Chrome and Firefox in `frontend/tests/e2e/browser-compatibility-report.md`
+- [X] T049 [P] Add failing contract/integration tests for `503 REGISTRATION_UNAVAILABLE` and request-id correlation in `backend/tests/contract/publicRegistration.contract.spec.ts` and `backend/tests/integration/registration/registrationFailure.spec.ts`
+- [X] T050 [P] Execute registration performance run for `p95 <= 1.5s` (50 concurrent attempts) and capture evidence in `infra/ops/monitoring/registration-load.report.md`
+- [X] T051 [P] Perform backup/restore drill and capture evidence in `infra/ops/recovery/registration-restore-drill.md`
+- [X] T052 Finalize requirement-to-test traceability mappings in `specs/002-user-account-registration/traceability.md`
+- [X] T053 Verify full test/lint gate (`npm test && npm run lint`) and record release readiness in `specs/002-user-account-registration/checklists/release-readiness.md`
+- [X] T054 [P] Record cross-browser execution evidence for Chrome and Firefox in `frontend/tests/e2e/browser-compatibility-report.md`
 
 ---
 

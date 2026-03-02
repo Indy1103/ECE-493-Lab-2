@@ -23,10 +23,10 @@
 
 **Purpose**: Initialize project scaffolding and quality tooling for UC-12
 
-- [ ] T001 Create backend feature module skeletons in `backend/src/presentation/final-decision/`, `backend/src/business/final-decision/`, and `backend/src/data/final-decision/`
-- [ ] T002 Create frontend feature module skeletons in `frontend/src/presentation/final-decision/`, `frontend/src/business/final-decision/`, and `frontend/src/data/final-decision/`
-- [ ] T003 [P] Add test directories for UC-12 in `backend/tests/contract/final-decision/`, `backend/tests/integration/final-decision/`, and `frontend/tests/e2e/final-decision/`
-- [ ] T004 [P] Add fixture setup entries for editor, decisions, and review states in `infra/db/migrations/` and `infra/ops/monitoring/`
+- [X] T001 Create backend feature module skeletons in `backend/src/presentation/final-decision/`, `backend/src/business/final-decision/`, and `backend/src/data/final-decision/`
+- [X] T002 Create frontend feature module skeletons in `frontend/src/presentation/final-decision/`, `frontend/src/business/final-decision/`, and `frontend/src/data/final-decision/`
+- [X] T003 [P] Add test directories for UC-12 in `backend/tests/contract/final-decision/`, `backend/tests/integration/final-decision/`, and `frontend/tests/e2e/final-decision/`
+- [X] T004 [P] Add fixture setup entries for editor, decisions, and review states in `infra/db/migrations/` and `infra/ops/monitoring/`
 
 ---
 
@@ -36,14 +36,14 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Implement canonical outcome constants for decision recording in `backend/src/business/final-decision/decision-outcome.ts`
-- [ ] T006 [P] Implement review completion gate in `backend/src/business/final-decision/completion-gate.ts`
-- [ ] T007 [P] Implement immutability guard for final decisions in `backend/src/business/final-decision/immutability-guard.ts`
-- [ ] T008 Implement repository interfaces for decision recording in `backend/src/business/final-decision/ports.ts`
-- [ ] T009 [P] Implement data repositories for decisions and completion status in `backend/src/data/final-decision/final-decision.repository.ts`
-- [ ] T010 Implement shared error mapping and response formatter in `backend/src/presentation/final-decision/error-mapper.ts`
-- [ ] T011 [P] Implement audit event emitter for decision recording in `backend/src/business/final-decision/audit-logger.ts`
-- [ ] T012 Add editor RBAC and session guard wiring for UC-12 endpoint in `backend/src/security/session-guard.ts` and `backend/src/presentation/final-decision/routes.ts`
+- [X] T005 Implement canonical outcome constants for decision recording in `backend/src/business/final-decision/decision-outcome.ts`
+- [X] T006 [P] Implement review completion gate in `backend/src/business/final-decision/completion-gate.ts`
+- [X] T007 [P] Implement immutability guard for final decisions in `backend/src/business/final-decision/immutability-guard.ts`
+- [X] T008 Implement repository interfaces for decision recording in `backend/src/business/final-decision/ports.ts`
+- [X] T009 [P] Implement data repositories for decisions and completion status in `backend/src/data/final-decision/final-decision.repository.ts`
+- [X] T010 Implement shared error mapping and response formatter in `backend/src/presentation/final-decision/error-mapper.ts`
+- [X] T011 [P] Implement audit event emitter for decision recording in `backend/src/business/final-decision/audit-logger.ts`
+- [X] T012 Add editor RBAC and session guard wiring for UC-12 endpoint in `backend/src/security/session-guard.ts` and `backend/src/presentation/final-decision/routes.ts`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -57,20 +57,20 @@
 
 ### Tests for User Story 1 (REQUIRED) ⚠️
 
-- [ ] T013 [P] [US1] Add contract tests for `POST /api/editor/papers/{paperId}/decision` success response in `backend/tests/contract/final-decision/final-decision.contract.test.ts`
-- [ ] T014 [P] [US1] Add integration test for decision persistence and notification in `backend/tests/integration/final-decision/final-decision-success.integration.test.ts`
-- [ ] T015 [P] [US1] Add e2e test for editor final decision workflow in `frontend/tests/e2e/final-decision/final-decision-success.e2e.ts`
+- [X] T013 [P] [US1] Add contract tests for `POST /api/editor/papers/{paperId}/decision` success response in `backend/tests/contract/final-decision/final-decision.contract.test.ts`
+- [X] T014 [P] [US1] Add integration test for decision persistence and notification in `backend/tests/integration/final-decision/final-decision-success.integration.test.ts`
+- [X] T015 [P] [US1] Add e2e test for editor final decision workflow in `frontend/tests/e2e/final-decision/final-decision-success.e2e.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T016 [US1] Implement decision recording handler in `backend/src/presentation/final-decision/post-final-decision.handler.ts`
-- [ ] T017 [US1] Implement decision orchestration service in `backend/src/business/final-decision/post-final-decision.service.ts`
-- [ ] T018 [US1] Implement decision write/query in `backend/src/data/final-decision/final-decision.repository.ts`
-- [ ] T019 [US1] Implement frontend decision entry page in `frontend/src/presentation/final-decision/final-decision-page.tsx`
-- [ ] T020 [US1] Implement frontend use-case adapter for decision recording in `frontend/src/business/final-decision/post-final-decision.use-case.ts`
-- [ ] T021 [US1] Implement frontend API client for UC-12 endpoint in `frontend/src/data/final-decision/final-decision.api.ts`
-- [ ] T022 [US1] Emit success audit event for decision recording in `backend/src/business/final-decision/audit-logger.ts`
-- [ ] T023 [US1] Implement author notification dispatch in `backend/src/business/final-decision/author-notifier.ts`
+- [X] T016 [US1] Implement decision recording handler in `backend/src/presentation/final-decision/post-final-decision.handler.ts`
+- [X] T017 [US1] Implement decision orchestration service in `backend/src/business/final-decision/post-final-decision.service.ts`
+- [X] T018 [US1] Implement decision write/query in `backend/src/data/final-decision/final-decision.repository.ts`
+- [X] T019 [US1] Implement frontend decision entry page in `frontend/src/presentation/final-decision/final-decision-page.tsx`
+- [X] T020 [US1] Implement frontend use-case adapter for decision recording in `frontend/src/business/final-decision/post-final-decision.use-case.ts`
+- [X] T021 [US1] Implement frontend API client for UC-12 endpoint in `frontend/src/data/final-decision/final-decision.api.ts`
+- [X] T022 [US1] Emit success audit event for decision recording in `backend/src/business/final-decision/audit-logger.ts`
+- [X] T023 [US1] Implement author notification dispatch in `backend/src/business/final-decision/author-notifier.ts`
 
 **Checkpoint**: User Story 1 is fully functional and independently testable
 
@@ -84,18 +84,18 @@
 
 ### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [ ] T024 [P] [US2] Add contract tests for pending and finalized outcomes in `backend/tests/contract/final-decision/final-decision-pending-finalized.contract.test.ts`
-- [ ] T025 [P] [US2] Add integration tests for pending gating and immutability in `backend/tests/integration/final-decision/final-decision-pending-finalized.integration.test.ts`
-- [ ] T026 [P] [US2] Add e2e test for pending-review decision block in `frontend/tests/e2e/final-decision/final-decision-pending.e2e.ts`
+- [X] T024 [P] [US2] Add contract tests for pending and finalized outcomes in `backend/tests/contract/final-decision/final-decision-pending-finalized.contract.test.ts`
+- [X] T025 [P] [US2] Add integration tests for pending gating and immutability in `backend/tests/integration/final-decision/final-decision-pending-finalized.integration.test.ts`
+- [X] T026 [P] [US2] Add e2e test for pending-review decision block in `frontend/tests/e2e/final-decision/final-decision-pending.e2e.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T027 [US2] Wire completion gating usage in `backend/src/business/final-decision/post-final-decision.service.ts`
-- [ ] T028 [US2] Implement pending/finalized outcome mapping in `backend/src/presentation/final-decision/error-mapper.ts`
-- [ ] T029 [US2] Implement generic unavailable/denied handling for non-editor access in `backend/src/presentation/final-decision/post-final-decision.handler.ts`
-- [ ] T030 [US2] Implement frontend pending state UI in `frontend/src/presentation/final-decision/final-decision-page.tsx`
-- [ ] T031 [US2] Implement frontend handling for `REVIEWS_PENDING` and `DECISION_FINALIZED` outcomes in `frontend/src/business/final-decision/post-final-decision.use-case.ts`
-- [ ] T032 [US2] Emit blocked/denied audit events in `backend/src/business/final-decision/audit-logger.ts`
+- [X] T027 [US2] Wire completion gating usage in `backend/src/business/final-decision/post-final-decision.service.ts`
+- [X] T028 [US2] Implement pending/finalized outcome mapping in `backend/src/presentation/final-decision/error-mapper.ts`
+- [X] T029 [US2] Implement generic unavailable/denied handling for non-editor access in `backend/src/presentation/final-decision/post-final-decision.handler.ts`
+- [X] T030 [US2] Implement frontend pending state UI in `frontend/src/presentation/final-decision/final-decision-page.tsx`
+- [X] T031 [US2] Implement frontend handling for `REVIEWS_PENDING` and `DECISION_FINALIZED` outcomes in `frontend/src/business/final-decision/post-final-decision.use-case.ts`
+- [X] T032 [US2] Emit blocked/denied audit events in `backend/src/business/final-decision/audit-logger.ts`
 
 **Checkpoint**: User Stories 1 and 2 both work independently
 
@@ -105,15 +105,15 @@
 
 **Purpose**: Cross-cutting controls required before release
 
-- [ ] T033 [P] Add concurrency integration tests for simultaneous decision attempts in `backend/tests/integration/final-decision/final-decision-concurrency.integration.test.ts`
-- [ ] T034 [P] Add audit-log sanitization tests (no sensitive leakage) in `backend/tests/integration/final-decision/final-decision-audit-sanitization.integration.test.ts`
-- [ ] T035 [P] Add browser matrix execution for UC-12 e2e scenarios in `frontend/tests/e2e/final-decision/`
-- [ ] T036 Update recovery notes for decision data paths in `infra/ops/recovery/final-decision-recovery.md`
-- [ ] T037 Update quickstart verification checklist in `specs/012-record-final-decision/quickstart.md`
-- [ ] T038 [P] Add TLS enforcement verification test for UC-12 endpoint in `backend/tests/integration/final-decision/final-decision-tls.integration.test.ts`
-- [ ] T039 Add encryption-at-rest verification checklist for decision data in `infra/ops/recovery/final-decision-recovery.md`
-- [ ] T040 Add library-first justification note for UC-12 dependencies in `specs/012-record-final-decision/plan.md`
-- [ ] T041 Add recovery verification checklist steps for decision data paths in `infra/ops/recovery/final-decision-recovery.md`
+- [X] T033 [P] Add concurrency integration tests for simultaneous decision attempts in `backend/tests/integration/final-decision/final-decision-concurrency.integration.test.ts`
+- [X] T034 [P] Add audit-log sanitization tests (no sensitive leakage) in `backend/tests/integration/final-decision/final-decision-audit-sanitization.integration.test.ts`
+- [X] T035 [P] Add browser matrix execution for UC-12 e2e scenarios in `frontend/tests/e2e/final-decision/`
+- [X] T036 Update recovery notes for decision data paths in `infra/ops/recovery/final-decision-recovery.md`
+- [X] T037 Update quickstart verification checklist in `specs/012-record-final-decision/quickstart.md`
+- [X] T038 [P] Add TLS enforcement verification test for UC-12 endpoint in `backend/tests/integration/final-decision/final-decision-tls.integration.test.ts`
+- [X] T039 Add encryption-at-rest verification checklist for decision data in `infra/ops/recovery/final-decision-recovery.md`
+- [X] T040 Add library-first justification note for UC-12 dependencies in `specs/012-record-final-decision/plan.md`
+- [X] T041 Add recovery verification checklist steps for decision data paths in `infra/ops/recovery/final-decision-recovery.md`
 
 ---
 
