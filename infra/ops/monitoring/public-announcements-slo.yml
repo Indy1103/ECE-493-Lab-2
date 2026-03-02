@@ -1,0 +1,10 @@
+service: cms-public-announcements
+sli:
+  availability:
+    objective: 99.9
+    window: 30d
+    indicator: successful_responses / total_requests
+alerts:
+  - name: PublicAnnouncementsAvailabilityBurnRate
+    threshold: 0.1
+    description: Error budget burn indicates risk to monthly 99.9% target.
