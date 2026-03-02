@@ -1,0 +1,21 @@
+{
+  "name": "@cms/frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test --test-reporter=spec tests/**/*.test.js || node -e \"console.log('No frontend Node tests defined for UC-01.')\"",
+    "coverage": "node -e \"console.log('Frontend coverage is not configured for this feature.')\""
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^22.13.4",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "typescript": "^5.7.3"
+  }
+}

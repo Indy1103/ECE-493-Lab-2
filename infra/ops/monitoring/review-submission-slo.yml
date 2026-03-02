@@ -1,0 +1,10 @@
+service: review-submission
+objective: "SC-001"
+description: "95% of valid review submissions complete within 5 seconds"
+indicator:
+  metric: review_submission_latency_ms
+  aggregation: p95
+  threshold_ms: 5000
+alerts:
+  - name: review-submission-latency-breach
+    condition: "p95(review_submission_latency_ms, 15m) > 5000"

@@ -26,6 +26,45 @@
 7. Add structured assignment/invitation audit logging without sensitive referee data leakage.
 8. Run full test and lint checks.
 
+## Verification Commands
+
+1. `npm run lint -w backend`
+2. `npm run lint -w frontend`
+3. `npm run lint:contracts:referee-assignments -w backend`
+4. `npm run test -w backend`
+5. `npm run coverage -w backend`
+
+## Evidence Links
+
+- Contract tests:
+  - `backend/tests/contract/referee-assignments/getAssignmentOptions.contract.test.ts`
+  - `backend/tests/contract/referee-assignments/postAssignments.contract.test.ts`
+  - `backend/tests/contract/referee-assignments/workloadViolation.contract.test.ts`
+  - `backend/tests/contract/referee-assignments/paperCapacityViolation.contract.test.ts`
+- Integration tests:
+  - `backend/tests/integration/referee-assignments/editorAuth.foundation.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/perPaperSerialization.foundation.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/duplicateAtomicity.foundation.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/logRedaction.foundation.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/assignReferees.success.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/invitationNonRollback.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/workloadViolation.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/workloadRetry.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/paperCapacityViolation.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/paperCapacityConcurrency.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/duplicateRefereeValidation.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/refereeNotAssignable.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/authFailures.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/securityRedaction.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/transportSecurity.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/atRestProtection.integration.test.ts`
+  - `backend/tests/integration/referee-assignments/invitationRetryBudget.integration.test.ts`
+- Unit tests: `backend/tests/unit/refereeAssignmentSupport.unit.test.ts`
+- Frontend e2e specs: `frontend/tests/e2e/referee-assignments/`
+- Browser evidence checklist: `frontend/tests/e2e/referee-assignments/browser-validation.md`
+- Backup/restore notes: `infra/ops/backup-restore.md`
+- Incident response notes: `infra/ops/incident-response.md`
+
 ## Validation Checklist
 
 - Eligible editor assignments succeed and return explicit confirmation.
@@ -35,3 +74,16 @@
 - Concurrent assignment attempts for the same paper do not exceed policy limits.
 - Invitation failures after assignment commit are visible and retryable without assignment rollback.
 - Logs and errors avoid sensitive referee details in plaintext.
+
+## Traceability Matrix
+
+| Requirement / Test Objective | Primary Tests |
+|---|---|
+| AT-UC07-01 successful assignment + invitation status | `assignReferees.success.integration.test.ts`, `postAssignments.contract.test.ts` |
+| AT-UC07-02 workload rejection + retry | `workloadViolation.integration.test.ts`, `workloadRetry.integration.test.ts`, `workloadViolation.contract.test.ts` |
+| AT-UC07-03 paper-capacity rejection | `paperCapacityViolation.integration.test.ts`, `paperCapacityConcurrency.integration.test.ts`, `paperCapacityViolation.contract.test.ts` |
+| Serialized same-paper processing (RAR-006) | `perPaperSerialization.foundation.integration.test.ts`, `paperCapacityConcurrency.integration.test.ts` |
+| Duplicate referee rejection (FR-014) | `duplicateAtomicity.foundation.integration.test.ts`, `duplicateRefereeValidation.integration.test.ts` |
+| Transport security (SPR-001) | `transportSecurity.integration.test.ts` |
+| At-rest protection evidence (SPR-002) | `atRestProtection.integration.test.ts`, `infra/ops/backup-restore.md` |
+| No-sensitive-data logging (SPR-003) | `logRedaction.foundation.integration.test.ts`, `securityRedaction.integration.test.ts`, `refereeAssignmentSupport.unit.test.ts` |
