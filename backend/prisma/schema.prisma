@@ -14,6 +14,30 @@ enum DraftSaveOutcome {
   OPERATIONAL_FAILED
 }
 
+enum AssignmentStatus {
+  ASSIGNED
+  INVITED
+  DECLINED
+  COMPLETED
+}
+
+enum InvitationStatus {
+  PENDING
+  SENT
+  FAILED_RETRYABLE
+  FAILED_FINAL
+}
+
+enum AssignmentAuditOutcome {
+  SUCCESS
+  VALIDATION_FAILED
+  AUTHN_FAILED
+  AUTHZ_FAILED
+  INVITATION_RETRYABLE_FAILURE
+  CONFLICT
+  INTERNAL_ERROR
+}
+
 model ConferenceAnnouncement {
   id           String    @id @default(uuid()) @db.Uuid
   title        String
@@ -69,4 +93,52 @@ model DraftSaveAttempt {
 
   @@index([inProgressSubmissionId, occurredAt], map: "draft_save_attempts_submission_time_idx")
   @@map("draft_save_attempts")
+}
+
+model RefereeAssignment {
+  id                 String           @id @default(uuid()) @db.Uuid
+  paperId            String           @map("paper_id") @db.Uuid
+  refereeId          String           @map("referee_id") @db.Uuid
+  assignedByEditorId String           @map("assigned_by_editor_id") @db.Uuid
+  assignmentStatus   AssignmentStatus @map("assignment_status")
+  assignedAt         DateTime         @map("assigned_at")
+  conferenceCycleId  String           @map("conference_cycle_id") @db.Uuid
+  invitations        ReviewInvitation[]
+
+  @@unique([paperId, refereeId], map: "referee_assignments_unique_active")
+  @@index([paperId], map: "referee_assignments_paper_idx")
+  @@index([refereeId], map: "referee_assignments_referee_idx")
+  @@index([conferenceCycleId], map: "referee_assignments_cycle_idx")
+  @@map("referee_assignments")
+}
+
+model ReviewInvitation {
+  id              String           @id @default(uuid()) @db.Uuid
+  assignmentId    String           @map("assignment_id") @db.Uuid
+  paperId         String           @map("paper_id") @db.Uuid
+  refereeId       String           @map("referee_id") @db.Uuid
+  invitationStatus InvitationStatus @map("invitation_status")
+  attemptCount    Int              @default(0) @map("attempt_count")
+  lastAttemptAt   DateTime?        @map("last_attempt_at")
+  failureReasonCode String?        @map("failure_reason_code")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  assignment      RefereeAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+
+  @@index([assignmentId], map: "review_invitations_assignment_idx")
+  @@index([invitationStatus, lastAttemptAt], map: "review_invitations_status_idx")
+  @@map("review_invitations")
+}
+
+model AssignmentAttemptAudit {
+  id                       String                 @id @default(uuid()) @db.Uuid
+  requestId                String                 @map("request_id")
+  paperId                  String                 @map("paper_id") @db.Uuid
+  editorId                 String?                @map("editor_id") @db.Uuid
+  submittedRefereeIdsCount Int                    @map("submitted_referee_ids_count")
+  outcome                  AssignmentAuditOutcome
+  reasonCode               String                 @map("reason_code")
+  occurredAt               DateTime               @default(now()) @map("occurred_at")
+
+  @@index([paperId, occurredAt], map: "assignment_attempt_audits_paper_time_idx")
+  @@map("assignment_attempt_audits")
 }

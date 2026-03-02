@@ -150,3 +150,29 @@ Backend passing suite includes:
 - Foundational and story integration tests (ownership/authn/authz, validation, save overwrite, resume retrieval, deterministic concurrency, operational-failure preservation)
 - Security/reliability integration tests (TLS-only transport, audit redaction/no plaintext leakage, at-rest and backup coverage checks)
 - UC-06 support unit tests for validation, use-case error branches, handlers, repository utilities, and mapper coverage
+
+---
+
+# Status Report (Appendix: UC-07)
+
+Date: 2026-03-02  
+Branch: `007-assign-paper-referees`
+
+## Test Status
+
+Command run:
+
+```bash
+npm test
+```
+
+Result:
+- Backend tests: 208 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Backend passing suite includes:
+- Contract tests for referee assignments (`GET` options success/auth errors, `POST` assignment success and validation/capacity/workload failures)
+- Foundational and story integration tests (editor authz/authn guard, per-paper serialization, duplicate atomicity, successful assignment + invitation handling, workload and capacity rejection paths, retry path after rejection)
+- Security/reliability integration tests (TLS-only transport, no-sensitive-data responses/events, at-rest protection evidence, invitation retry budget terminal handling)
+- UC-07 support unit tests for schemas, use-case branches, policy evaluators, mapper branches, repository lock/persistence branches, handler authless branches, guard parsing branches, and audit helpers

@@ -167,3 +167,28 @@ All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
 Notes:
 - Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
 - Type-only UC-06 repository contract file excluded from c8 script config: `src/data/submission-drafts/SubmissionDraftRepository.ts`.
+
+---
+
+# Coverage Report (Appendix: UC-07)
+
+Date: 2026-03-02  
+Branch: `007-assign-paper-referees`
+
+Command run:
+
+```bash
+npm run coverage -w backend
+```
+
+Result:
+- Statements: 100%
+- Branches: 100%
+- Functions: 100%
+- Lines: 100%
+
+## c8 output summary
+
+```text
+All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
+```
