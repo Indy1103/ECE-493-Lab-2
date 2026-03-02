@@ -1,0 +1,183 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum DraftSaveOutcome {
+  SUCCESS
+  VALIDATION_FAILED
+  AUTHZ_FAILED
+  OPERATIONAL_FAILED
+}
+
+enum AssignmentStatus {
+  ASSIGNED
+  INVITED
+  DECLINED
+  COMPLETED
+}
+
+enum InvitationStatus {
+  PENDING
+  SENT
+  FAILED_RETRYABLE
+  FAILED_FINAL
+}
+
+enum InvitationResponseStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+enum InvitationResponseAttemptOutcome {
+  SUCCESS_ACCEPTED
+  SUCCESS_REJECTED
+  REJECTED_ALREADY_RESOLVED
+  AUTHZ_FAILED
+  VALIDATION_FAILED
+  RECORDING_FAILED
+  INVITATION_NOT_FOUND
+  INTERNAL_ERROR
+}
+
+enum AssignmentAuditOutcome {
+  SUCCESS
+  VALIDATION_FAILED
+  AUTHN_FAILED
+  AUTHZ_FAILED
+  INVITATION_RETRYABLE_FAILURE
+  CONFLICT
+  INTERNAL_ERROR
+}
+
+model ConferenceAnnouncement {
+  id           String    @id @default(uuid()) @db.Uuid
+  title        String
+  content      String
+  isPublic     Boolean   @map("is_public")
+  publishStart DateTime  @map("publish_start")
+  publishEnd   DateTime? @map("publish_end")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  @@map("conference_announcements")
+}
+
+model SubmissionDraft {
+  id                     String   @id @default(uuid()) @db.Uuid
+  authorId               String   @map("author_id") @db.Uuid
+  inProgressSubmissionId String   @map("in_progress_submission_id") @db.Uuid
+  title                  String
+  draftPayload           Json     @map("draft_payload")
+  payloadVersion         Int      @map("payload_version")
+  policyVersion          String   @map("policy_version")
+  lastSavedAt            DateTime @map("last_saved_at")
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+  snapshots              DraftSnapshot[]
+
+  @@unique([authorId, inProgressSubmissionId], map: "submission_drafts_unique_current")
+  @@index([authorId, inProgressSubmissionId], map: "submission_drafts_author_submission_idx")
+  @@map("submission_drafts")
+}
+
+model DraftSnapshot {
+  id               String          @id @default(uuid()) @db.Uuid
+  submissionDraftId String         @map("submission_draft_id") @db.Uuid
+  version          Int
+  snapshotPayload  Json            @map("snapshot_payload")
+  savedAt          DateTime        @map("saved_at")
+  submissionDraft  SubmissionDraft @relation(fields: [submissionDraftId], references: [id], onDelete: Cascade)
+
+  @@unique([submissionDraftId, version], map: "draft_snapshots_submission_version_unique")
+  @@index([submissionDraftId, savedAt], map: "draft_snapshots_submission_saved_idx")
+  @@map("draft_snapshots")
+}
+
+model DraftSaveAttempt {
+  id                   String           @id @default(uuid()) @db.Uuid
+  authorId             String?          @map("author_id") @db.Uuid
+  inProgressSubmissionId String?        @map("in_progress_submission_id") @db.Uuid
+  outcome              DraftSaveOutcome
+  reasonCode           String           @map("reason_code")
+  requestId            String           @map("request_id")
+  occurredAt           DateTime         @default(now()) @map("occurred_at")
+
+  @@index([inProgressSubmissionId, occurredAt], map: "draft_save_attempts_submission_time_idx")
+  @@map("draft_save_attempts")
+}
+
+model RefereeAssignment {
+  id                 String           @id @default(uuid()) @db.Uuid
+  paperId            String           @map("paper_id") @db.Uuid
+  refereeId          String           @map("referee_id") @db.Uuid
+  assignedByEditorId String           @map("assigned_by_editor_id") @db.Uuid
+  assignmentStatus   AssignmentStatus @map("assignment_status")
+  assignedAt         DateTime         @map("assigned_at")
+  conferenceCycleId  String           @map("conference_cycle_id") @db.Uuid
+  sourceInvitationId String?          @unique @map("source_invitation_id") @db.Uuid
+  invitations        ReviewInvitation[]
+  sourceInvitation   ReviewInvitation? @relation("InvitationSource", fields: [sourceInvitationId], references: [id], onDelete: SetNull)
+
+  @@unique([paperId, refereeId], map: "referee_assignments_unique_active")
+  @@index([paperId], map: "referee_assignments_paper_idx")
+  @@index([refereeId], map: "referee_assignments_referee_idx")
+  @@index([conferenceCycleId], map: "referee_assignments_cycle_idx")
+  @@map("referee_assignments")
+}
+
+model ReviewInvitation {
+  id                 String                   @id @default(uuid()) @db.Uuid
+  assignmentId       String?                  @map("assignment_id") @db.Uuid
+  paperId            String                   @map("paper_id") @db.Uuid
+  refereeId          String                   @map("referee_id") @db.Uuid
+  invitationStatus   InvitationStatus         @map("invitation_status")
+  responseStatus     InvitationResponseStatus @default(PENDING) @map("response_status")
+  responseRecordedAt DateTime?                @map("response_recorded_at")
+  attemptCount       Int                      @default(0) @map("attempt_count")
+  lastAttemptAt      DateTime?                @map("last_attempt_at")
+  failureReasonCode  String?                  @map("failure_reason_code")
+  createdAt          DateTime                 @default(now()) @map("created_at")
+  assignment         RefereeAssignment?       @relation(fields: [assignmentId], references: [id], onDelete: SetNull)
+  sourceAssignments  RefereeAssignment[]      @relation("InvitationSource")
+  responseAttempts   InvitationResponseAttempt[]
+
+  @@index([assignmentId], map: "review_invitations_assignment_idx")
+  @@index([invitationStatus, lastAttemptAt], map: "review_invitations_status_idx")
+  @@map("review_invitations")
+}
+
+model InvitationResponseAttempt {
+  id                String                          @id @default(uuid()) @db.Uuid
+  invitationId      String                          @map("invitation_id") @db.Uuid
+  refereeId         String?                         @map("referee_id") @db.Uuid
+  decisionRequested String                          @map("decision_requested")
+  outcome           InvitationResponseAttemptOutcome
+  reasonCode        String                          @map("reason_code")
+  requestId         String                          @map("request_id")
+  occurredAt        DateTime                        @default(now()) @map("occurred_at")
+  invitation        ReviewInvitation                @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId, occurredAt], map: "invitation_response_attempts_invitation_time_idx")
+  @@map("invitation_response_attempts")
+}
+
+model AssignmentAttemptAudit {
+  id                       String                 @id @default(uuid()) @db.Uuid
+  requestId                String                 @map("request_id")
+  paperId                  String                 @map("paper_id") @db.Uuid
+  editorId                 String?                @map("editor_id") @db.Uuid
+  submittedRefereeIdsCount Int                    @map("submitted_referee_ids_count")
+  outcome                  AssignmentAuditOutcome
+  reasonCode               String                 @map("reason_code")
+  occurredAt               DateTime               @default(now()) @map("occurred_at")
+
+  @@index([paperId, occurredAt], map: "assignment_attempt_audits_paper_time_idx")
+  @@map("assignment_attempt_audits")
+}

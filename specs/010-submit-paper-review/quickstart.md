@@ -5,41 +5,45 @@
 - PostgreSQL running with latest migrations applied.
 - Fixture data includes a referee with accepted assignment and available review form.
 
-## 1. Run failing tests first (TDD gate)
-- Add/enable tests for:
-  - Successful review submission (AT-UC10-01)
-  - Invalid/incomplete submission handling (AT-UC10-02)
-  - Duplicate final submission denial
-  - Submit-time ineligible assignment denial
-  - Generic non-enumerating non-owned/non-assigned denial
-  - Session-expired submit failure
+## 1. Validate contract marker
+```bash
+npm run lint:contracts:review-submission -w backend
+```
 
-## 2. Implement backend flow
-- Add presentation handlers for:
-  - `GET /api/referee/assignments/{assignmentId}/review-form`
-  - `POST /api/referee/assignments/{assignmentId}/review-submissions`
-- Implement business services for:
-  - Submit-time eligibility revalidation
-  - Required/domain validation
-  - Single-final-submission enforcement
-  - Success/failure outcome mapping
-- Implement data repositories for:
-  - Review submission persistence
-  - Eligibility lookups
-  - Structured audit events
+Expected: command exits `0` and confirms required OpenAPI marker paths:
+- `/api/referee/assignments/{assignmentId}/review-form`
+- `/api/referee/assignments/{assignmentId}/review-submissions`
 
-## 3. Implement frontend flow
-- Review form retrieval and rendering for eligible assignment.
-- Submission flow with explicit success confirmation.
-- Validation error display with correction-and-resubmit support.
-- Explicit outcomes for unavailable and session-expired paths.
+## 2. Validate backend compile + tests
+```bash
+npm run lint -w backend
+npm run test -w backend
+```
 
-## 4. Validate locally
-- Run unit/integration/contract backend tests.
-- Run frontend integration/e2e tests in Chrome and Firefox.
-- Verify no sensitive review content appears in logs/error payloads.
+Observed (2026-03-02):
+- `lint` passed
+- `test` passed (`282` tests, `0` failures)
 
-## 5. Expected outcomes
-- Eligible referees can submit exactly one final review for assigned papers.
-- Invalid submissions are rejected with actionable validation feedback.
-- Unauthorized, ineligible, or expired-session submissions are rejected explicitly and auditable.
+## 3. Validate strict coverage gate
+```bash
+npm run coverage -w backend
+```
+
+Observed (2026-03-02):
+- Coverage gate passed with global thresholds:
+  - Statements: `100%`
+  - Branches: `100%`
+  - Functions: `100%`
+  - Lines: `100%`
+
+## 4. Manual browser matrix status
+- Browser matrix execution checklist is tracked in:
+  - `frontend/tests/e2e/review-submission/browser-validation.md`
+- Current state: not executed yet (all checkbox items still open).
+
+## 5. UC-10 acceptance outcomes
+- Eligible referees can retrieve a review form and submit exactly one final review.
+- Invalid/incomplete payloads return `validation-failed` with explicit issues.
+- Non-owned, duplicate, and submit-time-ineligible requests return `submission-unavailable`.
+- Missing/expired sessions return `session-expired`.
+- Audit records redact review content (`responses`/`content`) and preserve reason codes.

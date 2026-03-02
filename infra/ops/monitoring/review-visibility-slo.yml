@@ -1,0 +1,11 @@
+service: review-visibility
+uc: UC-11
+slo:
+  latency_p95_seconds: 3
+  success_signal: REVIEWS_VISIBLE
+  pending_signal: REVIEWS_PENDING
+  denied_signal: UNAVAILABLE_DENIED
+alerts:
+  - name: review_visibility_error_spike
+    threshold: 0.05
+    window: 5m

@@ -1,42 +1,35 @@
 # Implementation Plan: Generate Conference Schedule
 
-**Branch**: `014-generate-conference-schedule` | **Date**: 2026-02-10 | **Spec**: `specs/014-generate-conference-schedule/spec.md`
-**Input**: Feature specification from `specs/014-generate-conference-schedule/spec.md`
+**Branch**: `014-generate-conference-schedule` | **Date**: 2026-03-02 | **Spec**: `/Users/indy/Desktop/ECE 493 Lab/ECE 493 Lab 2/specs/014-generate-conference-schedule/spec.md`
+**Input**: Feature specification from `/specs/014-generate-conference-schedule/spec.md`
 
 ## Summary
 
-Implement administrator-only generation of a draft conference schedule that includes all accepted papers, ordered by submission time, and is presented to administrators. Handle the no-accepted-papers case with explicit user-visible errors and no schedule creation. Enforce RBAC, encrypted transport, reliability, and auditability requirements.
+Implement UC-14 schedule generation for accepted papers with administrator-only access, explicit no-accepted-papers handling, deterministic schedule output, auditability, and recovery coverage.
 
 ## Technical Context
 
-**Language/Version**: TypeScript (frontend + backend)
-**Primary Dependencies**: React 18, Fastify, Prisma (PostgreSQL), Zod, Pino, prom-client, rate-limiter-flexible (existing stack)
-**Storage**: PostgreSQL for schedules and accepted paper metadata
-**Testing**: Unit, integration, contract, and end-to-end tests (Chrome + Firefox)
-**Target Platform**: Browser-based web app + backend services
-**Project Type**: Web (three-layer architecture: presentation/business/data)
-**Performance Goals**: Generate and present draft schedule within 5 seconds for accepted-paper sets of typical conference size
-**Constraints**: TDD first, library-first, OOP domain design, strict RBAC, explicit validation errors, encrypted transport, backup/recovery, 24/7 reliability
-**Scale/Scope**: Typical conference with hundreds of accepted papers and concurrent admin requests during schedule preparation
+**Language/Version**: TypeScript 5.x (frontend + backend)
+**Primary Dependencies**: React 18, Fastify, Prisma, Zod, Pino, prom-client, rate-limiter-flexible
+**Storage**: PostgreSQL for accepted-paper reads and generated schedule persistence
+**Testing**: Node.js test runner unit tests + Supertest contract/integration tests
+**Target Platform**: Browser frontend + Fastify API backend
+**Project Type**: Web app (presentation/business/data layering)
+**Performance Goals**: SC-001 schedule generation completed and presented within 5 seconds for typical accepted-paper sets
+**Constraints**: TDD first; explicit outcomes; encrypted transport and encrypted-at-rest controls; RBAC admin-only generation; no sensitive plaintext in logs
+**Scale/Scope**: Single conference schedule generation and retrieval flow for UC-14 only
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
-
-- [x] Test-first strategy is defined: failing tests listed before implementation tasks.
-- [x] Acceptance traceability is defined: each story maps to `UseCases.md` and `TestSuite.md` IDs.
-- [x] Layer compliance is explicit: presentation, business, and data components identified below.
-- [x] Library-first decisions are documented; no custom scheduling framework required.
-- [x] Security controls cover TLS in transit and encryption at rest for schedule data.
-- [x] RBAC impact is defined, including privileged action restrictions and authorization failure behavior.
-- [x] Validation rules and explicit user-visible error responses are defined.
-- [x] Reliability coverage includes concurrency behavior and backup/restore impact.
-- [x] Public information access remains available without authentication (no change to public endpoints).
-- [x] Auditability requirements are documented (schedule generation access and failures logged).
+- [x] Test-first delivery with failing tests before implementation
+- [x] Clear layer boundaries (presentation/business/data)
+- [x] Library-first approach; no custom framework introduced
+- [x] RBAC, transport security, and explicit error outcomes defined
+- [x] Reliability and recovery expectations covered
 
 ## Project Structure
 
-### Documentation (this feature)
+### Documentation
 
 ```text
 specs/014-generate-conference-schedule/
@@ -48,76 +41,23 @@ specs/014-generate-conference-schedule/
 └── tasks.md
 ```
 
-### Source Code (repository root)
+### Source
 
 ```text
-backend/
-├── src/
-│   ├── presentation/
-│   ├── business/
-│   ├── data/
-│   ├── security/
-│   └── shared/
-└── tests/
-    ├── unit/
-    ├── integration/
-    └── contract/
-
-frontend/
-├── src/
-│   ├── presentation/
-│   ├── business/
-│   ├── data/
-│   └── shared/
-└── tests/
-    ├── unit/
-    ├── integration/
-    └── e2e/
-
-infra/
-├── db/
-│   ├── migrations/
-│   └── backup/
-└── ops/
-    ├── monitoring/
-    └── recovery/
+backend/src/presentation/conference-schedule/
+backend/src/business/conference-schedule/
+backend/src/data/conference-schedule/
+backend/tests/contract/conference-schedule/
+backend/tests/integration/conference-schedule/
+backend/tests/unit/
+frontend/src/presentation/conference-schedule/
+frontend/src/business/conference-schedule/
+frontend/src/data/conference-schedule/
+infra/db/migrations/
+infra/ops/monitoring/
+infra/ops/recovery/
 ```
 
-**Structure Decision**: Use existing three-layer backend and frontend structure with schedule generation rules in business layer and persistence in data layer. No deviations.
+## Library-First Justification
 
-## Phase 0: Outline & Research
-
-### Research Tasks
-
-- Confirm schedule draft output format for presentation (list ordering by submission time, no session assignments).
-- Verify RBAC patterns for administrator-only actions in existing auth stack.
-- Identify baseline performance expectations for schedule generation with typical accepted-paper volume.
-
-### Research Output
-
-- `specs/014-generate-conference-schedule/research.md` with decisions, rationale, and alternatives.
-
-## Phase 1: Design & Contracts
-
-### Data Model
-
-- Define schedule entities and relationships in `data-model.md`.
-- Ensure schedule is a draft without session/time assignments.
-
-### API Contracts
-
-- Document endpoints for schedule generation and retrieval in `contracts/openapi.yaml`.
-- Include explicit error responses for no accepted papers and unauthorized access.
-
-### Agent Context Update
-
-- Run `.specify/scripts/bash/update-agent-context.sh codex` after artifacts are generated.
-
-## Phase 2: Planning Output
-
-- `data-model.md`, `contracts/openapi.yaml`, `quickstart.md`, updated agent context file.
-
-## Risks & Mitigations
-
-- Risk: Concurrent schedule generation could produce inconsistent drafts. Mitigation: enforce serialization or idempotent generation in business logic.
-- Risk: Missing session configuration data could block generation. Mitigation: explicit validation and user-visible error messaging.
+UC-14 uses existing stack components (Fastify, Zod, Supertest, Node test runner, c8) and follows established repository and service patterns already used in prior use cases.

@@ -1,0 +1,16 @@
+service: author-decision
+objective: "SC-001"
+description: "95% of decision notifications are delivered within 2 minutes"
+indicator:
+  metric: author_decision_notification_delivery_seconds
+  aggregation: p95
+  threshold_seconds: 120
+outcomes:
+  available: DECISION_AVAILABLE
+  notification_failed: NOTIFICATION_FAILED
+  denied: UNAVAILABLE_DENIED
+alerts:
+  - name: author-decision-notification-latency-breach
+    condition: "p95(author_decision_notification_delivery_seconds, 15m) > 120"
+  - name: author-decision-notification-failure-spike
+    condition: "rate(author_decision_notification_failures_total[5m]) > 0.05"
