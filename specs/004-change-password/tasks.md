@@ -17,12 +17,12 @@
 
 **Purpose**: Initialize feature scaffolding and test harnesses.
 
-- [ ] T001 Create password-change module folders in `backend/src/presentation/account/`, `backend/src/business/account/`, `backend/src/data/account/`, and `frontend/src/presentation/account/`
-- [ ] T002 Create shared domain/error scaffolds for password change in `backend/src/business/domain/password-change.ts` and `backend/src/shared/errors/password-change-errors.ts`
-- [ ] T003 [P] Create migration scaffold for password history/attempt/session updates in `infra/db/migrations/004_change_password.sql`
-- [ ] T004 [P] Create contract test scaffold in `backend/tests/contract/password-change.contract.test.ts`
-- [ ] T005 [P] Create integration test scaffold in `backend/tests/integration/password-change.integration.test.ts`
-- [ ] T006 [P] Create e2e test scaffold in `frontend/tests/e2e/change-password.spec.ts`
+- [X] T001 Create password-change module folders in `backend/src/presentation/account/`, `backend/src/business/account/`, `backend/src/data/account/`, and `frontend/src/presentation/account/`
+- [X] T002 Create shared domain/error scaffolds for password change in `backend/src/business/domain/password-change.ts` and `backend/src/shared/errors/password-change-errors.ts`
+- [X] T003 [P] Create migration scaffold for password history/attempt/session updates in `infra/db/migrations/004_change_password.sql`
+- [X] T004 [P] Create contract test scaffold in `backend/tests/contract/password-change.contract.test.ts`
+- [X] T005 [P] Create integration test scaffold in `backend/tests/integration/password-change.integration.test.ts`
+- [X] T006 [P] Create e2e test scaffold in `frontend/tests/e2e/change-password.spec.ts`
 
 ---
 
@@ -32,14 +32,14 @@
 
 **⚠️ CRITICAL**: No user story work starts until this phase is complete.
 
-- [ ] T007 Implement authenticated-session guard and invalid/expired-session rejection baseline in `backend/src/presentation/middleware/session-auth.ts`
-- [ ] T008 [P] Implement password-change request schema validation (`currentPassword`, `newPassword`, `confirmNewPassword`) in `backend/src/business/validation/password-change.schema.ts`
-- [ ] T009 [P] Implement password hashing/verification service wrapper (Argon2) in `backend/src/business/security/password-hash.service.ts`
-- [ ] T010 Implement credential transaction repository interface for atomic update/versioning in `backend/src/data/account/account-credential.repository.ts`
-- [ ] T011 [P] Implement password-change throttle repository (per-account + per-IP) in `backend/src/data/security/password-change-throttle.repository.ts`
-- [ ] T012 [P] Implement audit event writer for password-change outcomes in `backend/src/business/observability/password-change-audit.service.ts`
-- [ ] T013 Implement session repository operations for revoke-all-on-password-change in `backend/src/data/security/session.repository.ts`
-- [ ] T014 Implement API contract wiring skeleton for `POST /api/v1/account/password-change` in `backend/src/presentation/account/password-change.controller.ts`
+- [X] T007 Implement authenticated-session guard and invalid/expired-session rejection baseline in `backend/src/presentation/middleware/session-auth.ts`
+- [X] T008 [P] Implement password-change request schema validation (`currentPassword`, `newPassword`, `confirmNewPassword`) in `backend/src/business/validation/password-change.schema.ts`
+- [X] T009 [P] Implement password hashing/verification service wrapper (Argon2) in `backend/src/business/security/password-hash.service.ts`
+- [X] T010 Implement credential transaction repository interface for atomic update/versioning in `backend/src/data/account/account-credential.repository.ts`
+- [X] T011 [P] Implement password-change throttle repository (per-account + per-IP) in `backend/src/data/security/password-change-throttle.repository.ts`
+- [X] T012 [P] Implement audit event writer for password-change outcomes in `backend/src/business/observability/password-change-audit.service.ts`
+- [X] T013 Implement session repository operations for revoke-all-on-password-change in `backend/src/data/security/session.repository.ts`
+- [X] T014 Implement API contract wiring skeleton for `POST /api/v1/account/password-change` in `backend/src/presentation/account/password-change.controller.ts`
 
 **Checkpoint**: Foundation complete; user stories can begin.
 
@@ -53,18 +53,18 @@
 
 ### Tests for User Story 1 (REQUIRED) ⚠️
 
-- [ ] T015 [P] [US1] Add failing contract test for successful `200` password change response in `backend/tests/contract/password-change.contract.test.ts`
-- [ ] T016 [P] [US1] Add failing integration test for credential update, password-history insert, and session revocation in `backend/tests/integration/password-change.integration.test.ts`
-- [ ] T017 [P] [US1] Add failing e2e success flow test (change password then re-authenticate) in `frontend/tests/e2e/change-password.spec.ts`
+- [X] T015 [P] [US1] Add failing contract test for successful `200` password change response in `backend/tests/contract/password-change.contract.test.ts`
+- [X] T016 [P] [US1] Add failing integration test for credential update, password-history insert, and session revocation in `backend/tests/integration/password-change.integration.test.ts`
+- [X] T017 [P] [US1] Add failing e2e success flow test (change password then re-authenticate) in `frontend/tests/e2e/change-password.spec.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T018 [US1] Implement success-path HTTP handling for password change in `backend/src/presentation/account/password-change.controller.ts`
-- [ ] T019 [US1] Implement orchestration service for current-password verification and policy checks in `backend/src/business/account/change-password.service.ts`
-- [ ] T020 [US1] Implement atomic credential update + password-history write in `backend/src/data/account/account-credential.repository.ts`
-- [ ] T021 [US1] Implement revoke-all-active-sessions on successful change in `backend/src/business/security/session-revocation.service.ts`
-- [ ] T022 [US1] Implement frontend API client for password-change success contract in `frontend/src/business/account/password-change.client.ts`
-- [ ] T023 [US1] Implement password-change form success flow and re-login redirect in `frontend/src/presentation/account/change-password-form.tsx`
+- [X] T018 [US1] Implement success-path HTTP handling for password change in `backend/src/presentation/account/password-change.controller.ts`
+- [X] T019 [US1] Implement orchestration service for current-password verification and policy checks in `backend/src/business/account/change-password.service.ts`
+- [X] T020 [US1] Implement atomic credential update + password-history write in `backend/src/data/account/account-credential.repository.ts`
+- [X] T021 [US1] Implement revoke-all-active-sessions on successful change in `backend/src/business/security/session-revocation.service.ts`
+- [X] T022 [US1] Implement frontend API client for password-change success contract in `frontend/src/business/account/password-change.client.ts`
+- [X] T023 [US1] Implement password-change form success flow and re-login redirect in `frontend/src/presentation/account/change-password-form.tsx`
 
 **Checkpoint**: User Story 1 is independently functional and testable.
 
@@ -78,18 +78,18 @@
 
 ### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [ ] T024 [P] [US2] Add failing contract tests for `400`, `401`, `429`, and `500` password-change responses in `backend/tests/contract/password-change.contract.test.ts`
-- [ ] T025 [P] [US2] Add failing integration tests for invalid current password, expired session, throttling, and rollback-on-failure behavior in `backend/tests/integration/password-change.integration.test.ts`
-- [ ] T026 [P] [US2] Add failing e2e test for invalid submission correction/retry messaging in `frontend/tests/e2e/change-password.spec.ts`
+- [X] T024 [P] [US2] Add failing contract tests for `400`, `401`, `429`, and `500` password-change responses in `backend/tests/contract/password-change.contract.test.ts`
+- [X] T025 [P] [US2] Add failing integration tests for invalid current password, expired session, throttling, and rollback-on-failure behavior in `backend/tests/integration/password-change.integration.test.ts`
+- [X] T026 [P] [US2] Add failing e2e test for invalid submission correction/retry messaging in `frontend/tests/e2e/change-password.spec.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T027 [US2] Implement explicit validation-failure reason mapping (including password history rule) in `backend/src/business/account/password-change-validation.service.ts`
-- [ ] T028 [US2] Implement explicit invalid/expired-session authorization failure responses in `backend/src/presentation/account/password-change.controller.ts`
-- [ ] T029 [US2] Implement per-account and per-IP throttle enforcement with temporary lockout in `backend/src/business/security/password-change-throttle.service.ts`
-- [ ] T030 [US2] Implement operational-failure compensation/rollback behavior for multi-step password change in `backend/src/business/account/change-password.service.ts`
-- [ ] T031 [US2] Implement frontend error-state rendering for validation/auth/throttle/operational failures in `frontend/src/presentation/account/change-password-errors.tsx`
-- [ ] T032 [US2] Implement typed API error handling for `400/401/409/429/500` outcomes in `frontend/src/business/account/password-change.client.ts`
+- [X] T027 [US2] Implement explicit validation-failure reason mapping (including password history rule) in `backend/src/business/account/password-change-validation.service.ts`
+- [X] T028 [US2] Implement explicit invalid/expired-session authorization failure responses in `backend/src/presentation/account/password-change.controller.ts`
+- [X] T029 [US2] Implement per-account and per-IP throttle enforcement with temporary lockout in `backend/src/business/security/password-change-throttle.service.ts`
+- [X] T030 [US2] Implement operational-failure compensation/rollback behavior for multi-step password change in `backend/src/business/account/change-password.service.ts`
+- [X] T031 [US2] Implement frontend error-state rendering for validation/auth/throttle/operational failures in `frontend/src/presentation/account/change-password-errors.tsx`
+- [X] T032 [US2] Implement typed API error handling for `400/401/409/429/500` outcomes in `frontend/src/business/account/password-change.client.ts`
 
 **Checkpoint**: User Stories 1 and 2 both pass independently.
 
@@ -99,16 +99,16 @@
 
 **Purpose**: Final hardening, observability, and release-readiness checks.
 
-- [ ] T033 [P] Add/verify log redaction rules for credential material in `backend/src/shared/logging/redaction.ts`
-- [ ] T034 [P] Add Prometheus counters/timers for password-change outcomes in `backend/src/business/observability/password-change-metrics.ts`
-- [ ] T035 [P] Add backup/restore verification notes for password-change data in `infra/ops/recovery/password-change-recovery.md`
-- [ ] T036 Validate OpenAPI examples and response descriptions against implemented behavior in `specs/004-change-password/contracts/password-change.openapi.yaml`
-- [ ] T037 Record feature validation steps and final test run matrix in `specs/004-change-password/quickstart.md`
-- [ ] T038 Record constitution compliance evidence for this feature delivery in `specs/004-change-password/plan.md`
-- [ ] T039 [P] Execute affected password-change UI flows in Chrome and Firefox and record results in `specs/004-change-password/quickstart.md`
-- [ ] T040 [P] Add performance test for password-change p95 latency target in `backend/tests/integration/password-change.performance.test.ts`
-- [ ] T041 Record p95 performance results in `specs/004-change-password/quickstart.md`
-- [ ] T042 Execute backup restore drill for password-change-affected credential/session/audit data and record pass/fail evidence in `infra/ops/recovery/password-change-recovery.md`
+- [X] T033 [P] Add/verify log redaction rules for credential material in `backend/src/shared/logging/redaction.ts`
+- [X] T034 [P] Add Prometheus counters/timers for password-change outcomes in `backend/src/business/observability/password-change-metrics.ts`
+- [X] T035 [P] Add backup/restore verification notes for password-change data in `infra/ops/recovery/password-change-recovery.md`
+- [X] T036 Validate OpenAPI examples and response descriptions against implemented behavior in `specs/004-change-password/contracts/password-change.openapi.yaml`
+- [X] T037 Record feature validation steps and final test run matrix in `specs/004-change-password/quickstart.md`
+- [X] T038 Record constitution compliance evidence for this feature delivery in `specs/004-change-password/plan.md`
+- [X] T039 [P] Execute affected password-change UI flows in Chrome and Firefox and record results in `specs/004-change-password/quickstart.md`
+- [X] T040 [P] Add performance test for password-change p95 latency target in `backend/tests/integration/password-change.performance.test.ts`
+- [X] T041 Record p95 performance results in `specs/004-change-password/quickstart.md`
+- [X] T042 Execute backup restore drill for password-change-affected credential/session/audit data and record pass/fail evidence in `infra/ops/recovery/password-change-recovery.md`
 
 ---
 

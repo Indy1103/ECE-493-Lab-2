@@ -110,3 +110,19 @@ Planning is complete through Phase 1 design artifacts. Task decomposition/execut
 ## Complexity Tracking
 
 No constitutional violations identified; no waivers required.
+
+## Delivery Evidence (2026-03-02)
+
+- `npm test` passed at workspace level (backend + frontend scripts).
+- `npm run lint` passed for backend and frontend TypeScript projects.
+- `npm run coverage -w backend` passed with `100%` statements/branches/functions/lines.
+- Contract/integration/unit coverage validates UC-04 success + rejection paths:
+  - `200` success with reauthentication flag.
+  - `400` validation failures.
+  - `401` invalid/expired session.
+  - `409` credential conflict.
+  - `429` lockout with retry guidance.
+  - `500` operational failure with rollback behavior.
+- Performance validation met target (`p95=105ms <= 500ms` under sampled load).
+- Recovery drill evidence captured in `infra/ops/recovery/password-change-recovery.md`.
+- Browser execution for UC-04 flows completed in Chrome and Firefox using a local Playwright harness of the `ChangePasswordForm`; results are recorded in `quickstart.md`.
