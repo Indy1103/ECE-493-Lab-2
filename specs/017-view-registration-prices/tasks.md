@@ -32,9 +32,9 @@ testing of each story while preserving constitutional constraints.
 
 **Purpose**: Initialize feature scaffolding and data storage foundation
 
-- [ ] T001 Create migration for registration price list tables in `infra/db/migrations/017_create_registration_price_lists.sql`
-- [ ] T002 [P] Add Prisma models for `RegistrationPriceList` and `RegistrationPrice` in `backend/src/data/prisma/schema.prisma`
-- [ ] T003 [P] Add API contract baseline for public prices in `specs/017-view-registration-prices/contracts/openapi.yaml`
+- [X] T001 Create migration for registration price list tables in `infra/db/migrations/017_create_registration_price_lists.sql`
+- [X] T002 [P] Add Prisma models for `RegistrationPriceList` and `RegistrationPrice` in `backend/src/data/prisma/schema.prisma`
+- [X] T003 [P] Add API contract baseline for public prices in `specs/017-view-registration-prices/contracts/openapi.yaml`
 
 ---
 
@@ -44,12 +44,12 @@ testing of each story while preserving constitutional constraints.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Define public route registration entry point in `backend/src/presentation/routes/publicRoutes.ts`
-- [ ] T005 [P] Define service interface for price list retrieval in `backend/src/business/services/registrationPriceService.ts`
-- [ ] T006 [P] Define repository interface for price list access in `backend/src/data/repositories/registrationPriceRepository.ts`
-- [ ] T007 Establish error response shape for public endpoints in `backend/src/presentation/http/errorResponses.ts`
-- [ ] T008 [P] Add frontend API client wrapper for public endpoints in `frontend/src/data/api/publicClient.ts`
-- [ ] T009 Ensure public route is unauthenticated in `backend/src/presentation/middleware/auth.ts`
+- [X] T004 Define public route registration entry point in `backend/src/presentation/routes/publicRoutes.ts`
+- [X] T005 [P] Define service interface for price list retrieval in `backend/src/business/services/registrationPriceService.ts`
+- [X] T006 [P] Define repository interface for price list access in `backend/src/data/repositories/registrationPriceRepository.ts`
+- [X] T007 Establish error response shape for public endpoints in `backend/src/presentation/http/errorResponses.ts`
+- [X] T008 [P] Add frontend API client wrapper for public endpoints in `frontend/src/data/api/publicClient.ts`
+- [X] T009 Ensure public route is unauthenticated in `backend/src/presentation/middleware/auth.ts`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -63,18 +63,18 @@ testing of each story while preserving constitutional constraints.
 
 ### Tests for User Story 1 (REQUIRED) ⚠️
 
-- [ ] T010 [P] [US1] Add contract test for GET `/public/registration-prices` 200 in `backend/tests/contract/publicRegistrationPrices.test.ts`
-- [ ] T011 [P] [US1] Add integration test for published list retrieval in `backend/tests/integration/registrationPriceService.test.ts`
-- [ ] T012 [P] [US1] Add UI/e2e test for price list display in `frontend/tests/e2e/registrationPrices.view.spec.ts`
+- [X] T010 [P] [US1] Add contract test for GET `/public/registration-prices` 200 in `backend/tests/contract/publicRegistrationPrices.test.ts`
+- [X] T011 [P] [US1] Add integration test for published list retrieval in `backend/tests/integration/registrationPriceService.test.ts`
+- [X] T012 [P] [US1] Add UI/e2e test for price list display in `frontend/tests/e2e/registrationPrices.view.spec.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T013 [US1] Implement backend route handler for published list in `backend/src/presentation/controllers/publicRegistrationPricesController.ts`
-- [ ] T014 [US1] Implement business workflow to fetch published list in `backend/src/business/services/registrationPriceService.ts`
-- [ ] T015 [US1] Implement repository query for published list and prices in `backend/src/data/repositories/registrationPriceRepository.ts`
-- [ ] T016 [US1] Implement frontend API call for published list in `frontend/src/data/api/registrationPrices.ts`
-- [ ] T017 [US1] Implement price list UI view in `frontend/src/presentation/pages/RegistrationPricesPage.tsx`
-- [ ] T018 [US1] Add explicit validation of published list shape in `backend/src/business/validation/registrationPriceValidation.ts`
+- [X] T013 [US1] Implement backend route handler for published list in `backend/src/presentation/controllers/publicRegistrationPricesController.ts`
+- [X] T014 [US1] Implement business workflow to fetch published list in `backend/src/business/services/registrationPriceService.ts`
+- [X] T015 [US1] Implement repository query for published list and prices in `backend/src/data/repositories/registrationPriceRepository.ts`
+- [X] T016 [US1] Implement frontend API call for published list in `frontend/src/data/api/registrationPrices.ts`
+- [X] T017 [US1] Implement price list UI view in `frontend/src/presentation/pages/RegistrationPricesPage.tsx`
+- [X] T018 [US1] Add explicit validation of published list shape in `backend/src/business/validation/registrationPriceValidation.ts`
 
 **Checkpoint**: User Story 1 is fully functional and independently testable
 
@@ -88,16 +88,16 @@ testing of each story while preserving constitutional constraints.
 
 ### Tests for User Story 2 (REQUIRED) ⚠️
 
-- [ ] T019 [P] [US2] Add contract test for GET `/public/registration-prices` 404 in `backend/tests/contract/publicRegistrationPrices.test.ts`
-- [ ] T020 [P] [US2] Add integration test for unavailable list path in `backend/tests/integration/registrationPriceService.test.ts`
-- [ ] T021 [P] [US2] Add UI/e2e test for unavailability message in `frontend/tests/e2e/registrationPrices.unavailable.spec.ts`
+- [X] T019 [P] [US2] Add contract test for GET `/public/registration-prices` 404 in `backend/tests/contract/publicRegistrationPrices.test.ts`
+- [X] T020 [P] [US2] Add integration test for unavailable list path in `backend/tests/integration/registrationPriceService.test.ts`
+- [X] T021 [P] [US2] Add UI/e2e test for unavailability message in `frontend/tests/e2e/registrationPrices.unavailable.spec.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T022 [US2] Implement 404 response mapping in `backend/src/presentation/controllers/publicRegistrationPricesController.ts`
-- [ ] T023 [US2] Implement service-level unavailable handling in `backend/src/business/services/registrationPriceService.ts`
-- [ ] T024 [US2] Implement repository null handling in `backend/src/data/repositories/registrationPriceRepository.ts`
-- [ ] T025 [US2] Implement UI empty-state messaging in `frontend/src/presentation/pages/RegistrationPricesPage.tsx`
+- [X] T022 [US2] Implement 404 response mapping in `backend/src/presentation/controllers/publicRegistrationPricesController.ts`
+- [X] T023 [US2] Implement service-level unavailable handling in `backend/src/business/services/registrationPriceService.ts`
+- [X] T024 [US2] Implement repository null handling in `backend/src/data/repositories/registrationPriceRepository.ts`
+- [X] T025 [US2] Implement UI empty-state messaging in `frontend/src/presentation/pages/RegistrationPricesPage.tsx`
 
 **Checkpoint**: User Stories 1 and 2 both work independently
 
@@ -107,10 +107,10 @@ testing of each story while preserving constitutional constraints.
 
 **Purpose**: Cross-cutting controls required before release
 
-- [ ] T026 [P] Verify backup/restore impact for price list tables in `infra/db/backup/restore-verification.md`
-- [ ] T027 [P] Execute concurrency test for public price retrieval in `backend/tests/integration/registrationPriceConcurrency.test.ts`
-- [ ] T028 [P] Verify Chrome and Firefox behavior for prices page in `frontend/tests/e2e/registrationPrices.browser.spec.ts`
-- [ ] T029 [P] Validate no plaintext sensitive data in logs for this feature in `backend/tests/integration/registrationPriceLogging.test.ts`
+- [X] T026 [P] Verify backup/restore impact for price list tables in `infra/db/backup/restore-verification.md`
+- [X] T027 [P] Execute concurrency test for public price retrieval in `backend/tests/integration/registrationPriceConcurrency.test.ts`
+- [X] T028 [P] Verify Chrome and Firefox behavior for prices page in `frontend/tests/e2e/registrationPrices.browser.spec.ts`
+- [X] T029 [P] Validate no plaintext sensitive data in logs for this feature in `backend/tests/integration/registrationPriceLogging.test.ts`
 
 ---
 

@@ -50,6 +50,12 @@ enum AuthorNotificationStatus {
   FAILED
 }
 
+enum RegistrationPriceListStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 model ConferenceSchedule {
   id                String                    @id @default(uuid()) @db.Uuid
   conferenceId      String                    @unique @map("conference_id") @db.Uuid
@@ -111,4 +117,33 @@ model AuthorNotification {
   @@index([authorId], map: "author_notifications_author_idx")
   @@index([scheduleId, notifiedAt], map: "author_notifications_schedule_time_idx")
   @@map("author_notifications")
+}
+
+model RegistrationPriceList {
+  id           String                      @id @default(uuid()) @db.Uuid
+  title        String
+  status       RegistrationPriceListStatus
+  publishedAt  DateTime?                   @map("published_at")
+  effectiveFrom DateTime?                  @db.Date @map("effective_from")
+  effectiveTo  DateTime?                   @db.Date @map("effective_to")
+  createdAt    DateTime                    @default(now()) @map("created_at")
+  updatedAt    DateTime                    @updatedAt @map("updated_at")
+  prices       RegistrationPrice[]
+
+  @@map("registration_price_lists")
+}
+
+model RegistrationPrice {
+  id             String                @id @default(uuid()) @db.Uuid
+  priceListId    String                @map("price_list_id") @db.Uuid
+  attendanceType String                @map("attendance_type")
+  amount         Decimal               @db.Decimal(10, 2)
+  currency       String                @db.Char(3)
+  createdAt      DateTime              @default(now()) @map("created_at")
+  updatedAt      DateTime              @updatedAt @map("updated_at")
+  priceList      RegistrationPriceList @relation(fields: [priceListId], references: [id], onDelete: Cascade)
+
+  @@unique([priceListId, attendanceType], map: "registration_prices_unique_attendance_type_idx")
+  @@index([priceListId], map: "registration_prices_price_list_idx")
+  @@map("registration_prices")
 }
