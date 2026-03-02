@@ -46,3 +46,16 @@ Validate UC-01 behavior and constitutional constraints for public announcement v
 - Research: `research.md`
 - Data model: `data-model.md`
 - Contract: `contracts/public-announcements.openapi.yaml`
+
+## 5. UC-01 Traceability Validation
+
+1. Verify `AT-UC01-01` maps to `AVAILABLE` behavior in:
+   - `backend/tests/contract/public-announcements.available.contract.test.ts`
+   - `backend/tests/integration/public-announcements.available.integration.test.ts`
+2. Verify `AT-UC01-02` maps to `EMPTY` and retrieval-failure behavior in:
+   - `backend/tests/contract/public-announcements.empty.contract.test.ts`
+   - `backend/tests/integration/public-announcements.empty.integration.test.ts`
+   - `backend/tests/integration/public-announcements.failure.integration.test.ts`
+3. Verify security and transport controls in:
+   - `backend/tests/integration/public-announcements.tls.integration.test.ts`
+   - `infra/ops/monitoring/public-announcements-https-policy.md`
