@@ -1,0 +1,65 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+
+import request from "supertest";
+
+import { createReviewVisibilityTestApp } from "./testReviewVisibilityApp.js";
+
+test("US2: pending reviews outcome returns no review content", async () => {
+  const ctx = await createReviewVisibilityTestApp();
+
+  const response = await request(ctx.app.server)
+    .get(`/api/editor/papers/${ctx.paperIds.pending}/reviews`)
+    .set("x-forwarded-proto", "https")
+    .set("cookie", `session=${ctx.editorSessionId}`);
+
+  assert.equal(response.status, 409);
+  assert.equal(response.body.messageCode, "REVIEWS_PENDING");
+  assert.equal("reviews" in response.body, false);
+  assert.equal(response.body.completedReviewCount, 1);
+  assert.equal(response.body.requiredReviewCount, 3);
+
+  await ctx.app.close();
+});
+
+test("US2: non-editor receives generic unavailable/denied response", async () => {
+  const ctx = await createReviewVisibilityTestApp();
+
+  const response = await request(ctx.app.server)
+    .get(`/api/editor/papers/${ctx.paperIds.complete}/reviews`)
+    .set("x-forwarded-proto", "https")
+    .set("cookie", `session=${ctx.authorSessionId}`);
+
+  assert.equal(response.status, 403);
+  assert.equal(response.body.messageCode, "UNAVAILABLE_DENIED");
+  assert.equal(response.body.message, "Completed reviews are unavailable for this paper.");
+
+  await ctx.app.close();
+});
+
+test("US2: missing/invalid session returns session-expired", async () => {
+  const ctx = await createReviewVisibilityTestApp({ includeSession: false });
+
+  const response = await request(ctx.app.server)
+    .get(`/api/editor/papers/${ctx.paperIds.complete}/reviews`)
+    .set("x-forwarded-proto", "https");
+
+  assert.equal(response.status, 401);
+  assert.equal(response.body.messageCode, "SESSION_EXPIRED");
+
+  await ctx.app.close();
+});
+
+test("US2: inaccessible paper returns generic unavailable/denied without disclosure", async () => {
+  const ctx = await createReviewVisibilityTestApp();
+
+  const response = await request(ctx.app.server)
+    .get(`/api/editor/papers/${ctx.paperIds.inaccessible}/reviews`)
+    .set("x-forwarded-proto", "https")
+    .set("cookie", `session=${ctx.editorSessionId}`);
+
+  assert.equal(response.status, 404);
+  assert.equal(response.body.messageCode, "UNAVAILABLE_DENIED");
+
+  await ctx.app.close();
+});
