@@ -4,6 +4,7 @@ import { REVIEW_SUBMISSION_OUTCOMES } from "../business/review-submission/submis
 import { REVIEW_VISIBILITY_OUTCOMES } from "../business/review-visibility/visibility-outcome.js";
 import { FINAL_DECISION_OUTCOMES } from "../business/final-decision/decision-outcome.js";
 import { AUTHOR_DECISION_OUTCOMES } from "../business/author-decision/decision-outcome.js";
+import { CONFERENCE_SCHEDULE_OUTCOMES } from "../business/conference-schedule/schedule-outcome.js";
 
 export interface ReviewSubmissionSessionRecord {
   sessionId: string;
@@ -102,6 +103,31 @@ export type AuthorDecisionSessionRequest = FastifyRequest & {
 
 interface AuthorDecisionSessionGuardDeps {
   sessionRepository: AuthorDecisionSessionRepository;
+}
+
+export interface ConferenceScheduleSessionRecord {
+  sessionId: string;
+  accountId: string;
+  role: string;
+  status: "ACTIVE" | "REVOKED" | "EXPIRED";
+}
+
+export interface ConferenceScheduleSessionRepository {
+  getSessionById(sessionId: string): Promise<ConferenceScheduleSessionRecord | null>;
+}
+
+export interface ConferenceScheduleSessionContext {
+  userId: string;
+  sessionId: string;
+  role: string;
+}
+
+export type ConferenceScheduleSessionRequest = FastifyRequest & {
+  conferenceScheduleSession?: ConferenceScheduleSessionContext;
+};
+
+interface ConferenceScheduleSessionGuardDeps {
+  sessionRepository: ConferenceScheduleSessionRepository;
 }
 
 function parseSessionId(cookieHeader: string | undefined): string | null {
@@ -247,6 +273,39 @@ export function createAuthorDecisionSessionGuard(deps: AuthorDecisionSessionGuar
     }
 
     request.authorDecisionSession = {
+      userId: session.accountId,
+      sessionId: session.sessionId,
+      role: session.role
+    };
+  };
+}
+
+export function createConferenceScheduleSessionGuard(deps: ConferenceScheduleSessionGuardDeps) {
+  return async function conferenceScheduleSessionGuard(
+    request: ConferenceScheduleSessionRequest,
+    reply: FastifyReply
+  ): Promise<void> {
+    const sessionId = parseSessionId(request.headers.cookie);
+
+    if (!sessionId) {
+      reply.code(401).send({
+        outcome: CONFERENCE_SCHEDULE_OUTCOMES.SESSION_EXPIRED,
+        message: "Your session has expired. Please sign in again."
+      });
+      return;
+    }
+
+    const session = await deps.sessionRepository.getSessionById(sessionId);
+
+    if (!session || session.status !== "ACTIVE") {
+      reply.code(401).send({
+        outcome: CONFERENCE_SCHEDULE_OUTCOMES.SESSION_EXPIRED,
+        message: "Your session has expired. Please sign in again."
+      });
+      return;
+    }
+
+    request.conferenceScheduleSession = {
       userId: session.accountId,
       sessionId: session.sessionId,
       role: session.role

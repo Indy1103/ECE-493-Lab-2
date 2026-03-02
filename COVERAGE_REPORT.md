@@ -250,3 +250,32 @@ All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
 Notes:
 - Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
 - UC-12 branch coverage is fully satisfied, including completion gating, immutability conflicts, unavailable/denied fallback mapping, audit redaction, TLS/session guard branches, and repository conflict/read-failure branches.
+
+---
+
+# Coverage Report (Appendix: UC-14)
+
+Date: 2026-03-02  
+Branch: `014-generate-conference-schedule`
+
+Command run:
+
+```bash
+npm run coverage
+```
+
+Result:
+- Statements: 100%
+- Branches: 100%
+- Functions: 100%
+- Lines: 100%
+
+## c8 output summary
+
+```text
+All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
+```
+
+Notes:
+- Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
+- Coverage run included UC-14 `conference-schedule` business/data/presentation modules at 100% branch coverage.

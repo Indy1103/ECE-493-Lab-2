@@ -226,3 +226,28 @@ Backend passing suite includes:
 - UC-12 contract tests for `POST /api/editor/papers/{paperId}/decision` success, pending, finalized, and non-editor denied outcomes
 - UC-12 integration tests for success persistence + author notification, pending-review blocking, finalized immutability, concurrency safety, TLS enforcement, and audit redaction
 - UC-12 support unit tests for completion gate, notifier, audit logger/repository redaction, service fallback/rethrow branches, mapper branches, session guard branches, and route/handler branches
+
+---
+
+# Status Report (Appendix: UC-14)
+
+Date: 2026-03-02  
+Branch: `014-generate-conference-schedule`
+
+## Test Status
+
+Command run:
+
+```bash
+npm test
+```
+
+Result:
+- Backend tests: 362 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Backend passing suite includes:
+- UC-14 contract tests for schedule generation success and no-accepted-papers/admin-denied outcomes
+- UC-14 integration tests for generated schedule, no-accepted-papers blocking, concurrency consistency, TLS enforcement, and audit sanitization
+- UC-14 unit tests for schedule builder, service branches, repository lock/persistence branches, mapper branches, handler/routes branches, and session guard parsing

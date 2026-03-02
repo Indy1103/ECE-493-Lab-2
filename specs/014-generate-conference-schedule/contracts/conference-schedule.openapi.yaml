@@ -1,0 +1,101 @@
+openapi: 3.0.3
+info:
+  title: Conference Schedule Generation API
+  version: 1.0.0
+paths:
+  /api/admin/conference/{conferenceId}/schedule: 
+    post:
+      summary: Generate conference schedule from accepted papers
+      parameters:
+        - in: path
+          name: conferenceId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Schedule generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleGeneratedResponse'
+        '409':
+          description: No accepted papers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoAcceptedPapersResponse'
+        '401':
+          description: Session expired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Access denied/unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '426':
+          description: TLS required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TlsRequiredResponse'
+components:
+  schemas:
+    ScheduleEntry:
+      type: object
+      required: [paperId, sessionCode, roomCode, startTime, endTime]
+      properties:
+        paperId:
+          type: string
+        sessionCode:
+          type: string
+        roomCode:
+          type: string
+        startTime:
+          type: string
+        endTime:
+          type: string
+    ScheduleGeneratedResponse:
+      type: object
+      required: [outcome, conferenceId, entries]
+      properties:
+        outcome:
+          type: string
+          enum: [SCHEDULE_GENERATED]
+        conferenceId:
+          type: string
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleEntry'
+    NoAcceptedPapersResponse:
+      type: object
+      required: [outcome, message]
+      properties:
+        outcome:
+          type: string
+          enum: [NO_ACCEPTED_PAPERS]
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      required: [outcome, message]
+      properties:
+        outcome:
+          type: string
+          enum: [UNAVAILABLE_DENIED, SESSION_EXPIRED]
+        message:
+          type: string
+    TlsRequiredResponse:
+      type: object
+      required: [outcome, message]
+      properties:
+        outcome:
+          type: string
+          enum: [TLS_REQUIRED]
+        message:
+          type: string
