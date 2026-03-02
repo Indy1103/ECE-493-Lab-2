@@ -2,6 +2,7 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 
 import { REVIEW_SUBMISSION_OUTCOMES } from "../business/review-submission/submission-outcome.js";
 import { REVIEW_VISIBILITY_OUTCOMES } from "../business/review-visibility/visibility-outcome.js";
+import { FINAL_DECISION_OUTCOMES } from "../business/final-decision/decision-outcome.js";
 
 export interface ReviewSubmissionSessionRecord {
   sessionId: string;
@@ -50,6 +51,31 @@ export type ReviewVisibilitySessionRequest = FastifyRequest & {
 
 interface ReviewVisibilitySessionGuardDeps {
   sessionRepository: ReviewVisibilitySessionRepository;
+}
+
+export interface FinalDecisionSessionRecord {
+  sessionId: string;
+  accountId: string;
+  role: string;
+  status: "ACTIVE" | "REVOKED" | "EXPIRED";
+}
+
+export interface FinalDecisionSessionRepository {
+  getSessionById(sessionId: string): Promise<FinalDecisionSessionRecord | null>;
+}
+
+export interface FinalDecisionSessionContext {
+  userId: string;
+  sessionId: string;
+  role: string;
+}
+
+export type FinalDecisionSessionRequest = FastifyRequest & {
+  finalDecisionSession?: FinalDecisionSessionContext;
+};
+
+interface FinalDecisionSessionGuardDeps {
+  sessionRepository: FinalDecisionSessionRepository;
 }
 
 function parseSessionId(cookieHeader: string | undefined): string | null {
@@ -129,6 +155,39 @@ export function createReviewVisibilitySessionGuard(deps: ReviewVisibilitySession
     }
 
     request.reviewVisibilitySession = {
+      userId: session.accountId,
+      sessionId: session.sessionId,
+      role: session.role
+    };
+  };
+}
+
+export function createFinalDecisionSessionGuard(deps: FinalDecisionSessionGuardDeps) {
+  return async function finalDecisionSessionGuard(
+    request: FinalDecisionSessionRequest,
+    reply: FastifyReply
+  ): Promise<void> {
+    const sessionId = parseSessionId(request.headers.cookie);
+
+    if (!sessionId) {
+      reply.code(401).send({
+        outcome: FINAL_DECISION_OUTCOMES.SESSION_EXPIRED,
+        message: "Your session has expired. Please sign in again."
+      });
+      return;
+    }
+
+    const session = await deps.sessionRepository.getSessionById(sessionId);
+
+    if (!session || session.status !== "ACTIVE") {
+      reply.code(401).send({
+        outcome: FINAL_DECISION_OUTCOMES.SESSION_EXPIRED,
+        message: "Your session has expired. Please sign in again."
+      });
+      return;
+    }
+
+    request.finalDecisionSession = {
       userId: session.accountId,
       sessionId: session.sessionId,
       role: session.role

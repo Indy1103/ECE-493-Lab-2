@@ -221,3 +221,32 @@ All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
 Notes:
 - Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
 - UC-10 branch coverage is fully satisfied, including `submit-review.service.ts`, validation policy, session guard parsing, and handler/repository fallback branches.
+
+---
+
+# Coverage Report (Appendix: UC-12)
+
+Date: 2026-03-02  
+Branch: `012-record-final-decision`
+
+Command run:
+
+```bash
+npm run coverage -w backend
+```
+
+Result:
+- Statements: 100%
+- Branches: 100%
+- Functions: 100%
+- Lines: 100%
+
+## c8 output summary
+
+```text
+All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
+```
+
+Notes:
+- Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
+- UC-12 branch coverage is fully satisfied, including completion gating, immutability conflicts, unavailable/denied fallback mapping, audit redaction, TLS/session guard branches, and repository conflict/read-failure branches.

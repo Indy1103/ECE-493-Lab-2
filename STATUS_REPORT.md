@@ -201,3 +201,28 @@ Backend passing suite includes:
 - UC-10 contract tests for review-form retrieval and final review submission outcomes
 - UC-10 integration tests for success, validation failures, submit-time ineligibility, duplicate denial, session-expired handling, concurrency control, and audit redaction
 - UC-10 unit tests for eligibility/validation policies, submit orchestrator branches, handler mappings, session guard parsing, and repository utility paths
+
+---
+
+# Status Report (Appendix: UC-12)
+
+Date: 2026-03-02  
+Branch: `012-record-final-decision`
+
+## Test Status
+
+Command run:
+
+```bash
+npm test
+```
+
+Result:
+- Backend tests: 326 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Backend passing suite includes:
+- UC-12 contract tests for `POST /api/editor/papers/{paperId}/decision` success, pending, finalized, and non-editor denied outcomes
+- UC-12 integration tests for success persistence + author notification, pending-review blocking, finalized immutability, concurrency safety, TLS enforcement, and audit redaction
+- UC-12 support unit tests for completion gate, notifier, audit logger/repository redaction, service fallback/rethrow branches, mapper branches, session guard branches, and route/handler branches
