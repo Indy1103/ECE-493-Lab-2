@@ -19,3 +19,8 @@ Validate UC-15 behavior for editing and finalizing schedules, including invalid 
    - Precondition: Authenticated non-editor user.
    - Action: Attempt to edit schedule.
    - Expected: Access denied with explicit error.
+
+## Browser Checklist
+
+- [x] Chrome flow validated for valid and invalid edit submission handling.
+- [x] Firefox flow validated for valid and invalid edit submission handling.

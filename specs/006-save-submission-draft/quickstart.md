@@ -8,19 +8,28 @@
 
 ## Implementation Flow (TDD)
 
-1. Write failing acceptance tests mapped to `AT-UC06-01` and `AT-UC06-02`.
-2. Add failing integration tests for:
-   - unauthorized/expired-session draft save rejection,
-   - ownership enforcement on save and resume,
-   - validation failure with no resumable state update,
-   - successful save persistence and later resume retrieval,
-   - concurrent valid saves with deterministic last-write-wins,
-   - operational failure preserving prior valid saved draft.
-3. Implement presentation-layer endpoints using `contracts/submission-drafts.openapi.yaml`.
-4. Implement business-layer draft validation, save orchestration, and concurrency policy.
-5. Implement data-layer persistence for current draft, snapshots, and save-attempt audit records.
-6. Add structured audit logging without draft payload leakage.
-7. Run full test and lint checks.
+1. Start from failing foundational integration tests in `backend/tests/integration/submission-drafts/`.
+2. Add failing contract tests in `backend/tests/contract/submission-drafts/`.
+3. Implement backend presentation/business/data/security/audit layers under `backend/src/**/submission-drafts/`.
+4. Add resume/save frontend client + action + UI wiring in `frontend/src/**/submission-drafts/`.
+5. Add migration + schema updates for draft tables and enums.
+6. Verify with lint, tests, and coverage.
+
+## Verification Commands
+
+1. `npm run lint -w backend`
+2. `npm run lint -w frontend`
+3. `npm run test -w backend`
+4. `npm run coverage -w backend`
+
+## Evidence Links
+
+- Contract tests: `backend/tests/contract/submission-drafts/`
+- Integration tests: `backend/tests/integration/submission-drafts/`
+- Unit tests: `backend/tests/unit/submissionDraftSupport.unit.test.ts`
+- Frontend e2e specs: `frontend/tests/e2e/submission-drafts/`
+- Browser evidence checklist: `frontend/tests/e2e/submission-drafts/browser-validation.md`
+- Backup/restore notes: `infra/ops/backup-restore.md`
 
 ## Validation Checklist
 

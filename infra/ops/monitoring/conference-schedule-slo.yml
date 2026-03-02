@@ -1,0 +1,14 @@
+service: conference-schedule
+objective: "SC-001"
+description: "95% of schedule generation requests complete within 5 seconds"
+indicator:
+  metric: conference_schedule_generation_seconds
+  aggregation: p95
+  threshold_seconds: 5
+outcomes:
+  generated: SCHEDULE_GENERATED
+  no_accepted_papers: NO_ACCEPTED_PAPERS
+  denied: UNAVAILABLE_DENIED
+alerts:
+  - name: conference-schedule-generation-latency-breach
+    condition: "p95(conference_schedule_generation_seconds, 15m) > 5"

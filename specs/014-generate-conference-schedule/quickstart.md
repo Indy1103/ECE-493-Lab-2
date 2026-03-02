@@ -1,26 +1,16 @@
-# Quickstart — Generate Conference Schedule
+# Quickstart: Generate Conference Schedule (UC-14)
 
-## Purpose
-Validate UC-14 behavior for schedule generation and the no-accepted-papers extension.
+## Goal
 
-## Scenarios
+Generate conference schedule entries for accepted papers and present them to an administrator.
 
-1. **Generate schedule with accepted papers**
-   - Precondition: At least one accepted paper exists.
-   - Action: Administrator requests schedule generation.
-   - Expected: Draft schedule is generated, ordered by submission time, and presented to administrator.
+## Verification Checklist
 
-2. **No accepted papers**
-   - Precondition: No accepted papers exist.
-   - Action: Administrator requests schedule generation.
-   - Expected: User-visible error stating schedule cannot be generated; no schedule created.
-
-3. **Unauthorized access**
-   - Precondition: Authenticated non-admin user.
-   - Action: Request schedule generation or view.
-   - Expected: Access denied with explicit, user-visible error.
-
-4. **Concurrent requests**
-   - Precondition: Multiple admin requests issued concurrently.
-   - Action: Trigger schedule generation in parallel.
-   - Expected: Consistent draft schedule with no conflicting outputs.
+- Contract tests:
+  - `cd backend && node --import tsx --test "tests/contract/conference-schedule/*.test.ts"`
+- Integration tests:
+  - `cd backend && node --import tsx --test "tests/integration/conference-schedule/*.test.ts"`
+- Unit tests:
+  - `cd backend && node --import tsx --test tests/unit/conferenceScheduleSupport.unit.test.ts`
+- UC-14 coverage gate:
+  - `cd backend && npx c8 --all --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --include "src/business/conference-schedule/*.ts" --include "src/data/conference-schedule/*.ts" --include "src/presentation/conference-schedule/*.ts" --reporter text node --import tsx --test tests/unit/conferenceScheduleSupport.unit.test.ts "tests/contract/conference-schedule/*.test.ts" "tests/integration/conference-schedule/*.test.ts"`
