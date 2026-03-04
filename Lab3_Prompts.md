@@ -1,7 +1,7 @@
-/speckit.implementyes
+/speckit.implement
 
 
-Implement UC-16 exactly as defined in spec.md and plan.md.
+Implement UC-XX exactly as defined in spec.md and plan.md.
 
 Requirements:
 - Follow the data model.
@@ -10,6 +10,6 @@ Requirements:
 - Write integration tests using Supertest.
 - Ensure all branches are covered.
 - Mock external dependencies if necessary.
-- Stop after UC-16 is complete.
+- Stop after UC-XX is complete.
 
 Do not move to the next use case.

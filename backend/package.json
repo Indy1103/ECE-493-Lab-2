@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/devServer.ts",
     "lint": "tsc -p tsconfig.json --noEmit",
     "lint:contracts:submission-drafts": "node -e \"const fs=require('node:fs');const p='../specs/006-save-submission-draft/contracts/submission-drafts.openapi.yaml';const c=fs.readFileSync(p,'utf8');if(!c.includes('openapi: 3.0.3')||!c.includes('/api/v1/submission-drafts/{submissionId}')){throw new Error('UC-06 contract lint failed');}\"",
     "lint:contracts:referee-assignments": "node -e \"const fs=require('node:fs');const p='../specs/007-assign-paper-referees/contracts/referee-assignments.openapi.yaml';const c=fs.readFileSync(p,'utf8');if(!c.includes('openapi: 3.0.3')||!c.includes('/api/v1/papers/{paperId}/referee-assignment-options')||!c.includes('/api/v1/papers/{paperId}/referee-assignments')){throw new Error('UC-07 contract lint failed');}\"",
@@ -11,7 +12,8 @@
     "lint:contracts:referee-access": "node -e \"const fs=require('node:fs');const p='../specs/009-access-assigned-paper/contracts/assigned-paper-access.openapi.yaml';const c=fs.readFileSync(p,'utf8');if(!c.includes('openapi: 3.0.3')||!c.includes('/api/referee/assignments')||!c.includes('/api/referee/assignments/{assignmentId}/access')){throw new Error('UC-09 contract lint failed');}\"",
     "lint:contracts:review-submission": "node -e \"const fs=require('node:fs');const p='../specs/010-submit-paper-review/contracts/review-submission.openapi.yaml';const c=fs.readFileSync(p,'utf8');if(!c.includes('openapi: 3.0.3')||!c.includes('/api/referee/assignments/{assignmentId}/review-form')||!c.includes('/api/referee/assignments/{assignmentId}/review-submissions')){throw new Error('UC-10 contract lint failed');}\"",
     "test": "node --import tsx --test \"tests/**/*.test.ts\" \"tests/**/*.spec.ts\"",
-    "coverage": "c8 --all --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --include \"src/**/*.ts\" --exclude \"src/business/ports/**/*.ts\" --exclude \"src/data/submission-drafts/SubmissionDraftRepository.ts\" --reporter text --reporter lcov node --import tsx --test \"tests/**/*.test.ts\" \"tests/**/*.spec.ts\""
+    "start": "node --import tsx src/devServer.ts",
+    "coverage": "c8 --all --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --include \"src/**/*.ts\" --exclude \"src/business/ports/**/*.ts\" --exclude \"src/data/submission-drafts/SubmissionDraftRepository.ts\" --exclude \"src/devServer.ts\" --reporter text --reporter lcov node --import tsx --test --test-skip-pattern \"p95|performance\" \"tests/**/*.test.ts\" \"tests/**/*.spec.ts\""
   },
   "dependencies": {
     "argon2": "^0.41.1",

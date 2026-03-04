@@ -8,7 +8,11 @@ import { PasswordChangeErrors } from "./change-password-errors.js";
 
 type ViewState = { status: "IDLE" } | { status: "SUBMITTING" } | PasswordChangeResult;
 
-export function ChangePasswordForm(): JSX.Element {
+interface ChangePasswordFormProps {
+  onRequireReauthentication?: () => void;
+}
+
+export function ChangePasswordForm(props: ChangePasswordFormProps = {}): JSX.Element {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -27,6 +31,10 @@ export function ChangePasswordForm(): JSX.Element {
     setState(result);
 
     if (result.status === "SUCCESS" && result.reauthenticationRequired) {
+      if (props.onRequireReauthentication) {
+        props.onRequireReauthentication();
+        return;
+      }
       window.location.assign("/login");
     }
   }

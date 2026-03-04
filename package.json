@@ -6,8 +6,14 @@
     "frontend"
   ],
   "scripts": {
+    "setup": "npm install --no-audit --no-fund --progress=false",
     "lint": "npm run lint -w backend && npm run lint -w frontend",
     "test": "npm run test -w backend && npm run test -w frontend",
-    "coverage": "npm run coverage -w backend"
+    "coverage": "npm run coverage -w backend",
+    "dev": "concurrently -k -n backend,frontend -c blue,green \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "start": "concurrently -k -n backend,frontend -c blue,green \"npm run start -w backend\" \"npm run start -w frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
