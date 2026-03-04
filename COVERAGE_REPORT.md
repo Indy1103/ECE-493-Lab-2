@@ -1,5 +1,20 @@
 # Coverage Report
 
+## Final Summary (2026-03-04)
+
+- Run timestamp: `2026-03-04 12:38:19 MST`
+- Command: `npm run coverage`
+- Statements: `100%`
+- Branches: `100%`
+- Functions: `100%`
+- Lines: `100%`
+- Coverage gate (`--check-coverage` with 100% thresholds): `PASS`
+
+Notes:
+- Final coverage was collected with unrestricted local permissions to avoid sandbox listener restrictions affecting a small set of Supertest-backed tests.
+
+---
+
 Date: 2026-03-01  
 Branch: `001-view-conference-announcements`
 
@@ -337,3 +352,37 @@ All files | % Stmts 100 | % Branch 100 | % Funcs 100 | % Lines 100
 Notes:
 - Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
 - UC-16 branch coverage is fully satisfied, including author schedule availability/unavailability branches, access/session guard branches, TLS route enforcement, repository fallbacks, and audit redaction paths.
+
+---
+
+# Coverage Report (Appendix: Main Demo Readiness)
+
+Date: 2026-03-02  
+Branch: `main`
+
+Command run:
+
+```bash
+npm run coverage
+npx c8 report --reporter=text-summary
+```
+
+Result:
+- Statements: 100% (15013/15013)
+- Branches: 100% (2532/2532)
+- Functions: 100% (1001/1001)
+- Lines: 100% (15013/15013)
+
+## c8 output summary
+
+```text
+Statements   : 100% ( 15013/15013 )
+Branches     : 100% ( 2532/2532 )
+Functions    : 100% ( 1001/1001 )
+Lines        : 100% ( 15013/15013 )
+```
+
+Notes:
+- Coverage command enforces `--check-coverage --branches 100 --functions 100 --lines 100 --statements 100`.
+- `src/devServer.ts` is excluded from coverage thresholds because it is a local demo bootstrap runtime, not a production/business module.
+- Performance-latency test cases are excluded in coverage mode via `--test-skip-pattern "p95|performance"` to avoid c8 instrumentation skew; they remain included in normal `npm test`.

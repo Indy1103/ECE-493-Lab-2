@@ -1,5 +1,18 @@
 # Status Report (After Debugging)
 
+## Final Summary (2026-03-04)
+
+- Run timestamp: `2026-03-04 12:38:19 MST`
+- Command: `npm test`
+- Backend Node test runner: `412 passed`, `0 failed`
+- Frontend Node test runner: `0 discovered`, `0 failed`
+- Overall status: `PASS`
+
+Notes:
+- This final run was executed with unrestricted local permissions because some Supertest cases bind a listener and can fail in sandboxed mode (`listen EPERM`), even though project tests are valid locally.
+
+---
+
 Date: 2026-03-01  
 Branch: `001-view-conference-announcements`
 
@@ -301,3 +314,28 @@ Backend passing suite includes:
 - UC-16 contract tests for author schedule retrieval (published, unpublished, and no-accepted-paper outcomes)
 - UC-16 integration tests for author access control/session handling, TLS enforcement, concurrency consistency, and latency target checks
 - UC-16 support unit tests for author schedule service branching, repository and audit helpers, route/session guard mapping, and redaction/metrics coverage
+
+---
+
+# Status Report (Appendix: Main Demo Readiness)
+
+Date: 2026-03-02  
+Branch: `main`
+
+## Test Status
+
+Command run:
+
+```bash
+npm test
+```
+
+Result:
+- Backend tests: 412 passed, 0 failed
+- Frontend Node test runner: 0 tests discovered, 0 failed
+- Overall: PASS
+
+Validation notes:
+- Frontend demo page now includes all UC-01 through UC-17 user-facing endpoints.
+- RBAC role login controls are present for `ADMIN`, `EDITOR`, `AUTHOR`, `REFEREE`, and `REGISTERED_USER`.
+- UC-04 demo payload updated to satisfy backend minimum password length requirement and avoid false-negative `400` demo errors.
